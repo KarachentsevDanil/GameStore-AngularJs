@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using GSP.DAL.Context;
+using GSP.DAL.Repositories.Contracts;
+using GSP.Domain.Orders;
+using GSP.Domain.Params;
+
+namespace GSP.DAL.Repositories
+{
+    public class OrderRepository : GameStoreRepository<Order>, IOrderRepository
+    {
+        private readonly GameStoreContext _dbContext;
+
+        public OrderRepository(GameStoreContext dbContext) : base(dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public IEnumerable<Order> GetItems(Expression<Func<Order, bool>> expression)
+        {
+            return _dbContext.Orders.Where(expression.Compile()).AsEnumerable();
+        }
+
+        public IEnumerable<Order> GetItemsByParams(FilterParams<Order> filterParams)
+        {
+            return _dbContext.Orders
+                .Where(filterParams.Expression.Compile())
+                .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
+                .Take(filterParams.PageSize)
+                .OrderByDescending(x => x.OrderId)
+                .AsEnumerable();
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            return _dbContext.Orders.AsEnumerable();
+        }
+
+        public IEnumerable<Order> GetCustomerOrders(int customerId)
+        {
+            return _dbContext.Orders.Where(x => x.CustomerId == customerId).AsEnumerable();
+        }
+
+        public Order GetCurrentCustomerOrder(int customerId)
+        {
+            return _dbContext.Orders.FirstOrDefault(x => x.Status == OrderStatus.New && x.CustomerId == customerId);
+        }
+
+        public void AddGameToBucket(OrderGame game)
+        {
+            _dbContext.OrderGames.Add(game);
+        }
+
+        public void DeleteGameFromBucket(int id)
+        {
+            var game = _dbContext.OrderGames.Find(id);
+            _dbContext.OrderGames.Remove(game);
+        }
+    }
+}
