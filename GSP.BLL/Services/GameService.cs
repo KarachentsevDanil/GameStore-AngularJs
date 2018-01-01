@@ -45,5 +45,10 @@ namespace GSP.BLL.Services
         {
             return _unitOfWork.GameRepository.GetById(gameId);
         }
+
+        public void DeleteGame(int gameId)
+        {
+            _unitOfWork.GameRepository.Delete(gameId);
+        }
     }
 }

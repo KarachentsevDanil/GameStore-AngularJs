@@ -6,6 +6,7 @@ using GSP.DAL.Context;
 using GSP.DAL.Repositories.Contracts;
 using GSP.Domain.Games;
 using GSP.Domain.Params;
+using Microsoft.EntityFrameworkCore;
 
 namespace GSP.DAL.Repositories
 {
@@ -35,17 +36,23 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Game> GetGames()
         {
-            return _dbContext.Games.AsEnumerable();
+            return _dbContext.Games
+                .Include(x=> x.Category)
+                .AsEnumerable();
         }
 
         public IEnumerable<Game> GetGamesByCategory(int categoryId)
         {
-            return _dbContext.Games.Where(x => x.CategoryId == categoryId).AsEnumerable();
+            return _dbContext.Games.Where(x => x.CategoryId == categoryId)
+                .Include(x=> x.Category)
+                .AsEnumerable();
         }
 
         public IEnumerable<Game> GetGamesByTerm(string term)
         {
-            return _dbContext.Games.Where(x => x.Name.ToLower() == term.ToLower()).AsEnumerable();
+            return _dbContext.Games
+                .Include(x=> x.Category)
+                .Where(x => x.Name.ToLower() == term.ToLower()).AsEnumerable();
         }
     }
 }

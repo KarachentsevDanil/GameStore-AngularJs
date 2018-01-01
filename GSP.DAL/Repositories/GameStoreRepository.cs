@@ -7,7 +7,7 @@ namespace GSP.DAL.Repositories
 {
     public class GameStoreRepository<T> : IGameStoreRepository<T> where T : class
     {
-        protected GameStoreRepository(GameStoreContext dbContext)
+        public GameStoreRepository(GameStoreContext dbContext)
         {
             DbContext = dbContext;
             DbSet = DbContext.Set<T>();

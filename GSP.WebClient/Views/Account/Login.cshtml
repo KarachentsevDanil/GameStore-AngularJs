@@ -1,0 +1,59 @@
+﻿
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+    <div class="container" style="margin-top:5%;">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="alert alert-danger" style="font-weight: bold" asp-validation-summary="ModelOnly"></div>
+                </div>
+            </div>
+        }
+        <hr />
+        <div class="col-lg-6 col-lg-offset-3">
+
+
+            <div class="ui middle aligned center aligned grid">
+                <div class="column">
+                    <h2 class="ui teal image header">
+                        <img src="~/images/icon.png" class="image" />
+                        <span class="content">
+                            Log-in to your account
+                        </span>
+                    </h2>
+                    <div class="ui large form">
+                        <div class="ui stacked segment">
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="user icon"></i>
+                                    <input type="text" name="Email" placeholder="E-mail address">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="lock icon"></i>
+                                    <input type="password" name="Password" placeholder="Password">
+                                </div>
+                            </div>
+                            <input class="ui fluid large teal submit button" value="Login" type="submit" style="margin-left:20%;"/>
+                        </div>
+
+                        <div class="ui error message"></div>
+
+                    </div>
+
+                    <div class="ui message">
+                        New to us? <a asp-controller="Account" asp-action="Register">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

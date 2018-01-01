@@ -16,5 +16,7 @@ namespace GSP.BLL.Services.Contracts
         IEnumerable<Game> GetGames();
 
         Game GetGameById(int gameId);
+
+        void DeleteGame(int gameId);
     }
 }

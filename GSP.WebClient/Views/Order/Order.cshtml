@@ -1,0 +1,114 @@
+﻿@using GSP.Domain.Customers
+
+<style>
+    .form-control {
+        padding-left: 3%;
+    }
+</style>
+
+@section scripts {
+    <environment names="Development">
+        <script src="~/js/Controllers/orderController.js"></script>
+        <script src="~/js/Services/orderService.js"></script>
+    </environment>
+}
+<style>
+    .editInput {
+        width: 200px;
+    }
+
+    .alert {
+        margin-right: 15px;
+    }
+
+    .userDivButton {
+        cursor: pointer;
+    }
+
+        .userDivButton:hover, .userDivButton:active {
+            background-color: whitesmoke;
+        }
+
+    .removeUserDivButton {
+        padding: 3px;
+    }
+
+        .removeUserDivButton:hover, .removeUserDivButton:active {
+            background-color: silver;
+            border: 1px solid gray;
+            border-radius: 3px;
+        }
+</style>
+
+
+
+
+<div class="container ng-cloak" ng-controller="orderController" ng-init="getCustomerOrders('@User.Identity.Name')" style="margin-top:5%;">
+    <toaster-container></toaster-container>
+
+    <div class="col-lg-4">
+        <div class="row">
+            <div style="margin-top: 5%">
+
+                <div class="list-group" ng-model="customerOrder">
+                    @if (User.IsInRole(Role.Admin.ToString()))
+                    {
+                        <div class="form-group" style="text-align:center">
+                            <input class="form-control ui primary button" type="button" value="LoadOrder" ng-click="getAllOrders()" />
+
+                        </div>
+                    }
+                    <div ng-click="selectOrder(customerOrder.Games,customerOrder.OrderId)" ng-repeat="customerOrder in Orders" class="list-group-item userDivButton">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <span>Customer: {{ customerOrder.Customer.FullName }} </span><br />
+                                <span>Count game in Order: {{customerOrder.Games.length}}</span><br />
+                                <span style="font-size: 0.85em">Date of compleat {{customerOrder.Date}}</span>
+                            </div>
+                            <div class="col-lg-2">
+                                @if (User.IsInRole(Role.Admin.ToString()))
+                                {
+                                    <span ng-click="deleteOrder(customerOrder.OrderId)" class="glyphicon glyphicon-trash pull-right removeUserDivButton"></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 col-lg-offset-1">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="row" ng-model="orderGame">
+                    <div class="col-xs-12 ui error message" ng-repeat="orderGame in GameFromOrder" style="margin-top:5%;">
+                        <div class="col-lg-4">
+                            <img class="ui medium rounded image" ng-src={{orderGame.Photo}} height="200" width="150" />
+                        </div>
+                        <div class="col-lg-8 pull-right">
+                            <strong> Game: {{orderGame.Name}} </strong>
+
+                            <p class="ui info message">
+                                <strong> Description: </strong>
+                                {{orderGame.Description}}
+                            </p>
+                            <div class="ui tag labels">
+                                <a class="ui label">
+                                    ${{orderGame.Price}}
+                                </a>
+                            </div>
+                            @if (User.IsInRole(Role.Admin.ToString()))
+                            {
+                                <a class="btn-lg pull-right" ng-click="deleteGameFromOrder(orderGame.GameId)"> <i class="glyphicon glyphicon-trash"></i> </a>
+                            }
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

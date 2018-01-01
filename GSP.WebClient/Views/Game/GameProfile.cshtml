@@ -1,0 +1,161 @@
+﻿@section scripts {
+    <environment names="Development">
+        <script src="~/js/Services/orderService.js"></script>
+        <script src="~/js/Services/rateService.js"></script>
+        <script src="~/js/Controllers/rateController.js"></script>
+    </environment>
+}
+
+<div ng-controller="rateController" ng-init="getGameById(@Model.GameId);getRecomendationToGame(@Model.GameId);" class="row ng-cloak" style="margin-top:7%;margin-bottom:10%;">
+    <toaster-container></toaster-container>
+    <div class="row">
+        <div style="margin-left:5%;margin-right:4%;" class="col-lg-3">
+            <div class="ui card" style="margin-bottom:10%;">
+                <div class="content">
+                    <div class="right floated meta">
+                        <div class="ui huge star rating" data-rating="4"></div>
+                    </div>
+                    <img class="ui avatar image" ng-src="{{CurrentGame.Photo}}" /> {{CurrentGame.Name}}
+                </div>
+                <div class="image">
+                    <img ng-src="{{CurrentGame.Photo}}" />
+                </div>
+                <div class="content">
+                    <span class="right floated">
+                        <i class="heart outline like icon"></i>
+                        {{Feeds.length}} likes
+                    </span>
+                    <i class="comment icon"></i>
+                    {{Feeds.length}} comments
+                </div>
+                <div style="margin-left:5%; margin-right:5%;" class="description">
+                    <p>
+                        {{CurrentGame.Description}}
+                        <div class="pull-right">
+                            <div class="ui tag labels" style="display:inline-block;">
+                                <a class="ui label">
+                                    ${{CurrentGame.Price}}
+                                </a>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+                <div class="ui two bottom attached buttons">
+                    <div class="ui button" ng-click="addToBucket('@User.Identity.Name',game.GameId)">
+                        <i class="add to cart icon"></i>
+                        Buy
+                    </div>
+                    <a class="ui primary button" ng-href="https://www.youtube.com/results?search_query={{CurrentGame.Name}}">
+                        Watch
+                    </a>
+                </div>
+            </div>
+
+            <form class="ui reply form" ng-model="feed">
+                <div class="field">
+                    <p>
+                        <strong>
+                            Leave you feedback
+                        </strong>
+                    </p>
+                    <textarea ng-model="feed.feedContent"></textarea>
+                    <p>
+                        <strong>Put mark</strong>
+                        <input type="number" ng-model="feed.rating" class="form-control" min="1" max="5" />
+                    </p>
+                </div>
+                <button class="ui primary submit labeled icon button"
+                        ng-click="createFeed(CurrentGame.GameId,'@User.Identity.Name')">
+                    <i class="icon edit"></i> Add Reply
+                </button>
+            </form>
+        </div>
+
+        <div class="col-lg-6 col-lg-offset-1" ng-init="getFeedsByGameId(@Model.GameId)">
+            <div class="ui feed">
+                <div class="event" ng-repeat="item in Feeds" style="margin-bottom:2%;">
+                    <div class="ui avatar image">
+                        <img src="~/images/battlefield.GIF" />
+                    </div>
+                    <div class="content">
+                        <div class="summary">
+                            <a>{{item.Customer}}</a> posted feedback on our page
+                            <div class="date">
+                                17.08.14
+                            </div>
+                        </div>
+                        <div class="extra text">
+                            {{item.Comment}}
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:5%;">
+        <div class="col-lg-12">
+            <div class="row" style="margin-bottom:5%;">
+                <h2 class="ui header" style="text-align:center;">
+                    You also can buy this game
+                </h2>
+
+                <div class="ui five column grid" style="margin-top:0.5%;">
+
+                    <div class="column" ng-repeat="recomendGames in RecomendGames">
+                        <div class="ui fluid card">
+                            <div class="image">
+                                <img ng-src="{{recomendGames.Photo}}" alt="{{recomendGames.Photo}}">
+                            </div>
+                            <div class="content">
+                                <div class="header" style="margin-bottom:1%;">{{recomendGames.Name}}</div>
+                                <div class="description">
+                                    <p class="descriptionGame">{{recomendGames.Description}}</p>
+                                    <div style="margin-left:65%;">
+                                        <div class="ui red tag labels pull-right">
+                                            <a class="ui label">
+                                                ${{recomendGames.Price}}
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ui two bottom attached buttons">
+                                <div class="ui button" ng-click="addToBucket('@User.Identity.Name',recomendGames.GameId)">
+                                    <i class="add to cart icon"></i>
+                                    Buy
+                                </div>
+                                <a class="ui primary button"
+                                   ng-href="https://www.youtube.com/results?search_query={{recomendGames.Name}}">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    $('.ui.rating')
+    .rating({
+        maxRating: 5
+    })
+    ;
+    function SetMark(value) {
+        $(this)
+  .rating({
+      initialRating: value,
+      maxRating: 5
+  })
+        ;
+    }
+</script>

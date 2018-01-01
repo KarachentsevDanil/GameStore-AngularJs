@@ -10,7 +10,7 @@ namespace GSP.DAL.Repositories
     {
         private readonly GameStoreContext _dbContext;
 
-        protected RateRepository(GameStoreContext dbContext) : base(dbContext)
+        public RateRepository(GameStoreContext dbContext) : base(dbContext)
         {
             this._dbContext = dbContext;
         }

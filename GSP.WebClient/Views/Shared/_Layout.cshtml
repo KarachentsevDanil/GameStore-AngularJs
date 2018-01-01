@@ -1,0 +1,89 @@
+﻿@using GSP.Domain.Customers
+@using GSP.WebClient.Infrastracture
+<!DOCTYPE html>
+<html ng-app="GameStoreApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GameStore</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+        <link href="~/lib/semantic/dist/semantic.css" rel="stylesheet" />
+        <script src="~/lib/semantic/examples/assets/library/jquery.min.js"></script>
+        <script src="~/lib/semantic/dist/semantic.js"></script>
+        <!--- Example Libs -->
+        <link rel="stylesheet" type="text/css" href="~/lib/semantic/dist/components/popup.css">
+    </environment>
+
+    <!--- Component JS -->
+    <script type="text/javascript" src="~/lib/semantic/dist/components/transition.js"></script>
+    <script type="text/javascript" src="~/lib/semantic/dist/components/dropdown.js"></script>
+    <script src="~/lib/semantic/dist/components/sidebar.js"></script>
+    <script src="~/lib/semantic/dist/components/transition.js"></script>
+
+</head>
+<body>
+
+    <div class="ui top fixed menu">
+        <div class="item">
+            <img src="~/images/icon.png" />
+        </div>
+        @if (User.IsInRole(Role.Admin.ToString()))
+        {
+            <a class="item" asp-controller="Game" asp-action="AddGame">Add Game</a>
+            <a class="item" asp-controller="Game" asp-action="EditOrDeleteGame">Edit Game</a>
+            <a class="item" asp-controller="Order" asp-action="Order">Show All Order</a>
+        }
+        else
+        {
+            if (User.IsInRole(Role.User.ToString()))
+            {
+                <a class="item" asp-controller="Game" asp-action="ShowGame">Game</a>
+                <a class="item" asp-controller="Order" asp-action="Bucket">Bucket</a>
+                <a class="item" asp-controller="Order" asp-action="Order">Show My Order</a>
+                <a class="item" asp-controller="Game" asp-action="OwnGameList">Own Game List</a>
+            }
+        }
+        <div class="right menu">
+
+            <div class="item">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+                        <button type="submit" class="ui primary button">LogOff</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="ui primary button" asp-controller="Account" asp-action="Login">LogIn</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/GameStoreApp.js"></script>
+        <script src="~/lib/angular-animate/angular-animate.js"></script>
+        <script src="~/lib/AngularJS-Toaster/toaster.js"></script>
+        <script src="~/js/Services/AlertService.js"></script>
+
+
+    </environment>
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -6,6 +6,7 @@ using GSP.DAL.Context;
 using GSP.DAL.Repositories.Contracts;
 using GSP.Domain.Orders;
 using GSP.Domain.Params;
+using Microsoft.EntityFrameworkCore;
 
 namespace GSP.DAL.Repositories
 {
@@ -20,12 +21,17 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Order> GetItems(Expression<Func<Order, bool>> expression)
         {
-            return _dbContext.Orders.Where(expression.Compile()).AsEnumerable();
+            return _dbContext.Orders
+                .Include(x=> x.Customer)
+                .Include(x => x.Games)
+                .Where(expression.Compile()).AsEnumerable();
         }
 
         public IEnumerable<Order> GetItemsByParams(FilterParams<Order> filterParams)
         {
             return _dbContext.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.Games)
                 .Where(filterParams.Expression.Compile())
                 .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
                 .Take(filterParams.PageSize)
@@ -35,7 +41,10 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Order> GetOrders()
         {
-            return _dbContext.Orders.AsEnumerable();
+            return _dbContext.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.Games)
+                .AsEnumerable();
         }
 
         public IEnumerable<Order> GetCustomerOrders(int customerId)
