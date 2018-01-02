@@ -8,56 +8,56 @@
 
     orderController.$inject = ['$q', '$scope', 'orderService', 'AlertService'];
 
-    function orderController($q, $scope, orderService, AlertService) {
+    function orderController($q, $scope, orderService, alertService) {
 
         $scope.getGamesFromBucket = function (data) {
             orderService
-                    .getGamesFromBucket(data)
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.GamesFromBucket = games;
-                        $scope.CommonItem = $scope.GamesFromBucket.length;
-                        var price = 0;
-                        for (var i = 0; i < $scope.GamesFromBucket.length; i++) {
-                            price += $scope.GamesFromBucket[i].Price;
-                        }
-                        $scope.CommonPrice = price;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+                .getGamesFromBucket(data)
+                .success(function(games) {
+                    console.log(games);
+                    $scope.GamesFromBucket = games;
+                    $scope.CommonItem = $scope.GamesFromBucket.length;
+                    var price = 0;
+                    for (var i = 0; i < $scope.GamesFromBucket.length; i++) {
+                        price += $scope.GamesFromBucket[i].Price;
+                    }
+                    $scope.CommonPrice = price;
+                }).error(function myfunction() {
+                    alert("Error:");
+                });
         };
 
         $scope.getCustomerGames = function (data) {
             orderService
-                    .getCustomerGames(data)
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.CustomerGames = games;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+                .getCustomerGames(data)
+                .success(function(games) {
+                    console.log(games);
+                    $scope.CustomerGames = games;
+                }).error(function myfunction() {
+                    alert("Error:");
+                });
         };
 
         $scope.getAllOrders = function () {
             orderService
-                    .getAllOrders()
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.Orders = games;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+                .getAllOrders()
+                .success(function(games) {
+                    console.log(games);
+                    $scope.Orders = games;
+                }).error(function myfunction() {
+                    alert("Error:");
+                });
         };
 
         $scope.getCustomerOrders = function (data) {
             orderService
-                    .getCustomerOrders(data)
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.Orders = games;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+                .getCustomerOrders(data)
+                .success(function(games) {
+                    console.log(games);
+                    $scope.Orders = games;
+                }).error(function myfunction() {
+                    alert("Error:");
+                });
         };
 
         $scope.selectOrder = function (game,orderId) {
@@ -72,12 +72,10 @@
 
             $scope.confirmOrderPromise = createConfirmOrderPromise(customerRequest);
             $scope.confirmOrderPromise.then(function () {
-                AlertService.showSuccess("Order is confirm");
+                alertService.showSuccess("Order is confirm");
                
             });
         };
-
-
 
         var createConfirmOrderPromise = function (customerRequest) {
             return $q(function (resolve, reject) {
@@ -98,9 +96,7 @@
                 Customer: customer
             };
             $scope.createOrderPromise = createCreateOrderPromise(customerRequest);
-            $scope.createOrderPromise.then(function () {
-                AlertService.showSuccess("You can bu game!!!");
-            });
+            $scope.createOrderPromise.then(function () { });
         };
 
         var createCreateOrderPromise = function (customerRequest) {
@@ -121,7 +117,7 @@
             var orderId = deleteOrderId
             $scope.deleteOrderPromise = createDeleteOrderPromise(orderId);
             $scope.deleteOrderPromise.then(function () {
-                AlertService.showSuccess("Order was deleted");
+                alertService.showSuccess("Order was deleted");
                 $scope.getAllOrders();
             });
         };
@@ -147,7 +143,7 @@
             };
             $scope.createAddGamePromise = createCreateAddGamePromise(bucketRequest);
             $scope.createAddGamePromise.then(function () {
-                AlertService.showSuccess("Account Succsesfull added");
+                alertService.showSuccess("Account Succsesfull added");
             });
         };
 
@@ -172,7 +168,7 @@
             };
             $scope.createDeleteGameFromBucketPromise = createCreateDeleteGameFromBucketPromise(bucketRequest);
             $scope.createDeleteGameFromBucketPromise.then(function () {
-                AlertService.showSuccess("Game succsesfull deleted from bucket!");
+                alertService.showSuccess("Game succsesfull deleted from bucket!");
                 $scope.getGamesFromBucket(bucketRequest.Customer);
 
             });
@@ -201,7 +197,7 @@
             };
             $scope.createDeleteGameFromOrderPromise = createCreateDeleteGameFromOrderPromise(bucketRequest);
             $scope.createDeleteGameFromOrderPromise.then(function () {
-                AlertService.showSuccess("Game succsesfull deleted from order!");
+                alertService.showSuccess("Game succsesfull deleted from order!");
                 $scope.getAllOrders();
                 $scope.GameFromOrder = null;
                 $scope.CurrentOreder = null;

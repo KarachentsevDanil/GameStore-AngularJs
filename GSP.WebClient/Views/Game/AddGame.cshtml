@@ -1,6 +1,4 @@
-﻿
-
-@section scripts {
+﻿@section scripts {
     <environment names="Development">
         <script src="~/js/Controllers/categoryController.js"></script>
         <script src="~/js/Services/categoryService.js"></script>
@@ -8,22 +6,25 @@
         <script src="~/js/Services/gameService.js"></script>
     </environment>
 }
+
 <form method="post" asp-action="AddGame" asp-controller="Game" enctype="multipart/form-data">
-    <div style="margin-top:6%;" class="container ng-cloak form-horizontal" ng-controller="gameController" ng-model="game" ng-init="getCategory()">
+    <div class="container margin-top-5 ng-cloak form-horizontal" ng-controller="gameController" ng-model="game" ng-init="getCategory()">
         <toaster-container></toaster-container>
         <div class="col-md-6 col-md-offset-3">
             <h2 style="text-align:center;">Add Game Form</h2>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Game Name</label>
                 <div class="col-sm-9">
                     <div class="ui corner labeled input">
-                        <input style="width:280px;" type="text" ng-model="Name" name="Name" placeholder="Full Name" class="form-control" autofocus required>
+                        <input type="text" ng-model="Name" name="Name" placeholder="Full Name" class="form-control" autofocus required>
                         <div class="ui corner label">
                             <i class="asterisk icon"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Category</label>
                 <div class="col-sm-9">
@@ -34,12 +35,14 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Description</label>
                 <div class="col-sm-9">
                     <textarea class="form-control" ng-model="Description" name="Description" required> </textarea>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Price</label>
                 <div class="col-sm-9">
@@ -51,6 +54,7 @@
 
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Photo</label>
                 <div class="col-sm-9">
@@ -60,11 +64,11 @@
 
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="col-sm-7 col-sm-offset-3">
                     <button type="submit" class="ui primary button form-control">Add Game</button>
                 </div>
-
             </div>
         </div>
     </div>

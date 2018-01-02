@@ -5,8 +5,8 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:white;
-    color:antiquewhite;
+    background-color: white;
+    color: antiquewhite;
 }
 
 /* Wrapping element */
@@ -15,6 +15,62 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.div-width-330 {
+    width: 330px;
+}
+
+.margin-right-0 {
+    margin-right: 0;
+}
+
+.margin-top-2 {
+    margin-top: 2%;
+}
+
+.margin-bottom-2 {
+    margin-top: 2%;
+}
+
+.margin-left-5 {
+    margin-left: 5%;
+}
+
+.margin-right-5 {
+    margin-right: 5%;
+}
+
+.margin-top-5 {
+    margin-top: 5%;
+}
+
+.margin-top-10 {
+    margin-top: 5%;
+}
+
+.margin-left-20 {
+    margin-top: 20%;
+}
+
+/*Game styles*/
+
+.game-btn {
+    cursor: pointer;
+}
+
+    .game-btn:hover, .game-btn:active {
+        background-color: whitesmoke;
+    }
+
+.remove-btn {
+    padding: 3px;
+}
+
+    .remove-btn:hover, .remove-btn:active {
+        background-color: silver;
+        border: 1px solid gray;
+        border-radius: 3px;
+    }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
@@ -30,99 +86,114 @@ textarea {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
+.carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+    /* Hide captions */
+    .carousel-caption {
+        display: none
+    }
 }
- .hidden.menu {
-      display: none;
-    }
 
-    .masthead.segment {
-      min-height: 700px;
-      padding: 1em 0em;
-    }
-    .masthead .logo.item img {
-      margin-right: 1em;
-    }
-    .masthead .ui.menu .ui.button {
-      margin-left: 0.5em;
-    }
-    .masthead h1.ui.header {
-      margin-top: 3em;
-      margin-bottom: 0em;
-      font-size: 4em;
-      font-weight: normal;
-    }
-    .masthead h2 {
-      font-size: 1.7em;
-      font-weight: normal;
-    }
+.hidden.menu {
+    display: none;
+}
 
-    .ui.vertical.stripe {
-      padding: 8em 0em;
-    }
+.masthead.segment {
+    min-height: 700px;
+    padding: 1em 0em;
+}
+
+.masthead .logo.item img {
+    margin-right: 1em;
+}
+
+.masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+
+.masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+.ui.vertical.stripe {
+    padding: 8em 0em;
+}
+
     .ui.vertical.stripe h3 {
-      font-size: 2em;
+        font-size: 2em;
     }
+
     .ui.vertical.stripe .button + h3,
     .ui.vertical.stripe p + h3 {
-      margin-top: 3em;
+        margin-top: 3em;
     }
+
     .ui.vertical.stripe .floated.image {
-      clear: both;
+        clear: both;
     }
+
     .ui.vertical.stripe p {
-      font-size: 1.33em;
+        font-size: 1.33em;
     }
+
     .ui.vertical.stripe .horizontal.divider {
-      margin: 3em 0em;
+        margin: 3em 0em;
     }
 
-    .quote.stripe.segment {
-      padding: 0em;
-    }
+.quote.stripe.segment {
+    padding: 0em;
+}
+
     .quote.stripe.segment .grid .column {
-      padding-top: 5em;
-      padding-bottom: 5em;
+        padding-top: 5em;
+        padding-bottom: 5em;
     }
 
-    .footer.segment {
-      padding: 5em 0em;
+.footer.segment {
+    padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+        display: none !important;
+    }
+
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+        display: none;
     }
 
     .secondary.pointing.menu .toc.item {
-      display: none;
+        display: block;
     }
 
-    @media only screen and (max-width: 700px) {
-      .ui.fixed.menu {
-        display: none !important;
-      }
-      .secondary.pointing.menu .item,
-      .secondary.pointing.menu .menu {
-        display: none;
-      }
-      .secondary.pointing.menu .toc.item {
-        display: block;
-      }
-      .masthead.segment {
+    .masthead.segment {
         min-height: 350px;
-      }
-      .masthead h1.ui.header {
+    }
+
+    .masthead h1.ui.header {
         font-size: 2em;
         margin-top: 1.5em;
-      }
-      .masthead h2 {
+    }
+
+    .masthead h2 {
         margin-top: 0.5em;
         font-size: 1.5em;
-      }
     }
+}

@@ -7,14 +7,14 @@
 }
 
 
-<div class="container ng-cloak" ng-controller="orderController" ng-init="getCustomerGames('@User.Identity.Name')" style="margin-top:5%;">
+<div class="container ng-cloak margin-top-5" ng-controller="orderController" ng-init="getCustomerGames('@User.Identity.Name')">
     <toaster-container></toaster-container>
 
     <div class="row">
 
         <div class="col-lg-12">
-            <div style="" class="form-group">
-                <div class="row" style="margin-top:3%;margin-left:5%;">
+            <div class="form-group">
+                <div class="row margin-top-5 margin-left-5">
                     <div class="ui four column grid">
                         <div class="column" ng-repeat="game in CustomerGames">
                             <div class="ui card">

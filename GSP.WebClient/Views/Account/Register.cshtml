@@ -4,55 +4,55 @@
         <script src="~/js/Services/accountService.js"></script>
     </environment>
 }
-<div class="container" ng-controller="accountController" ng-model="account" style="margin-top:5%;">
+<div class="container margin-top-5" ng-controller="accountController" ng-model="account">
     <toaster-container></toaster-container>
     <div class="col-md-6 col-md-offset-3">
         <form  asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
             <h2 style="text-align:center;">Customer Registration Form</h2>
             <div class="form-group">
-                <label for="firstName" class="col-sm-3 control-label">Full Name</label>
+                <label class="col-sm-3 control-label">Full Name</label>
                 <div class="col-sm-9">
-                    <input type="text" ng-model="account.FullName" name="FullName" id="firstName" placeholder="Full Name" class="form-control" autofocus required>
+                    <input type="text" ng-model="account.FullName" name="FullName" placeholder="Full Name" class="form-control" autofocus required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="email" class="col-sm-3 control-label">Email</label>
+                <label class="col-sm-3 control-label">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" ng-model="account.Email" name="Email" id="email" placeholder="Email" class="form-control" required>
+                    <input type="email" ng-model="account.Email" name="Email" placeholder="Email" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="password" class="col-sm-3 control-label">Password</label>
+                <label class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-9">
-                    <input type="password" ng-model="account.Password" name="Password" id="password" placeholder="Password" class="form-control" required>
+                    <input type="password" ng-model="account.Password" name="Password" placeholder="Password" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                <label class="col-sm-3 control-label">Date of Birth</label>
                 <div class="col-sm-9">
-                    <input type="date" ng-model="account.DateBirthsday" name="DateBirthsday" id="birthDate" class="form-control" required>
+                    <input type="date" ng-model="account.DateBirthsday" name="DateBirthsday" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="country" class="col-sm-3 control-label">Country</label>
+                <label class="col-sm-3 control-label">Country</label>
                 <div class="col-sm-9">
-                    <select id="country"  class="form-control ui search dropdown" name="Country" ng-model="account.Country" required>
+                    <select class="form-control ui search dropdown" name="Country" ng-model="account.Country" required>
                             <option ng-repeat="itemCountry in country" value={{itemCountry}}>{{itemCountry}}</option>
                         </select>
                 </div>
             </div> 
             <div class="form-group">
-                <label for="country" class="col-sm-3 control-label">Language</label>
+                <label class="col-sm-3 control-label">Language</label>
                 <div class="col-sm-9">
-                    <select id="language" ng-model="account.Language" name="Language" class="form-control ui search dropdown" required>
+                    <select ng-model="account.Language" name="Language" class="form-control ui search dropdown" required>
                         <option ng-repeat="itemLanguage in language" value={{itemLanguage}}>{{itemLanguage}}</option>
                     </select>
                 </div>
             </div>
            <br />
-        <br />
+           <br />
             <div class="form-group">
-                <div style="padding-right:35px;" class="col-sm-7 col-sm-offset-3">
+                <div class="col-sm-6 col-sm-offset-3">
                     <button type="submit" class="form-control ui button primary">Register</button>
                 </div>
             </div>

@@ -6,10 +6,10 @@
     </environment>
 }
 
-<div ng-controller="rateController" ng-init="getGameById(@Model.GameId);getRecomendationToGame(@Model.GameId);" class="row ng-cloak" style="margin-top:7%;margin-bottom:10%;">
+<div ng-controller="rateController" ng-init="getGameById(@Model.GameId);getRecomendationToGame(@Model.GameId);" class="row ng-cloak margin-top-5">
     <toaster-container></toaster-container>
     <div class="row">
-        <div style="margin-left:5%;margin-right:4%;" class="col-lg-3">
+        <div class="col-lg-3 margin-left-5 margin-right-5">
             <div class="ui card" style="margin-bottom:10%;">
                 <div class="content">
                     <div class="right floated meta">
@@ -28,7 +28,7 @@
                     <i class="comment icon"></i>
                     {{Feeds.length}} comments
                 </div>
-                <div style="margin-left:5%; margin-right:5%;" class="description">
+                <div class="description margin-left-5 margin-right-5">
                     <p>
                         {{CurrentGame.Description}}
                         <div class="pull-right">
