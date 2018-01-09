@@ -1,4 +1,5 @@
-﻿using GSP.Domain.Customers;
+﻿using System;
+using GSP.Domain.Customers;
 using Newtonsoft.Json;
 
 namespace GSP.Domain.Games
@@ -15,6 +16,8 @@ namespace GSP.Domain.Games
         public string Comment { get; set; }
 
         public Rating Rating { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public virtual Customer Customer { get; set; }
 

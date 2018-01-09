@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
+using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,7 @@ namespace GSP.WebClient.Controllers
         [HttpGet]
         public IActionResult GameProfile(int gameId)
         {
-            var game = _gameService.GetGameById(gameId);
+            var game = new GameViewModel { GameId = gameId };
             return View(game);
         }
 
