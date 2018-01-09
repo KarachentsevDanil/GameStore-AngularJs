@@ -2,6 +2,7 @@
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
+using GSP.Domain.Params;
 
 namespace GSP.BLL.Services
 {
@@ -41,6 +42,11 @@ namespace GSP.BLL.Services
             return _unitOfWork.GameRepository.GetGames();
         }
 
+        public IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams)
+        {
+            return _unitOfWork.GameRepository.GetItemsByParams(gameParams);
+        }
+
         public Game GetGameById(int gameId)
         {
             return _unitOfWork.GameRepository.GetById(gameId);
@@ -49,6 +55,7 @@ namespace GSP.BLL.Services
         public void DeleteGame(int gameId)
         {
             _unitOfWork.GameRepository.Delete(gameId);
+            _unitOfWork.Commit();
         }
     }
 }

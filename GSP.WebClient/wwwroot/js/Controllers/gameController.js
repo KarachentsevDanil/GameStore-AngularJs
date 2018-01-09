@@ -1,33 +1,51 @@
-﻿
-(function () {
+﻿(function () {
     'use strict';
 
-    angular
-     .module('GameStoreApp')
-     .controller('gameController', gameController);
+    angular.module('GameStoreApp').controller('gameController', gameController);
 
     gameController.$inject = ['$q', '$scope', 'gameService', 'categoryService', 'AlertService'];
 
-    function gameController($q, $scope, gameService, categoryService, AlertService) {
-        $scope.firstPage = "/images/imageOne.GIF";
-        $scope.imageCarousel = ["/images/imageThree.GIF", "/images/PictureTwo.GIF"]
+    function gameController($q, $scope, gameService, categoryService, alertService) {
+        $scope.StartPrice = 0;
+        $scope.EndPrice = 100;
 
+        //Slider config
+        $scope.SliderSettings = {
+            minValue: 0,
+            maxValue: 100,
+            options: {
+                floor: 0,
+                ceil: 100,
+                step: 5
+            }
+        };
 
-        if (window.ClientConfig != null) {
-            $scope.Name = window.ClientConfig.bagGameName;
-            $scope.Price = window.ClientConfig.bagGamePrice;
-            $scope.Description = window.ClientConfig.bagGameDescription;
-            $scope.Image = window.ClientConfig.bagGameImage;
-        }
-        $scope.getCategory = function () {
-            categoryService
-                    .getCategory()
-                    .success(function (category) {
-                        console.log(category);
-                        $scope.category = category;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+        $scope.setSliderSettings = function() {
+            var minPrice = _.min($scope.Games, function(game) { return game.Price; }).Price;
+            var maxPrice = _.max($scope.Games, function(game) { return game.Price; }).Price;
+
+            $scope.StartPrice = minPrice;
+            $scope.EndPrice = maxPrice;
+
+            $scope.SliderSettings.minValue = minPrice;
+            $scope.SliderSettings.maxValue = maxPrice;
+            $scope.SliderSettings.options.floor = minPrice;
+            $scope.SliderSettings.options.ceil = maxPrice;
+        };
+
+        $scope.gamesViewModes = [{ name: "All games", value: 0 }, { name: "Top sell games", value: 1 }, { name: "Top rate games", value: 2 }];
+
+        $scope.$on("slideChanged", function () {
+            $scope.filterGames();
+        });
+
+        $scope.getCategories = function () {
+            categoryService.getCategories()
+                .success(function (category) {
+                    $scope.category = category;
+                }).error(function () {
+                    alertService.showError("Error occure when getting categories.");
+                });
         };
 
         $scope.selectGame = function (game) {
@@ -38,128 +56,119 @@
         };
 
         $scope.getGameByName = function (data) {
-            gameService
-                    .getGameByName(data)
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.Games = games;
-                    }).error(function myfunction() {
-                        AlertService.showError("Input is empty");
-                    })
+            gameService.getGameByName(data)
+                .success(function (games) {
+                    $scope.Games = games;
+                }).error(function myfunction() {
+                    alertService.showError("Input is empty.");
+                });
         };
 
-        $scope.getGameByCategory = function (data) {
-            gameService
-                    .getGameByCategory(data)
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.Games = games;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+        $scope.loadCustomerGame = function(customer) {
+            $scope.customer = customer;
+            var params = $scope.getFilterParams();
+            $scope.getGamesByParams(params, true);
+        };
+
+        $scope.getFilterParams = function() {
+            var categoryIds = new Array();
+            var checkedCategories = $('.category-value:checked');
+
+            for (var i = 0; i < checkedCategories.length; i++) {
+                categoryIds.push($(checkedCategories[i]).data('category-id'));
+            }
+
+            var params = {
+                CategoriesIds: categoryIds,
+                Term: $scope.searchValue,
+                StartPrice: $scope.StartPrice,
+                EndPrice: $scope.EndPrice,
+                Customer: $scope.customer,
+                OutputMode: $scope.outputMode
+            };
+
+            return params;
+        };
+
+        $scope.filterGames = function () {
+            var params = $scope.getFilterParams();
+            $scope.getGamesByParams(params);
+        };
+
+        $scope.getGamesByParams = function(params, setSliderSettings) {
+            gameService.getGameByParams(params)
+                .success(function(games) {
+                    $scope.Games = games;
+
+                    if (setSliderSettings) {
+                        $scope.setSliderSettings();
+                    }
+                }).error(function() {
+                    alertService.showError("Error occure when getting games.");
+                });
         };
 
         $scope.getGame = function () {
-            gameService
-                    .getGame()
-                    .success(function (games) {
-                        console.log(games);
-                        $scope.Games = games;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
+            gameService.getGame()
+                .success(function (games) {
+                    $scope.Games = games;
+                    $scope.setSliderSettings();
+                }).error(function () {
+                    alertService.showError("Error occure when getting games.");
+                });
         };
 
-
-
-        $scope.createGame = function (categor) {
-            var gameRequest = {
-                Name: $scope.Name,
-                Category: categor,
-                Price: $scope.Price,
-                Description: $scope.Description,
-                Image: $scope.Image
-            };
-            $scope.createGamePromise = createCreateGamePromise(gameRequest);
-            $scope.createGamePromise.then(function () {
-                AlertService.showSuccess("Game Succsesfull added");
-                $scope.Name = " ";
-                $scope.Price = " ";
-                $scope.Description = " ";
-                $scope.Image = " ";
-            });
-        };
-
-
-
-        var createCreateGamePromise = function (gameRequest) {
+        var editGamePromise = function (gameRequest) {
             return $q(function (resolve, reject) {
                 gameService
-                    .createGame(gameRequest)
-                           .success(function (gameAccount) {
-                               resolve(gameAccount);
-                           }).error(function (response) {
-                               console.error("Customer account creating wrong!");
-                               console.error(response);
-                               reject();
-                           });
+                    .editGame(gameRequest)
+                    .success(function (gameAccount) {
+                        resolve(gameAccount);
+                    }).error(function () {
+                        alertService.showError("Error occure when getting games.");
+                        reject();
+                    });
             });
         };
 
-
-        $scope.deleteGame = function (gameId) {
-            var gameRequest = gameId;
-            $scope.deleteGamePromise = createDeleteGamePromise(gameRequest);
-            $scope.deleteGamePromise.then(function () {
-                AlertService.showSuccess("Delete Succsesfull added");
-                $scope.getGame();
-            });
-        };
-
-
-
-        var createDeleteGamePromise = function (gameRequest) {
+        var deleteGamePromise = function (gameRequest) {
             return $q(function (resolve, reject) {
                 gameService
                     .deleteGame(gameRequest)
-                           .success(function (gameId) {
-                               resolve(gameId);
-                           }).error(function (response) {
-                               console.error("Game delete wrong!");
-                               console.error(response);
-                               reject();
-                           });
+                    .success(function (gameId) {
+                        resolve(gameId);
+                    }).error(function () {
+                        alertService.showError("Error occure when deleting games.");
+                        reject();
+                    });
+            });
+        };
+
+        $scope.deleteGame = function (gameId) {
+            $scope.deleteGamePromise = deleteGamePromise(gameId);
+            $scope.deleteGamePromise.then(function () {
+                alertService.showSuccess("Game was successfully deleted.");
+                $scope.getGame();
             });
         };
 
         $scope.editGame = function () {
             var gameRequest = {
                 Name: $scope.EditName,
-                Category: $scope.EditGameId,
+                GameId: $scope.EditGameId,
                 Price: $scope.EditPrice,
-                Description: $scope.EditDescription,
-                Image: " "
+                Description: $scope.EditDescription
             };
-            $scope.editGamePromise = createEditGamePromise(gameRequest);
+
+            if (!gameRequest.GameId) {
+                alertService.showError("Please select game.");
+                return;
+            }
+
+            $scope.editGamePromise = editGamePromise(gameRequest);
             $scope.editGamePromise.then(function () {
-                AlertService.showSuccess("Game Succsesfull edit");
+                alertService.showSuccess("Game was successfully edited.");
                 $scope.getGame();
-            });
-        };
-
-
-
-        var createEditGamePromise = function (gameRequest) {
-            return $q(function (resolve, reject) {
-                gameService
-                    .editGame(gameRequest)
-                           .success(function (gameAccount) {
-                               resolve(gameAccount);
-                           }).error(function (response) {
-                               console.error("Customer account creating wrong!");
-                               console.error(response);
-                               reject();
-                           });
             });
         };
 

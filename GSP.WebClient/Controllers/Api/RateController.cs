@@ -24,25 +24,7 @@ namespace GSP.WebClient.Controllers.Api
         {
             return _rateService.GetRatesOfGame(gameId);
         }
-
-        //[HttpGet]
-        //public IEnumerable<Game> GetTopSaleGame()
-        //{
-        //    return _rateService.GetMostSaleGame();
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<Game> GetTopSaleGameByCategory(string category)
-        //{
-        //    return _rateService.GetMostSaleGameByCategory(category);
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<Game> GetMostRateGame()
-        //{
-        //    return _rateService.GetMostRateGame();
-        //}
-
+        
         [HttpPost]
         public void CreateFeed([FromBody] Rate rate)
         {
@@ -50,7 +32,7 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         //[HttpGet]
-        //public async Task<GameResponse[]> GetAllTranscations(int gameId)
+        //public async Task<GameResponse[]> GetRecomendedGames(int gameId)
         //{
         //    var transactions = await orderService.GetAllTransaction();
         //    GetRecomendation recomendation = new GetRecomendation();

@@ -49,7 +49,8 @@ namespace GSP.BLL.Services
         public IEnumerable<Game> GetGameFromBucket(int customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
-            return order.Games.Select(x => x.Game).AsEnumerable();
+            var games = order.Games.Select(x => x.Game).ToList();
+            return games;
         }
 
         public IEnumerable<Game> GetCustomerGames(int customerId)
@@ -67,6 +68,12 @@ namespace GSP.BLL.Services
         public IEnumerable<Order> GetOrders()
         {
             return _unitOfWork.OrderRepository.GetOrders();
+        }
+
+        public Order GetCurrentOrderOfCustomer(int customerId)
+        {
+            var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
+            return order;
         }
     }
 }

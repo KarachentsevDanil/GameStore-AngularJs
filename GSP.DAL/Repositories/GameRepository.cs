@@ -21,16 +21,19 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Game> GetItems(Expression<Func<Game, bool>> expression)
         {
-            return _dbContext.Games.Where(expression.Compile()).AsEnumerable();
+            return _dbContext.Games
+                .Include(x => x.Category)
+                .Where(expression.Compile()).AsEnumerable();
         }
 
         public IEnumerable<Game> GetItemsByParams(FilterParams<Game> filterParams)
         {
             return _dbContext.Games
+                .Include(x => x.Category)
                 .Where(filterParams.Expression.Compile())
                 .Take(filterParams.PageSize)
                 .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
-                .OrderByDescending(x => x.GameId)
+                .OrderBy(x => x.Name)
                 .AsEnumerable();
         }
 
@@ -52,7 +55,7 @@ namespace GSP.DAL.Repositories
         {
             return _dbContext.Games
                 .Include(x=> x.Category)
-                .Where(x => x.Name.ToLower() == term.ToLower()).AsEnumerable();
+                .Where(x => x.Name.ToLower().Contains(term.ToLower()) || x.Category.Name.Contains(term.ToLower())).AsEnumerable();
         }
     }
 }

@@ -1,39 +1,37 @@
 ﻿(function () {
     'use strict';
 
-    angular
-        .module('GameStoreApp')
-        .service('orderService', orderService);
+    angular.module('GameStoreApp').service('orderService', orderService);
 
     orderService.$inject = ['$http'];
 
     function orderService($http) {
-        var url = "/api/Order";
-        var allOrderurl = "/api/Order/GetAllOrder";
-        var questCategoryUrl = "/api/Order/GetGamesFromBucket?customer=";
-        var questCustomerUrl = "/api/Order/GetCusomerGame?customer=";
-        var questOrderUrl = "/api/Order/GetCustomerOrder?customer=";
-  
+        var baseOrderUrl = "/api/Order";
+        var getAllOrderUrl = baseOrderUrl.concat("/getallorder");
+        var getGamesFromBucketUrl = baseOrderUrl.concat("/getgamesfrombucket?customer=");
+        var getCustomerOrderUrl = baseOrderUrl.concat("/getcustomerorder?customer=");
+        var createOrderUrl = baseOrderUrl.concat("/createorder");
+        var confirmOrderUrl = baseOrderUrl.concat("/confirmorder");
+        var addGameToBucketUrl = baseOrderUrl.concat("/addtobucket");
+        var deleteGameFromBucketUrl = baseOrderUrl.concat("/deletegamefrombucket");
+        var deleteOrderUrl = baseOrderUrl.concat("/DeleteOrder");
 
         this.getAllOrders = function () {
-            return $http.get(allOrderurl);
+            return $http.get(getAllOrderUrl);
         };
 
         this.getGamesFromBucket = function (data) {
-            return $http.get(questCategoryUrl + data);
+            return $http.get(getGamesFromBucketUrl.concat(data));
         };
-        this.getCustomerGames = function (data) {
-            return $http.get(questCustomerUrl + data);
-        };
-
+        
         this.getCustomerOrders = function (data) {
-            return $http.get(questOrderUrl + data);
+            return $http.get(getCustomerOrderUrl + data);
         };
 
         this.createOrder = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/CreateOrder",
+                url: createOrderUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -42,7 +40,7 @@
         this.updateOrder = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/ConfirmOrder",
+                url: confirmOrderUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -51,7 +49,7 @@
         this.addGameToBucket = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/AddToBucket",
+                url: addGameToBucketUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -60,24 +58,16 @@
         this.deleteGameFromBucket = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/DeleteGameFromBucket",
+                url: deleteGameFromBucketUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
         };
-
-        this.deleteGameFromOrder = function (data) {
-            return $http({
-                method: 'POST',
-                url: url + "/DeleteGameFromOrder",
-                data: data,
-                headers: { 'Content-Type': 'application/json' }
-            });
-        };
+        
         this.deleteOrder = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/DeleteOrder",
+                url: deleteOrderUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });

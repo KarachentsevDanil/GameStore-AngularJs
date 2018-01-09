@@ -22,8 +22,10 @@ namespace GSP.DAL.Repositories
         public IEnumerable<Order> GetItems(Expression<Func<Order, bool>> expression)
         {
             return _dbContext.Orders
-                .Include(x=> x.Customer)
+                .Include(x => x.Customer)
                 .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .ThenInclude(x => x.Category)
                 .Where(expression.Compile()).AsEnumerable();
         }
 
@@ -32,6 +34,8 @@ namespace GSP.DAL.Repositories
             return _dbContext.Orders
                 .Include(x => x.Customer)
                 .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .ThenInclude(x => x.Category)
                 .Where(filterParams.Expression.Compile())
                 .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
                 .Take(filterParams.PageSize)
@@ -44,17 +48,30 @@ namespace GSP.DAL.Repositories
             return _dbContext.Orders
                 .Include(x => x.Customer)
                 .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .ThenInclude(x => x.Category)
+                .Where(x => x.Games.Any())
                 .AsEnumerable();
         }
 
         public IEnumerable<Order> GetCustomerOrders(int customerId)
         {
-            return _dbContext.Orders.Where(x => x.CustomerId == customerId).AsEnumerable();
+            return _dbContext.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .ThenInclude(x => x.Category)
+                .Where(x => x.CustomerId == customerId && x.Games.Any())
+                .AsEnumerable();
         }
 
         public Order GetCurrentCustomerOrder(int customerId)
         {
-            return _dbContext.Orders.FirstOrDefault(x => x.Status == OrderStatus.New && x.CustomerId == customerId);
+            return _dbContext.Orders
+                .Include(x => x.Games)
+                .ThenInclude(x=> x.Game)
+                .ThenInclude(x=> x.Category)
+                .FirstOrDefault(x => x.Status == OrderStatus.New && x.CustomerId == customerId);
         }
 
         public void AddGameToBucket(OrderGame game)

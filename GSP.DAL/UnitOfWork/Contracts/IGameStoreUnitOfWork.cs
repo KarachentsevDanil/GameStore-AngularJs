@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GSP.DAL.Repositories.Contracts;
+﻿using GSP.DAL.Repositories.Contracts;
 
 namespace GSP.DAL.UnitOfWork.Contracts
 {

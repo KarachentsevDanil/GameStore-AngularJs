@@ -1,33 +1,41 @@
 ﻿(function () {
     'use strict';
 
-    angular
-        .module('GameStoreApp')
-        .service('gameService', gameService);
+    angular.module('GameStoreApp').service('gameService', gameService);
 
     gameService.$inject = ['$http'];
 
     function gameService($http) {
-        var url = "/api/Game";
-        var questUrl = "/api/Game/GetGamesByName?name=";
-        var questCategoryUrl = "/api/Game/GetGamesByCategory?category=";
+        var baseGameUrl = "/api/Game";
+        var getGameByNameUrl = baseGameUrl.concat("/getgamesbyname?name=");
+        var getGameByParams = baseGameUrl.concat("/getgamesbyparams");
+        var getGamesUrl = baseGameUrl.concat("/getgames");
+        var createGameUrl = baseGameUrl.concat("/creategame");
+        var updateGameUrl = baseGameUrl.concat("/editgame");
+        var deleteGameUrl = baseGameUrl.concat("/deletegame");
+
         this.getGame = function () {
-            return $http.get(url + "/GetGames");
+            return $http.get(getGamesUrl);
         };
 
       
         this.getGameByName = function (data) {
-            return $http.get(questUrl + data);
+            return $http.get(getGameByNameUrl.concat(data));
         };
 
-        this.getGameByCategory = function (data) {
-            return $http.get(questCategoryUrl + data);
+        this.getGameByParams = function (data) {
+            return $http({
+                method: 'POST',
+                url: getGameByParams,
+                data: data,
+                headers: { 'Content-Type': 'application/json' }
+            });
         };
 
         this.createGame = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/CreateGame",
+                url: createGameUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -36,7 +44,7 @@
         this.editGame = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/EditGame",
+                url: url + updateGameUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -45,13 +53,11 @@
         this.deleteGame = function (data) {
             return $http({
                 method: 'POST',
-                url: url + "/DeleteGame",
+                url: url + deleteGameUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
         };
-
-
     }
 })();
 

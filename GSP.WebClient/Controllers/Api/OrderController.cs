@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using GSP.WebClient.Infrastracture.Extenctions;
 using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,22 +31,32 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpPost]
-        public void ConfirmOrder([FromBody] Order order)
+        public void ConfirmOrder([FromBody] OrderViewModel order)
         {
-            order.SaleDate = DateTime.Now;
-            _orderService.UpdateOrder(order);
+            var orderModel = GetCurrentOrderOfCustomer(order.Customer);
+
+            orderModel.SaleDate = DateTime.Now;
+            orderModel.Status = OrderStatus.Complete;
+
+            _orderService.UpdateOrder(orderModel);
         }
 
         [HttpPost]
-        public void AddToBucket([FromBody] OrderGame orderGame)
+        public void AddToBucket([FromBody] OrderGameViewModel orderGame)
         {
-            _orderService.AddGameToBucket(orderGame);
+            var order = GetCurrentOrderOfCustomer(orderGame.Customer);
+            var newOrderGame = new OrderGame(orderGame.GameId, order.OrderId);
+
+            _orderService.AddGameToBucket(newOrderGame);
         }
 
         [HttpPost]
-        public void DeleteGameFromBucket([FromBody] OrderGame orderGame)
+        public void DeleteGameFromBucket([FromBody] OrderGameViewModel orderGame)
         {
-            _orderService.DeleteGameFromBucket(orderGame);
+            var order = GetCurrentOrderOfCustomer(orderGame.Customer);
+            var game = order.Games.First(x => x.GameId == orderGame.GameId);
+
+            _orderService.DeleteGameFromBucket(game);
         }
 
         [HttpPost]
@@ -60,30 +72,41 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<Game> GetGamesFromBucket(string customer)
+        public IEnumerable<GameViewModel> GetGamesFromBucket(string customer)
         {
             var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            return _orderService.GetGameFromBucket(customerId);
+            var games = _orderService.GetGameFromBucket(customerId);
+            return MapperExtenctions.ToGameViewModels(games);
         }
 
         [HttpGet]
-        public IEnumerable<Game> GetCusomerGame(string customer)
+        public IEnumerable<GameViewModel> GetCusomerGame(string customer)
         {
             var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            return _orderService.GetCustomerGames(customerId);
+            var games = _orderService.GetCustomerGames(customerId);
+            return MapperExtenctions.ToGameViewModels(games);
         }
 
         [HttpGet]
-        public IEnumerable<Order> GetCustomerOrder(string customer)
+        public IEnumerable<OrderViewModel> GetCustomerOrder(string customer)
         {
             var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            return _orderService.GetCustomerOrders(customerId);
+            var orders = _orderService.GetCustomerOrders(customerId);
+            return MapperExtenctions.ToOrderViewModels(orders);
         }
 
         [HttpGet]
-        public IEnumerable<Order> GetAllOrder()
+        public IEnumerable<OrderViewModel> GetAllOrder()
         {
-            return _orderService.GetOrders();
+            var orders = _orderService.GetOrders();
+            return MapperExtenctions.ToOrderViewModels(orders);
+        }
+
+        private Order GetCurrentOrderOfCustomer(string customerName)
+        {
+            var customer = _customerService.GetCustomerByTerm(customerName);
+            var order = _orderService.GetCurrentOrderOfCustomer(customer.CustomerId);
+            return order;
         }
     }
 }

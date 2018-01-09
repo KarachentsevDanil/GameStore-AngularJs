@@ -23,5 +23,7 @@ namespace GSP.BLL.Services.Contracts
         IEnumerable<Order> GetCustomerOrders(int customerId);
 
         IEnumerable<Order> GetOrders();
+
+        Order GetCurrentOrderOfCustomer(int customerId);
     }
 }

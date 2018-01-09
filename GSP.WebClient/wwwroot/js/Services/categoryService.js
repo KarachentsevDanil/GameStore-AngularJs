@@ -8,10 +8,11 @@
     categoryService.$inject = ['$http'];
 
     function categoryService($http) {
-        var url = "/api/category";
+        var baseCategoryUrl = "/api/category";
+        var getCategoriesUrl = baseCategoryUrl.concat("/GetCategories");
 
-        this.getCategory = function () {
-            return $http.get(url + "/GetCategory");
+        this.getCategories = function () {
+            return $http.get(getCategoriesUrl);
         };              
     }
 })();
