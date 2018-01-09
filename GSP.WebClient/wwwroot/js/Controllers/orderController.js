@@ -1,93 +1,80 @@
-﻿
-(function () {
+﻿(function () {
     'use strict';
 
-    angular
-     .module('GameStoreApp')
-     .controller('orderController', orderController);
+    angular.module('GameStoreApp').controller('orderController', orderController);
 
     orderController.$inject = ['$q', '$scope', 'orderService', 'AlertService'];
 
     function orderController($q, $scope, orderService, alertService) {
 
         $scope.getGamesFromBucket = function (data) {
-            orderService
-                .getGamesFromBucket(data)
-                .success(function(games) {
-                    console.log(games);
+            orderService.getGamesFromBucket(data)
+                .success(function (games) {
                     $scope.GamesFromBucket = games;
-                    $scope.CommonItem = $scope.GamesFromBucket.length;
-                    var price = 0;
-                    for (var i = 0; i < $scope.GamesFromBucket.length; i++) {
-                        price += $scope.GamesFromBucket[i].Price;
-                    }
-                    $scope.CommonPrice = price;
-                }).error(function myfunction() {
-                    alert("Error:");
-                });
-        };
 
-        $scope.getCustomerGames = function (data) {
-            orderService
-                .getCustomerGames(data)
-                .success(function(games) {
-                    console.log(games);
-                    $scope.CustomerGames = games;
-                }).error(function myfunction() {
-                    alert("Error:");
+                    $scope.CommonItem = $scope.GamesFromBucket.length;
+                    $scope.CommonPrice = _.sum(games, function (game) { return game.Price; });
+                }).error(function () {
+                    alert("Error occure when getting games from bucket.");
                 });
         };
 
         $scope.getAllOrders = function () {
-            orderService
-                .getAllOrders()
-                .success(function(games) {
-                    console.log(games);
-                    $scope.Orders = games;
-                }).error(function myfunction() {
-                    alert("Error:");
+            orderService.getAllOrders()
+                .success(function (orders) {
+                    $scope.Orders = orders;
+                }).error(function () {
+                    alert("Error occure when getting orders.");
                 });
         };
 
         $scope.getCustomerOrders = function (data) {
-            orderService
-                .getCustomerOrders(data)
-                .success(function(games) {
-                    console.log(games);
-                    $scope.Orders = games;
-                }).error(function myfunction() {
-                    alert("Error:");
+            orderService.getCustomerOrders(data)
+                .success(function (orders) {
+                    $scope.Orders = orders;
+                }).error(function () {
+                    alert("Error occure when getting customer orders.");
                 });
         };
 
-        $scope.selectOrder = function (game,orderId) {
+        $scope.selectOrder = function(game, orderId) {
             $scope.GameFromOrder = game;
-            $scope.CurrentOreder = orderId;
-        }
+            $scope.CurrentOrderId = orderId;
+        };
+
+        var confirmOrderPromise = function (customerRequest) {
+            return $q(function (resolve, reject) {
+                orderService.updateOrder(customerRequest)
+                    .success(function (customerAccount) {
+                        resolve(customerAccount);
+                    }).error(function () {
+                        console.error("Error occure when confirming order.");
+                        reject();
+                    });
+            });
+        };
 
         $scope.confirmOrder = function (customer) {
             var customerRequest = {
                 Customer: customer
             };
 
-            $scope.confirmOrderPromise = createConfirmOrderPromise(customerRequest);
+            $scope.confirmOrderPromise = confirmOrderPromise(customerRequest);
             $scope.confirmOrderPromise.then(function () {
-                alertService.showSuccess("Order is confirm");
-               
+                alertService.showSuccess("Order was confirmed.");
+                window.location = '/Game/ShowGame';
             });
         };
 
-        var createConfirmOrderPromise = function (customerRequest) {
+        var createOrderPromise = function (customerRequest) {
             return $q(function (resolve, reject) {
-                orderService
-                    .updateOrder(customerRequest)
-                           .success(function (customerAccount) {
-                               resolve(customerAccount);
-                           }).error(function (response) {
-                               console.error("Customer account creating wrong!");
-                               console.error(response);
-                               reject();
-                           });
+                orderService.createOrder(customerRequest)
+                    .success(function (customerAccount) {
+                        resolve(customerAccount);
+                    }).error(function () {
+                        console.error("Error occure when creating order for customer.");
+                        reject();
+                    });
             });
         };
 
@@ -95,44 +82,40 @@
             var customerRequest = {
                 Customer: customer
             };
-            $scope.createOrderPromise = createCreateOrderPromise(customerRequest);
+
+            $scope.createOrderPromise = createOrderPromise(customerRequest);
             $scope.createOrderPromise.then(function () { });
         };
 
-        var createCreateOrderPromise = function (customerRequest) {
+        var deleteOrderPromise = function (orderId) {
             return $q(function (resolve, reject) {
-                orderService
-                    .createOrder(customerRequest)
-                           .success(function (customerAccount) {
-                               resolve(customerAccount);
-                           }).error(function (response) {
-                               console.error("Customer account creating wrong!");
-                               console.error(response);
-                               reject();
-                           });
+                orderService.deleteOrder(orderId)
+                    .success(function (id) {
+                        resolve(id);
+                    }).error(function () {
+                        console.error("Error occure when deleting order.");
+                        reject();
+                    });
             });
         };
 
         $scope.deleteOrder = function (deleteOrderId) {
-            var orderId = deleteOrderId
-            $scope.deleteOrderPromise = createDeleteOrderPromise(orderId);
+            $scope.deleteOrderPromise = deleteOrderPromise(deleteOrderId);
             $scope.deleteOrderPromise.then(function () {
-                alertService.showSuccess("Order was deleted");
+                alertService.showSuccess("Order was successfully deleted.");
                 $scope.getAllOrders();
             });
         };
 
-        var createDeleteOrderPromise = function (orderId) {
+        var addGameToBucketPromise = function (bucketRequest) {
             return $q(function (resolve, reject) {
-                orderService
-                    .deleteOrder(orderId)
-                           .success(function (id) {
-                               resolve(id);
-                           }).error(function (response) {
-                               console.error("Customer account creating wrong!");
-                               console.error(response);
-                               reject();
-                           });
+                orderService.addGameToBucket(bucketRequest)
+                    .success(function (data) {
+                        resolve(data);
+                    }).error(function () {
+                        console.error("Error occure when game adding to bucket.");
+                        reject();
+                    });
             });
         };
 
@@ -141,23 +124,22 @@
                 Customer: customer,
                 GameId: gameId
             };
-            $scope.createAddGamePromise = createCreateAddGamePromise(bucketRequest);
+
+            $scope.createAddGamePromise = addGameToBucketPromise(bucketRequest);
             $scope.createAddGamePromise.then(function () {
-                alertService.showSuccess("Account Succsesfull added");
+                alertService.showSuccess("Game was successfully added to bucket.");
             });
         };
 
-        var createCreateAddGamePromise = function (bucketRequest) {
+        var deleteGameFromBucketPromise = function (bucketRequest) {
             return $q(function (resolve, reject) {
-                orderService
-                    .addGameToBucket(bucketRequest)
-                           .success(function (data) {
-                               resolve(data);
-                           }).error(function (response) {
-                               console.error("Game succsesfull added to bucket!");
-                               console.error(response);
-                               reject();
-                           });
+                orderService.deleteGameFromBucket(bucketRequest)
+                    .success(function (data) {
+                        resolve(data);
+                    }).error(function () {
+                        console.error("Error occure when deleting game from bucket.");
+                        reject();
+                    });
             });
         };
 
@@ -166,59 +148,12 @@
                 Customer: customer,
                 GameId: gameId
             };
-            $scope.createDeleteGameFromBucketPromise = createCreateDeleteGameFromBucketPromise(bucketRequest);
+
+            $scope.createDeleteGameFromBucketPromise = deleteGameFromBucketPromise(bucketRequest);
             $scope.createDeleteGameFromBucketPromise.then(function () {
-                alertService.showSuccess("Game succsesfull deleted from bucket!");
+                alertService.showSuccess("Game successfully deleted from bucket.");
                 $scope.getGamesFromBucket(bucketRequest.Customer);
-
             });
         };
-
-
-
-        var createCreateDeleteGameFromBucketPromise = function (bucketRequest) {
-            return $q(function (resolve, reject) {
-                orderService
-                    .deleteGameFromBucket(bucketRequest)
-                           .success(function (data) {
-                               resolve(data);
-                           }).error(function (response) {
-                               console.error("Game don't deleted from bucket!");
-                               console.error(response);
-                               reject();
-                           });
-            });
-        };
-
-        $scope.deleteGameFromOrder = function (gameId) {
-            var bucketRequest = {
-                OrderId:  $scope.CurrentOreder,
-                GameId: gameId
-            };
-            $scope.createDeleteGameFromOrderPromise = createCreateDeleteGameFromOrderPromise(bucketRequest);
-            $scope.createDeleteGameFromOrderPromise.then(function () {
-                alertService.showSuccess("Game succsesfull deleted from order!");
-                $scope.getAllOrders();
-                $scope.GameFromOrder = null;
-                $scope.CurrentOreder = null;
-            });
-        };
-
-
-
-        var createCreateDeleteGameFromOrderPromise = function (bucketRequest) {
-            return $q(function (resolve, reject) {
-                orderService
-                    .deleteGameFromOrder(bucketRequest)
-                           .success(function (data) {
-                               resolve(data);
-                           }).error(function (response) {
-                               console.error("Game don't deleted from bucket!");
-                               console.error(response);
-                               reject();
-                           });
-            });
-        };
-
     }
 })();

@@ -6,7 +6,6 @@
 /// <reference path="js/controllers/ordercontroller.js" />
 /// <reference path="js/controllers/ratecontroller.js" />
 /// <reference path="js/gamestoreapp.js" />
-/// <reference path="js/services/accountservice.js" />
 /// <reference path="js/services/alertservice.js" />
 /// <reference path="js/Services/CategoryService.js" />
 /// <reference path="js/services/gameservice.js" />

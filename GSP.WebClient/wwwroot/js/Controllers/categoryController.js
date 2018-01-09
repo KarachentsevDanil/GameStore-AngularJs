@@ -2,22 +2,20 @@
     'use strict';
 
     angular
-     .module('GameStoreApp')
-     .controller('categoryController', categoryController);
+        .module('GameStoreApp')
+        .controller('categoryController', categoryController);
 
     categoryController.$inject = ['$scope', 'categoryService'];
 
     function categoryController($scope, categoryService) {
-      
-        $scope.getCategory = function () {
-            categoryService
-                    .getCategory()
-                    .success(function (category) {
-                        console.log(category);
-                        $scope.category = category;
-                    }).error(function myfunction() {
-                        alert("Error:");
-                    })
-        };     
+
+        $scope.getCategories = function () {
+            categoryService.getCategories()
+                .success(function (category) {
+                    $scope.category = category;
+                }).error(function () {
+                    alert("Error occure when getting categories.");
+                });
+        };
     }
 })();

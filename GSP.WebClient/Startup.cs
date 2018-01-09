@@ -59,7 +59,7 @@ namespace GSP.WebClient
             }
 
             app.UseStaticFiles();
-
+            
             app.UseAuthentication();
 
             app.UseAutofac(_configuration);

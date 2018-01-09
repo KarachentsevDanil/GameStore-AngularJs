@@ -1,4 +1,6 @@
-﻿using GSP.Domain.Orders;
+﻿using System;
+using System.Collections.Generic;
+using GSP.Domain.Orders;
 
 namespace GSP.WebClient.ViewModels
 {
@@ -9,5 +11,9 @@ namespace GSP.WebClient.ViewModels
         public int CustomerId { get; set; }
 
         public string Customer { get; set; }
+
+        public DateTime SaleDate { get; set; }
+
+        public List<GameViewModel> Games { get; set; }
     }
 }

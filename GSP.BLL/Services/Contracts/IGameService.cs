@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GSP.Domain.Games;
+using GSP.Domain.Params;
 
 namespace GSP.BLL.Services.Contracts
 {
@@ -14,6 +15,8 @@ namespace GSP.BLL.Services.Contracts
         IEnumerable<Game> GetGamesByTerm(string term);
 
         IEnumerable<Game> GetGames();
+
+        IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams);
 
         Game GetGameById(int gameId);
 

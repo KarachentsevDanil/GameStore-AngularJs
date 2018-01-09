@@ -1,4 +1,5 @@
-﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+﻿/* ReSharper disable once Html.AttributeNotResolved */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
 
@@ -16,6 +17,14 @@ body {
     padding-right: 15px;
 }
 
+.filter-block {
+    background: #fafafa;
+}
+
+.filter-input-width {
+    width: 260px !important;
+}
+
 .div-width-330 {
     width: 330px;
 }
@@ -24,15 +33,19 @@ body {
     margin-right: 0;
 }
 
+.margin-top-1 {
+    margin-top: 1%;
+}
+
 .margin-top-2 {
-    margin-top: 2%;
+    margin-top: 2% !important;
 }
 
 .margin-bottom-2 {
     margin-top: 2%;
 }
 
-.margin-left-5 {
+div .form-group .margin-left-5 {
     margin-left: 5%;
 }
 
@@ -41,7 +54,7 @@ body {
 }
 
 .margin-top-5 {
-    margin-top: 5%;
+    margin-top: 5% !important;
 }
 
 .margin-top-10 {
@@ -52,148 +65,40 @@ body {
     margin-top: 20%;
 }
 
+.margin-top-50 {
+    margin-top: 60px;
+}
+
+.margin-left-110 {
+    margin-left: 110px !important;
+}
+
+.center-align {
+    text-align: center;
+}
 /*Game styles*/
 
 .game-btn {
     cursor: pointer;
 }
 
-    .game-btn:hover, .game-btn:active {
-        background-color: whitesmoke;
-    }
+.game-btn:hover, .game-btn:active {
+    background-color: whitesmoke;
+}
 
 .remove-btn {
     padding: 3px;
 }
 
-    .remove-btn:hover, .remove-btn:active {
-        background-color: silver;
-        border: 1px solid gray;
-        border-radius: 3px;
-    }
+.remove-btn:hover, .remove-btn:active {
+    background-color: silver;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
 textarea {
     max-width: 280px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none
-    }
-}
-
-.hidden.menu {
-    display: none;
-}
-
-.masthead.segment {
-    min-height: 700px;
-    padding: 1em 0em;
-}
-
-.masthead .logo.item img {
-    margin-right: 1em;
-}
-
-.masthead .ui.menu .ui.button {
-    margin-left: 0.5em;
-}
-
-.masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
-}
-
-.masthead h2 {
-    font-size: 1.7em;
-    font-weight: normal;
-}
-
-.ui.vertical.stripe {
-    padding: 8em 0em;
-}
-
-    .ui.vertical.stripe h3 {
-        font-size: 2em;
-    }
-
-    .ui.vertical.stripe .button + h3,
-    .ui.vertical.stripe p + h3 {
-        margin-top: 3em;
-    }
-
-    .ui.vertical.stripe .floated.image {
-        clear: both;
-    }
-
-    .ui.vertical.stripe p {
-        font-size: 1.33em;
-    }
-
-    .ui.vertical.stripe .horizontal.divider {
-        margin: 3em 0em;
-    }
-
-.quote.stripe.segment {
-    padding: 0em;
-}
-
-    .quote.stripe.segment .grid .column {
-        padding-top: 5em;
-        padding-bottom: 5em;
-    }
-
-.footer.segment {
-    padding: 5em 0em;
-}
-
-.secondary.pointing.menu .toc.item {
-    display: none;
-}
-
-@media only screen and (max-width: 700px) {
-    .ui.fixed.menu {
-        display: none !important;
-    }
-
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
-        display: none;
-    }
-
-    .secondary.pointing.menu .toc.item {
-        display: block;
-    }
-
-    .masthead.segment {
-        min-height: 350px;
-    }
-
-    .masthead h1.ui.header {
-        font-size: 2em;
-        margin-top: 1.5em;
-    }
-
-    .masthead h2 {
-        margin-top: 0.5em;
-        font-size: 1.5em;
-    }
 }

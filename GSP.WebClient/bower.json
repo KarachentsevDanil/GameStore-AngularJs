@@ -9,7 +9,10 @@
     "angular": "1.5.7",
     "AngularJS-Toaster": "2.0.0",
     "angular-animate": "1.5.7",
-    "semantic": "2.2.13"
+    "semantic": "2.2.13",
+    "angularjs-slider": "6.4.3",
+    "ui-bootstrap": "v1.1.0",
+    "underscore": "1.8.3"
   },
   "resolutions": {
     "angular": "1.5.7",

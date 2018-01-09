@@ -16,7 +16,7 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<Category> GetCategory()
+        public IEnumerable<Category> GetCategories()
         {
             return _categoryService.GetCategories();
         }

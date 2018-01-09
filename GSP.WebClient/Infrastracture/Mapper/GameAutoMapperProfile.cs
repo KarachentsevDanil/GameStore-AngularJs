@@ -9,8 +9,8 @@ namespace GSP.WebClient.Infrastracture.Mapper
         public GameAutoMapperProfile()
         {
             CreateMap<Game, GameViewModel>()
-                .ForMember(x=> x.PhotoData, p=> p.Ignore())
-                .ForMember(x => x.PhotoData, p => p.MapFrom(t=> t.Category.Name));
+                .ForMember(x => x.PhotoData, p => p.Ignore())
+                .ForMember(x => x.CategoryName, p => p.MapFrom(t => t.Category.Name));
         }
     }
 }

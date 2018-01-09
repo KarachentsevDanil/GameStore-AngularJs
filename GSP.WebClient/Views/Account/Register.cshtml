@@ -1,10 +1,10 @@
 ﻿@section Scripts {
     <environment names="Development">
         <script src="~/js/Controllers/accountController.js"></script>
-        <script src="~/js/Services/accountService.js"></script>
     </environment>
 }
-<div class="container margin-top-5" ng-controller="accountController" ng-model="account">
+
+<div class="container ng-cloak" ng-controller="accountController" ng-model="account">
     <toaster-container></toaster-container>
     <div class="col-md-6 col-md-offset-3">
         <form  asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
@@ -12,25 +12,25 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Full Name</label>
                 <div class="col-sm-9">
-                    <input type="text" ng-model="account.FullName" name="FullName" placeholder="Full Name" class="form-control" autofocus required>
+                    <input type="text" name="FullName" placeholder="Full Name" class="form-control" autofocus required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" ng-model="account.Email" name="Email" placeholder="Email" class="form-control" required>
+                    <input type="email" name="Email" placeholder="Email" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-9">
-                    <input type="password" ng-model="account.Password" name="Password" placeholder="Password" class="form-control" required>
+                    <input type="password" name="Password" placeholder="Password" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Date of Birth</label>
                 <div class="col-sm-9">
-                    <input type="date" ng-model="account.DateBirthsday" name="DateBirthsday" class="form-control" required>
+                    <input type="date" name="DateBirthsday" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
@@ -53,7 +53,7 @@
            <br />
             <div class="form-group">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <button type="submit" class="form-control ui button primary">Register</button>
+                    <button type="submit" class="form-control ui button primary margin-left-5">Register</button>
                 </div>
             </div>
         </form>

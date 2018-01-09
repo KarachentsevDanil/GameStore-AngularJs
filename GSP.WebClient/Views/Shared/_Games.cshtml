@@ -1,0 +1,89 @@
+﻿@model bool
+
+<div class="container" ng-controller="gameController" @(Model ? "ng-init=getGame();getCategories();" : $"ng-init=loadCustomerGame('{User.Identity.Name}');getCategories();")>
+    <toaster-container></toaster-container>
+    <div class="row">
+        <div class="col-md-3 filter-block">
+            <h3 class="margin-top-2">Filters:</h3>
+            <div class="form-group">
+                @if (Model)
+                {
+                    <h4>Mode:</h4>
+                    <div class="form-group">
+                        <select ng-model="outputMode" name="Language" class="form-control ui search dropdown" ng-click="filterGames()">
+                            <option ng-repeat="item in gamesViewModes" value={{item.value}} selected>{{item.name}}</option>
+                        </select>
+                    </div>
+                    <hr/>
+                }
+                <h4>Categories:</h4>
+                <div class="form-group">
+                    <div ng-repeat="categoryObject in category">
+                        <input class="category-value" type="checkbox" data-category-id="{{categoryObject.CategoryId}}" ng-click="filterGames()"/>
+                        <label>{{categoryObject.Name}}</label>
+                    </div>
+                </div>
+                <hr/>
+                <h4>Title:</h4>
+                <div class="form-group">
+                    <div class="ui icon input">
+                        <input class="filter-input-width" type="text" placeholder="Search..." ng-model="searchValue" ng-change="filterGames()">
+                        <i class="circular search link icon"></i>
+                    </div>
+                </div>
+                <h4>Price Range:</h4>
+                <div class="form-group">
+                    <rzslider rz-slider-model="StartPrice" rz-slider-high="EndPrice" rz-slider-options="SliderSettings.options"></rzslider>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="form-group">
+                <div class="ui four column grid">
+                    <div class="column" ng-repeat="game in Games">
+                        <div class="ui card">
+                            <div class="image">
+                                <img ng-src="{{game.PhotoData}}" alt="{{game.PhotoData}}">
+                            </div>
+                            <div class="content">
+                                <div class="header">{{game.Name}}</div>
+                                <div class="header">Genre:{{game.CategoryName}}</div>
+
+                                <div class="description">
+                                    <a ng-href="/Game/GameProfile?gameId={{game.GameId}}">More details...</a>
+                                    <div class="pull-right ui red tag labels" style="display:inline-block; margin-left: 5px">
+                                        <a class="ui label">
+                                            ${{game.Price}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui two bottom attached buttons">
+                                @if (Model)
+                                {
+                                    <div class="ui button" ng-click="addToBucket('@User.Identity.Name',game.GameId)">
+                                        <i class="add to cart icon"></i>
+                                        Buy
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="ui button">
+                                        Load
+                                    </div>
+                                }
+                                <a class="ui primary button" ng-href="https://www.youtube.com/results?search_query={{game.Name}}">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

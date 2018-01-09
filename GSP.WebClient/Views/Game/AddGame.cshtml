@@ -8,20 +8,15 @@
 }
 
 <form method="post" asp-action="AddGame" asp-controller="Game" enctype="multipart/form-data">
-    <div class="container margin-top-5 ng-cloak form-horizontal" ng-controller="gameController" ng-model="game" ng-init="getCategory()">
+    <div class="container ng-cloak form-horizontal" ng-controller="gameController" ng-model="game" ng-init="getCategories()">
         <toaster-container></toaster-container>
-        <div class="col-md-6 col-md-offset-3">
-            <h2 style="text-align:center;">Add Game Form</h2>
+        <div class="col-md-6 col-md-offset-3 margin-top-1">
+            <h2 class="center-align">Add Game Form</h2>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Game Name</label>
                 <div class="col-sm-9">
-                    <div class="ui corner labeled input">
-                        <input type="text" ng-model="Name" name="Name" placeholder="Full Name" class="form-control" autofocus required>
-                        <div class="ui corner label">
-                            <i class="asterisk icon"></i>
-                        </div>
-                    </div>
+                    <input type="text" ng-model="Name" name="Name" placeholder="Full Name" class="form-control" autofocus required>
                 </div>
             </div>
 
@@ -58,10 +53,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Photo</label>
                 <div class="col-sm-9">
-                    <input class="ui basic button form-control" type="file" name="file"/>
-                    <br />
-                    <label> File Name:{{Image}} </label>
-
+                    <input class="ui basic button form-control" type="file" name="file" />
                 </div>
             </div>
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
 using GSP.WebClient.ViewModels;
