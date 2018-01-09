@@ -45,8 +45,13 @@ body {
     margin-top: 2%;
 }
 
-div .form-group .margin-left-5 {
-    margin-left: 5%;
+.margin-left-2 {
+    margin-left: 2% !important;
+}
+
+
+.margin-left-5 {
+    margin-left: 5% !important;
 }
 
 .margin-right-5 {

@@ -70,11 +70,21 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpPost]
-        public IEnumerable<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
+        public Result<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
-            var gamesFilterParams = GetGamesFilterParams(filterParams);
-            var games = GetGamesByFilterParams(gamesFilterParams, filterParams.OutputMode);
-            return MapperExtenctions.ToGameViewModels(games);
+            int totalCount;
+
+            SetGamesFilterParams(filterParams);
+            var games = GetGamesByFilterParams(filterParams, filterParams.OutputMode, out totalCount);
+            var gamesViewModel = MapperExtenctions.ToGameViewModels(games);
+
+            var result = new Result<GameViewModel>
+            {
+                Collection = gamesViewModel,
+                TotalCount = totalCount
+            };
+
+            return result;
         }
 
         [HttpGet]
@@ -92,7 +102,7 @@ namespace GSP.WebClient.Controllers.Api
             return MapperExtenctions.ToGameViewModels(games);
         }
 
-        private FilterParams<Game> GetGamesFilterParams(GamesFilterParams filterParams)
+        private void SetGamesFilterParams(GamesFilterParams filterParams)
         {
             var predicate = PredicateBuilder.New<Game>(x => !x.IsDeleted);
 
@@ -133,20 +143,16 @@ namespace GSP.WebClient.Controllers.Api
                 predicate = predicate.Extend(x => x.Orders.Any());
             }
 
-            var gameParams = new FilterParams<Game>
-            {
-                Expression = predicate
-            };
-
-            return gameParams;
+            filterParams.Expression = predicate;
         }
 
-        private IEnumerable<Game> GetGamesByFilterParams(FilterParams<Game> filterParams, GamesOutputMode mode)
+        private IEnumerable<Game> GetGamesByFilterParams(FilterParams<Game> filterParams, GamesOutputMode mode, out int totalCount)
         {
+            totalCount = 10;
             switch (mode)
             {
                 case GamesOutputMode.All:
-                    return _gameService.GetGamesByParams(filterParams);
+                    return _gameService.GetGamesByParams(filterParams, out totalCount);
                 case GamesOutputMode.TopSell:
                     return _rateService.GetTopSellGames(filterParams);
                 case GamesOutputMode.TopRate:

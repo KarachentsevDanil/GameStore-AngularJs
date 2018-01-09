@@ -22,7 +22,7 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Customer> GetCustomers()
         {
-            return _dbContext.Customers.AsEnumerable();
+            return _dbContext.Customers.ToList();
         }
     }
 }

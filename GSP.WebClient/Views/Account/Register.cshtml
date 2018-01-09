@@ -30,13 +30,13 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Date of Birth</label>
                 <div class="col-sm-9">
-                    <input type="date" name="DateBirthsday" class="form-control" required>
+                    <input type="text" ng-model="date" name="DateBirthsday" init-datepicker class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Country</label>
                 <div class="col-sm-9">
-                    <select class="form-control ui search dropdown" name="Country" ng-model="account.Country" required>
+                    <select class="form-control ui search dropdown" name="Country" ng-model="account.Country" init-select required>
                             <option ng-repeat="itemCountry in country" value={{itemCountry}}>{{itemCountry}}</option>
                         </select>
                 </div>
@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Language</label>
                 <div class="col-sm-9">
-                    <select ng-model="account.Language" name="Language" class="form-control ui search dropdown" required>
+                    <select ng-model="account.Language" name="Language" class="form-control ui search dropdown" init-select required>
                         <option ng-repeat="itemLanguage in language" value={{itemLanguage}}>{{itemLanguage}}</option>
                     </select>
                 </div>

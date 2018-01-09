@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">Category</label>
                 <div class="col-sm-9">
-                    <select ng-model="categor" class="form-control" name="CategoryId">
+                    <select ng-model="categor" class="form-control" name="CategoryId" init-select>
                         <option ng-repeat="categor in category" value="{{categor.CategoryId}}">
                             {{categor.Name}}
                         </option>

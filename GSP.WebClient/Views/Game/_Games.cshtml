@@ -1,6 +1,6 @@
 ﻿@model bool
 
-<div class="container" ng-controller="gameController" @(Model ? "ng-init=getGame();getCategories();" : $"ng-init=loadCustomerGame('{User.Identity.Name}');getCategories();")>
+<div class="container" ng-controller="gameController" @(Model ? "ng-init=getGames();getCategories();" : $"ng-init=loadCustomerGame('{User.Identity.Name}');getCategories();")>
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-md-3 filter-block">
@@ -10,20 +10,20 @@
                 {
                     <h4>Mode:</h4>
                     <div class="form-group">
-                        <select ng-model="outputMode" name="Language" class="form-control ui search dropdown" ng-click="filterGames()">
+                        <select ng-model="outputMode" name="Language" class="form-control ui search dropdown" ng-click="filterGames()" init-select>
                             <option ng-repeat="item in gamesViewModes" value={{item.value}} selected>{{item.name}}</option>
                         </select>
                     </div>
-                    <hr/>
+                    <hr />
                 }
                 <h4>Categories:</h4>
                 <div class="form-group">
                     <div ng-repeat="categoryObject in category">
-                        <input class="category-value" type="checkbox" data-category-id="{{categoryObject.CategoryId}}" ng-click="filterGames()"/>
+                        <input class="category-value" type="checkbox" data-category-id="{{categoryObject.CategoryId}}" ng-click="filterGames()" />
                         <label>{{categoryObject.Name}}</label>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <h4>Title:</h4>
                 <div class="form-group">
                     <div class="ui icon input">
@@ -38,6 +38,10 @@
             </div>
         </div>
         <div class="col-md-9">
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" items-per-page="itemsPerPage" ng-click="filterGames();" first-text="First Page"
+                last-text="Last Page"
+                next-text="Next Page"
+                previous-text="Previous Page"></ul>
 
             <div class="form-group">
                 <div class="ui four column grid">
@@ -83,6 +87,11 @@
 
                 </div>
             </div>
+
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" items-per-page="itemsPerPage" ng-click="filterGames();" first-text="First Page"
+                last-text="Last Page"
+                next-text="Next Page"
+                previous-text="Previous Page"></ul>
         </div>
     </div>
 

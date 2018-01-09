@@ -1,6 +1,9 @@
-﻿namespace GSP.WebClient.ViewModels
+﻿using GSP.Domain.Games;
+using GSP.Domain.Params;
+
+namespace GSP.WebClient.ViewModels
 {
-    public class GamesFilterParams
+    public class GamesFilterParams : FilterParams<Game>
     {
         public int[] CategoriesIds { get; set; }
 

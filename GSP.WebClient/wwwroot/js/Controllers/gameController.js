@@ -8,6 +8,9 @@
     function gameController($q, $scope, gameService, categoryService, alertService) {
         $scope.StartPrice = 0;
         $scope.EndPrice = 100;
+        $scope.itemsPerPage = 12;
+        $scope.currentPage = 1;
+        $scope.totalItems = 0;
 
         //Slider config
         $scope.SliderSettings = {
@@ -20,9 +23,9 @@
             }
         };
 
-        $scope.setSliderSettings = function() {
-            var minPrice = _.min($scope.Games, function(game) { return game.Price; }).Price;
-            var maxPrice = _.max($scope.Games, function(game) { return game.Price; }).Price;
+        $scope.setSliderSettings = function () {
+            var minPrice = _.min($scope.Games, function (game) { return game.Price; }).Price;
+            var maxPrice = _.max($scope.Games, function (game) { return game.Price; }).Price;
 
             $scope.StartPrice = minPrice;
             $scope.EndPrice = maxPrice;
@@ -64,13 +67,13 @@
                 });
         };
 
-        $scope.loadCustomerGame = function(customer) {
+        $scope.loadCustomerGame = function (customer) {
             $scope.customer = customer;
             var params = $scope.getFilterParams();
             $scope.getGamesByParams(params, true);
         };
 
-        $scope.getFilterParams = function() {
+        $scope.getFilterParams = function () {
             var categoryIds = new Array();
             var checkedCategories = $('.category-value:checked');
 
@@ -84,7 +87,9 @@
                 StartPrice: $scope.StartPrice,
                 EndPrice: $scope.EndPrice,
                 Customer: $scope.customer,
-                OutputMode: $scope.outputMode
+                OutputMode: $scope.outputMode,
+                PageNumber: $scope.currentPage,
+                PageSize: $scope.itemsPerPage
             };
 
             return params;
@@ -95,27 +100,23 @@
             $scope.getGamesByParams(params);
         };
 
-        $scope.getGamesByParams = function(params, setSliderSettings) {
+        $scope.getGamesByParams = function (params, setSliderSettings) {
             gameService.getGameByParams(params)
-                .success(function(games) {
-                    $scope.Games = games;
+                .success(function (result) {
+                    $scope.Games = result.Collection;
+                    $scope.totalItems = result.TotalCount;
 
                     if (setSliderSettings) {
                         $scope.setSliderSettings();
                     }
-                }).error(function() {
+                }).error(function () {
                     alertService.showError("Error occure when getting games.");
                 });
         };
 
-        $scope.getGame = function () {
-            gameService.getGame()
-                .success(function (games) {
-                    $scope.Games = games;
-                    $scope.setSliderSettings();
-                }).error(function () {
-                    alertService.showError("Error occure when getting games.");
-                });
+        $scope.getGames = function () {
+            var params = $scope.getFilterParams();
+            $scope.getGamesByParams(params, true);
         };
 
         var editGamePromise = function (gameRequest) {

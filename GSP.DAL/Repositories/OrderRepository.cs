@@ -29,14 +29,18 @@ namespace GSP.DAL.Repositories
                 .Where(expression.Compile()).AsEnumerable();
         }
 
-        public IEnumerable<Order> GetItemsByParams(FilterParams<Order> filterParams)
+        public IEnumerable<Order> GetItemsByParams(FilterParams<Order> filterParams, out int totalCount)
         {
-            return _dbContext.Orders
+            var query = _dbContext.Orders
                 .Include(x => x.Customer)
                 .Include(x => x.Games)
                 .ThenInclude(x => x.Game)
                 .ThenInclude(x => x.Category)
-                .Where(filterParams.Expression.Compile())
+                .Where(filterParams.Expression.Compile()).AsQueryable();
+
+            totalCount = query.Count();
+
+            return query
                 .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
                 .Take(filterParams.PageSize)
                 .OrderByDescending(x => x.OrderId)

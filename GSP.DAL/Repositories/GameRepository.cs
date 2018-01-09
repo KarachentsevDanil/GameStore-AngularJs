@@ -23,39 +23,48 @@ namespace GSP.DAL.Repositories
         {
             return _dbContext.Games
                 .Include(x => x.Category)
-                .Where(expression.Compile()).AsEnumerable();
+                .Where(expression.Compile()).ToList();
         }
 
-        public IEnumerable<Game> GetItemsByParams(FilterParams<Game> filterParams)
+        public IEnumerable<Game> GetItemsByParams(FilterParams<Game> filterParams, out int totalCount)
         {
-            return _dbContext.Games
+            var query = _dbContext.Games
                 .Include(x => x.Category)
                 .Where(filterParams.Expression.Compile())
-                .Take(filterParams.PageSize)
-                .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
                 .OrderBy(x => x.Name)
-                .AsEnumerable();
+                .AsQueryable();
+
+            totalCount = query.Count();
+
+            var result = query
+                    .Skip(filterParams.PageSize * (filterParams.PageNumber - 1))
+                    .Take(filterParams.PageSize == 0 ? int.MaxValue : filterParams.PageSize)
+                    .AsNoTracking()
+                    .ToList();
+
+            return result;
         }
 
         public IEnumerable<Game> GetGames()
         {
             return _dbContext.Games
-                .Include(x=> x.Category)
-                .AsEnumerable();
+                .Include(x => x.Category)
+                .ToList();
         }
 
         public IEnumerable<Game> GetGamesByCategory(int categoryId)
         {
             return _dbContext.Games.Where(x => x.CategoryId == categoryId)
-                .Include(x=> x.Category)
-                .AsEnumerable();
+                .Include(x => x.Category)
+                .ToList();
         }
 
         public IEnumerable<Game> GetGamesByTerm(string term)
         {
             return _dbContext.Games
-                .Include(x=> x.Category)
-                .Where(x => x.Name.ToLower().Contains(term.ToLower()) || x.Category.Name.Contains(term.ToLower())).AsEnumerable();
+                .Include(x => x.Category)
+                .Where(x => x.Name.ToLower().Contains(term.ToLower()) || x.Category.Name.Contains(term.ToLower()))
+                .ToList();
         }
     }
 }

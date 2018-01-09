@@ -9,6 +9,6 @@ namespace GSP.DAL.Repositories.Contracts
     {
         IEnumerable<T> GetItems(Expression<Func<T, bool>> expression);
 
-        IEnumerable<T> GetItemsByParams(FilterParams<T> filterParams);
+        IEnumerable<T> GetItemsByParams(FilterParams<T> filterParams, out int totalCount);
     }
 }

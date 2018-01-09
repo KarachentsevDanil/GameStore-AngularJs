@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GSP.Domain.Orders;
 
 namespace GSP.WebClient.ViewModels
 {

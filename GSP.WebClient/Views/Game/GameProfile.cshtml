@@ -8,19 +8,16 @@
     </environment>
 }
 
-<div ng-controller="rateController" ng-init="getGameById(@Model.GameId);getRecomendationToGame(@Model.GameId);" class="row ng-cloak margin-top-5">
+<div ng-controller="rateController" ng-init="getGameById(@Model.GameId);getRecomendationToGame(@Model.GameId);" class="row ng-cloak margin-top-2">
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-lg-3 margin-left-5 margin-right-5">
-            <div class="ui card" style="margin-bottom:10%;">
+            <div class="ui card">
                 <div class="content">
-                    <div class="right floated meta">
-                        <div class="ui huge star rating" data-rating="4"></div>
-                    </div>
-                    <img class="ui avatar image" ng-src="{{CurrentGame.Photo}}" /> {{CurrentGame.Name}}
+                    <img class="ui avatar image" ng-src="{{CurrentGame.PhotoData}}" /> {{CurrentGame.Name}}
                 </div>
                 <div class="image">
-                    <img ng-src="{{CurrentGame.Photo}}" />
+                    <img ng-src="{{CurrentGame.PhotoData}}" />
                 </div>
                 <div class="content">
                     <span class="right floated">
@@ -32,9 +29,12 @@
                 </div>
                 <div class="description margin-left-5 margin-right-5">
                     <p>
-                        {{CurrentGame.Description}}
+                        <span class="margin-left-2">
+                            {{CurrentGame.Description}}
+                        </span>
+
                         <div class="pull-right">
-                            <div class="ui tag labels" style="display:inline-block;">
+                            <div class="ui tag labels" style="display: inline-block;">
                                 <a class="ui label">
                                     ${{CurrentGame.Price}}
                                 </a>
@@ -57,7 +57,7 @@
                 <div class="field">
                     <p>
                         <strong>
-                            Leave you feedback
+                            Leave your feedback
                         </strong>
                     </p>
                     <textarea ng-model="feed.feedContent"></textarea>
@@ -83,13 +83,13 @@
                         <div class="summary">
                             <a>{{item.Customer}}</a> posted feedback on our page
                             <div class="date">
-                                17.08.14
+                                {{item.CreatedOn}}
                             </div>
                         </div>
                         <div class="extra text">
                             {{item.Comment}}
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -97,22 +97,22 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top:5%;">
+    <div class="row margin-top-5">
         <div class="col-lg-12">
-            <div class="row" style="margin-bottom:5%;">
-                <h2 class="ui header" style="text-align:center;">
+            <div class="row margin-bottom-2">
+                <h2 class="ui header center-align">
                     You also can buy this game
                 </h2>
 
-                <div class="ui five column grid" style="margin-top:0.5%;">
+                <div class="ui five column grid margin-top-1">
 
                     <div class="column" ng-repeat="recomendGames in RecomendGames">
                         <div class="ui fluid card">
                             <div class="image">
-                                <img ng-src="{{recomendGames.Photo}}" alt="{{recomendGames.Photo}}">
+                                <img ng-src="{{recomendGames.PhotoData}}" alt="{{recomendGames.PhotoData}}">
                             </div>
                             <div class="content">
-                                <div class="header" style="margin-bottom:1%;">{{recomendGames.Name}}</div>
+                                <div class="header margin-bottom-2">{{recomendGames.Name}}</div>
                                 <div class="description">
                                     <p class="descriptionGame">{{recomendGames.Description}}</p>
                                     <div style="margin-left:65%;">
@@ -144,20 +144,3 @@
     </div>
 
 </div>
-
-
-<script>
-    $('.ui.rating')
-    .rating({
-        maxRating: 5
-    })
-    ;
-    function SetMark(value) {
-        $(this)
-  .rating({
-      initialRating: value,
-      maxRating: 5
-  })
-        ;
-    }
-</script>

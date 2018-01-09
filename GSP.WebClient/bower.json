@@ -12,7 +12,10 @@
     "semantic": "2.2.13",
     "angularjs-slider": "6.4.3",
     "ui-bootstrap": "v1.1.0",
-    "underscore": "1.8.3"
+    "underscore": "1.8.3",
+    "select2": "4.0.5",
+    "bootstrap-datepicker": "v1.7.1",
+    "angular-bootstrap": "2.5.0"
   },
   "resolutions": {
     "angular": "1.5.7",

@@ -42,9 +42,9 @@ namespace GSP.BLL.Services
             return _unitOfWork.GameRepository.GetGames();
         }
 
-        public IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams)
+        public IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams, out int totalCount)
         {
-            return _unitOfWork.GameRepository.GetItemsByParams(gameParams);
+            return _unitOfWork.GameRepository.GetItemsByParams(gameParams, out totalCount);
         }
 
         public Game GetGameById(int gameId)
