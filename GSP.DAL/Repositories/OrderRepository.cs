@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using GSP.DAL.Context;
 using GSP.DAL.Repositories.Contracts;
 using GSP.Domain.Orders;
@@ -18,18 +16,8 @@ namespace GSP.DAL.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public IEnumerable<Order> GetItems(Expression<Func<Order, bool>> expression)
-        {
-            return _dbContext.Orders
-                .Include(x => x.Customer)
-                .Include(x => x.Games)
-                .ThenInclude(x => x.Game)
-                .ThenInclude(x => x.Category)
-                .Where(expression.Compile()).AsEnumerable();
-        }
-
-        public IEnumerable<Order> GetItemsByParams(FilterParams<Order> filterParams, out int totalCount)
+        
+        public IEnumerable<Order> GetOrdersByParams(FilterParams<Order> filterParams, out int totalCount)
         {
             var query = _dbContext.Orders
                 .Include(x => x.Customer)

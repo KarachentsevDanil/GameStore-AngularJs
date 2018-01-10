@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GSP.BLL.Services.Contracts;
-using GSP.Domain.Games;
+using GSP.BLL.Services.Contracts;   
 using GSP.Domain.Orders;
 using GSP.WebClient.Infrastracture.Extenctions;
 using GSP.WebClient.ViewModels;
@@ -57,12 +56,6 @@ namespace GSP.WebClient.Controllers.Api
             var game = order.Games.First(x => x.GameId == orderGame.GameId);
 
             _orderService.DeleteGameFromBucket(game);
-        }
-
-        [HttpPost]
-        public void DeleteGameFromOrder([FromBody] OrderGame order)
-        {
-
         }
 
         [HttpPost]

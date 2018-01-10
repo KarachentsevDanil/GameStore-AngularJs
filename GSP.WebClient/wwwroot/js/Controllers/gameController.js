@@ -7,33 +7,21 @@
 
     function gameController($q, $scope, gameService, categoryService, alertService) {
         $scope.StartPrice = 0;
-        $scope.EndPrice = 100;
+        $scope.EndPrice = 250;
         $scope.itemsPerPage = 12;
+        $scope.maxSize = 5;
         $scope.currentPage = 1;
         $scope.totalItems = 0;
 
         //Slider config
         $scope.SliderSettings = {
             minValue: 0,
-            maxValue: 100,
+            maxValue: 250,
             options: {
                 floor: 0,
-                ceil: 100,
+                ceil: 250,
                 step: 5
             }
-        };
-
-        $scope.setSliderSettings = function () {
-            var minPrice = _.min($scope.Games, function (game) { return game.Price; }).Price;
-            var maxPrice = _.max($scope.Games, function (game) { return game.Price; }).Price;
-
-            $scope.StartPrice = minPrice;
-            $scope.EndPrice = maxPrice;
-
-            $scope.SliderSettings.minValue = minPrice;
-            $scope.SliderSettings.maxValue = maxPrice;
-            $scope.SliderSettings.options.floor = minPrice;
-            $scope.SliderSettings.options.ceil = maxPrice;
         };
 
         $scope.gamesViewModes = [{ name: "All games", value: 0 }, { name: "Top sell games", value: 1 }, { name: "Top rate games", value: 2 }];
@@ -58,19 +46,10 @@
             $scope.EditGameId = game.GameId;
         };
 
-        $scope.getGameByName = function (data) {
-            gameService.getGameByName(data)
-                .success(function (games) {
-                    $scope.Games = games;
-                }).error(function myfunction() {
-                    alertService.showError("Input is empty.");
-                });
-        };
-
         $scope.loadCustomerGame = function (customer) {
             $scope.customer = customer;
             var params = $scope.getFilterParams();
-            $scope.getGamesByParams(params, true);
+            $scope.getGamesByParams(params);
         };
 
         $scope.getFilterParams = function () {
@@ -100,15 +79,11 @@
             $scope.getGamesByParams(params);
         };
 
-        $scope.getGamesByParams = function (params, setSliderSettings) {
+        $scope.getGamesByParams = function (params) {
             gameService.getGameByParams(params)
                 .success(function (result) {
                     $scope.Games = result.Collection;
                     $scope.totalItems = result.TotalCount;
-
-                    if (setSliderSettings) {
-                        $scope.setSliderSettings();
-                    }
                 }).error(function () {
                     alertService.showError("Error occure when getting games.");
                 });
@@ -116,7 +91,7 @@
 
         $scope.getGames = function () {
             var params = $scope.getFilterParams();
-            $scope.getGamesByParams(params, true);
+            $scope.getGamesByParams(params);
         };
 
         var editGamePromise = function (gameRequest) {

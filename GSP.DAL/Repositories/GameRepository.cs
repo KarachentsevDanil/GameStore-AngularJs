@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using GSP.DAL.Context;
 using GSP.DAL.Repositories.Contracts;
 using GSP.Domain.Games;
@@ -18,15 +16,8 @@ namespace GSP.DAL.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public IEnumerable<Game> GetItems(Expression<Func<Game, bool>> expression)
-        {
-            return _dbContext.Games
-                .Include(x => x.Category)
-                .Where(expression.Compile()).ToList();
-        }
-
-        public IEnumerable<Game> GetItemsByParams(FilterParams<Game> filterParams, out int totalCount)
+        
+        public IEnumerable<Game> GetGamesByParams(FilterParams<Game> filterParams, out int totalCount)
         {
             var query = _dbContext.Games
                 .Include(x => x.Category)
@@ -49,21 +40,6 @@ namespace GSP.DAL.Repositories
         {
             return _dbContext.Games
                 .Include(x => x.Category)
-                .ToList();
-        }
-
-        public IEnumerable<Game> GetGamesByCategory(int categoryId)
-        {
-            return _dbContext.Games.Where(x => x.CategoryId == categoryId)
-                .Include(x => x.Category)
-                .ToList();
-        }
-
-        public IEnumerable<Game> GetGamesByTerm(string term)
-        {
-            return _dbContext.Games
-                .Include(x => x.Category)
-                .Where(x => x.Name.ToLower().Contains(term.ToLower()) || x.Category.Name.Contains(term.ToLower()))
                 .ToList();
         }
     }

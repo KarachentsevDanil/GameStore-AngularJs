@@ -1,10 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
+using GSP.WebClient.Infrastracture.Extenctions;
 using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GSP.WebClient.Controllers
 {
@@ -46,7 +50,7 @@ namespace GSP.WebClient.Controllers
         [HttpGet]
         public IActionResult GameProfile(int gameId)
         {
-            var game = new GameViewModel { GameId = gameId };
+            var game = new GameViewModel { GameId = gameId, Ratings = EnumExnections.ConvertEnumValuesToDictionary<Rating>()};
             return View(game);
         }
 

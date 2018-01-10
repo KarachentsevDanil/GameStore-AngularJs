@@ -29,17 +29,21 @@
                 </div>
                 <div class="description margin-left-5 margin-right-5">
                     <p>
-                        <span class="margin-left-2">
-                            {{CurrentGame.Description}}
-                        </span>
+                    <p class="margin-left-2">
+                        Category: {{CurrentGame.CategoryName}}
+                    </p>
 
-                        <div class="pull-right">
-                            <div class="ui tag labels" style="display: inline-block;">
-                                <a class="ui label">
-                                    ${{CurrentGame.Price}}
-                                </a>
-                            </div>
+                    <p class="margin-left-2">
+                        Description: {{CurrentGame.Description}}
+                    </p>
+
+                    <div class="pull-right">
+                        <div class="ui tag labels" style="display: inline-block;">
+                            <a class="ui label">
+                                ${{CurrentGame.Price}}
+                            </a>
                         </div>
+                    </div>
                     </p>
                 </div>
                 <div class="ui two bottom attached buttons">
@@ -63,12 +67,17 @@
                     <textarea ng-model="feed.feedContent"></textarea>
                     <p>
                         <strong>Put mark</strong>
-                        <input type="number" ng-model="feed.rating" class="form-control" min="1" max="5" />
+                        <select ng-model="feed.rating" init-select>
+                            @foreach (var item in Model.Ratings)
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        </select>
                     </p>
                 </div>
                 <button class="ui primary submit labeled icon button"
                         ng-click="createFeed(CurrentGame.GameId,'@User.Identity.Name')">
-                    <i class="icon edit"></i> Add Reply
+                    <i class="icon edit"></i> Add Comment
                 </button>
             </form>
         </div>
@@ -77,17 +86,20 @@
             <div class="ui feed">
                 <div class="event" ng-repeat="item in Feeds" style="margin-bottom:2%;">
                     <div class="ui avatar image">
-                        <img src="~/images/battlefield.GIF" />
+                        <img ng-src="{{CurrentGame.PhotoData}}" alt="icon" />
                     </div>
                     <div class="content">
                         <div class="summary">
-                            <a>{{item.Customer}}</a> posted feedback on our page
+                            <span>{{item.Customer}}</span>
                             <div class="date">
                                 {{item.CreatedOn}}
                             </div>
                         </div>
                         <div class="extra text">
-                            {{item.Comment}}
+                            Rating: {{item.DisplayRating}}
+                        </div>
+                        <div class="extra text">
+                            Comment: {{item.Comment}}
                         </div>
 
                     </div>

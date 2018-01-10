@@ -56,7 +56,7 @@ namespace GSP.BLL.Services
         public IEnumerable<Game> GetCustomerGames(int customerId)
         {
             return _unitOfWork.GameRepository
-                .GetItems(x => x.Orders.Any(p => p.Order.CustomerId == customerId))
+                .GetAll().Where(x => x.Orders.Any(p => p.Order.CustomerId == customerId))
                 .AsEnumerable();
         }
 

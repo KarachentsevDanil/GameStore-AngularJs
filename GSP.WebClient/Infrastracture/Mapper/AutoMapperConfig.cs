@@ -7,6 +7,7 @@
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<GameAutoMapperProfile>();
+                cfg.AddProfile<RateAutoMapperConfig>();
                 cfg.AddProfile<OrderAutoMapperProfile>();
             });
 

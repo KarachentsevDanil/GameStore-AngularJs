@@ -29,7 +29,7 @@
                 Customer: customer,
                 GameId: gameId,
                 Comment: $scope.feed.feedContent,
-                CustomerRate: $scope.feed.rating
+                Rating: $scope.feed.rating
             };
 
             $scope.createFeedPromise = createCreateFeedPromise(rateRequest);

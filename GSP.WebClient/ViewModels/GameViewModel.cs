@@ -1,4 +1,6 @@
-﻿namespace GSP.WebClient.ViewModels
+﻿using System.Collections.Generic;
+
+namespace GSP.WebClient.ViewModels
 {
     public class GameViewModel
     {
@@ -13,5 +15,7 @@
         public float Price { get; set; }
         
         public string PhotoData { get; set; }
+
+        public Dictionary<int, string> Ratings { get; set; }
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
+using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.WebClient.Controllers.Api
@@ -11,23 +14,37 @@ namespace GSP.WebClient.Controllers.Api
         private readonly IRateService _rateService;
         private readonly IGameService _gameService;
         private readonly IOrderService _orderService;
-
-        public RateController(IRateService rateService, IGameService gameService, IOrderService orderService)
+        private readonly ICustomerService _customerService;
+        public RateController(IRateService rateService, IGameService gameService, IOrderService orderService, ICustomerService customerService)
         {
             _rateService = rateService;
             _gameService = gameService;
             _orderService = orderService;
+            _customerService = customerService;
         }
 
         [HttpGet]
-        public IEnumerable<Rate> GetGameRates(int gameId)
+        public IEnumerable<RateViewModel> GetGameRates(int gameId)
         {
-            return _rateService.GetRatesOfGame(gameId);
+            var rates =_rateService.GetRatesOfGame(gameId);
+            var ratesViewModel = Mapper.Map<IEnumerable<Rate>, IEnumerable<RateViewModel>>(rates);
+            return ratesViewModel;
         }
         
         [HttpPost]
-        public void CreateFeed([FromBody] Rate rate)
+        public void CreateFeed([FromBody] RateViewModel rateViewModel)
         {
+            var customer = _customerService.GetCustomerByTerm(rateViewModel.Customer);
+
+            var rate = new Rate
+            {
+                Comment = rateViewModel.Comment,
+                GameId = rateViewModel.GameId,
+                CustomerId = customer.CustomerId,
+                Rating = rateViewModel.Rating,
+                CreatedOn = DateTime.Now
+            };
+
             _rateService.AddFeedbackToGame(rate);
         }
 

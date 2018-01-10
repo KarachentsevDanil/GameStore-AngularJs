@@ -19,7 +19,10 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Rate> GetRatesOfGame(int gameId)
         {
-            return _dbContext.Rates.Where(x => x.GameId == gameId).AsEnumerable();
+            return _dbContext.Rates
+                .Include(t=> t.Customer)
+                .Where(x => x.GameId == gameId)
+                .ToList();
         }
 
         public IEnumerable<Game> GetTopRateGames(FilterParams<Game> filterParams)

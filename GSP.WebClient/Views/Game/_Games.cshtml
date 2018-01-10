@@ -4,7 +4,7 @@
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-md-3 filter-block">
-            <h3 class="margin-top-2">Filters:</h3>
+            <h3 class="margin-top-2">Filters: <button class="btn btn-xs btn-danger pull-right">Clear Filter</button></h3>
             <div class="form-group">
                 @if (Model)
                 {
@@ -38,10 +38,8 @@
             </div>
         </div>
         <div class="col-md-9">
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" items-per-page="itemsPerPage" ng-click="filterGames();" first-text="First Page"
-                last-text="Last Page"
-                next-text="Next Page"
-                previous-text="Previous Page"></ul>
+
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
 
             <div class="form-group">
                 <div class="ui four column grid">
@@ -88,10 +86,8 @@
                 </div>
             </div>
 
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-md" boundary-links="true" items-per-page="itemsPerPage" ng-click="filterGames();" first-text="First Page"
-                last-text="Last Page"
-                next-text="Next Page"
-                previous-text="Previous Page"></ul>
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+
         </div>
     </div>
 

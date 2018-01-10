@@ -15,18 +15,15 @@ namespace GSP.WebClient.Controllers.Api
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
-        private readonly ICategoryService _categoryService;
         private readonly ICustomerService _customerService;
         private readonly IRateService _rateService;
 
         public GameController(
             IGameService gameService,
-            ICategoryService categoryService,
             ICustomerService customerService,
             IRateService rateService)
         {
             _gameService = gameService;
-            _categoryService = categoryService;
             _customerService = customerService;
             _rateService = rateService;
         }
@@ -72,10 +69,8 @@ namespace GSP.WebClient.Controllers.Api
         [HttpPost]
         public Result<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
-            int totalCount;
-
             SetGamesFilterParams(filterParams);
-            var games = GetGamesByFilterParams(filterParams, filterParams.OutputMode, out totalCount);
+            var games = GetGamesByFilterParams(filterParams, filterParams.OutputMode, out var totalCount);
             var gamesViewModel = MapperExtenctions.ToGameViewModels(games);
 
             var result = new Result<GameViewModel>
@@ -86,22 +81,7 @@ namespace GSP.WebClient.Controllers.Api
 
             return result;
         }
-
-        [HttpGet]
-        public IEnumerable<GameViewModel> GetGamesByName(string name)
-        {
-            var games = _gameService.GetGamesByTerm(name ?? string.Empty);
-            return MapperExtenctions.ToGameViewModels(games);
-        }
-
-        [HttpGet]
-        public IEnumerable<GameViewModel> GetGamesByCategory(string category)
-        {
-            var categoryId = _categoryService.GetCategoryByName(category).CategoryId;
-            var games = _gameService.GetGamesByCategory(categoryId);
-            return MapperExtenctions.ToGameViewModels(games);
-        }
-
+        
         private void SetGamesFilterParams(GamesFilterParams filterParams)
         {
             var predicate = PredicateBuilder.New<Game>(x => !x.IsDeleted);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -27,16 +28,6 @@ namespace GSP.BLL.Services
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<Game> GetGamesByCategory(int categoryId)
-        {
-            return _unitOfWork.GameRepository.GetGamesByCategory(categoryId);
-        }
-
-        public IEnumerable<Game> GetGamesByTerm(string term)
-        {
-            return _unitOfWork.GameRepository.GetGamesByTerm(term);
-        }
-
         public IEnumerable<Game> GetGames()
         {
             return _unitOfWork.GameRepository.GetGames();
@@ -44,12 +35,12 @@ namespace GSP.BLL.Services
 
         public IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams, out int totalCount)
         {
-            return _unitOfWork.GameRepository.GetItemsByParams(gameParams, out totalCount);
+            return _unitOfWork.GameRepository.GetGamesByParams(gameParams, out totalCount);
         }
 
         public Game GetGameById(int gameId)
         {
-            return _unitOfWork.GameRepository.GetById(gameId);
+            return _unitOfWork.GameRepository.GetGames().FirstOrDefault(x=> x.GameId == gameId);
         }
 
         public void DeleteGame(int gameId)
