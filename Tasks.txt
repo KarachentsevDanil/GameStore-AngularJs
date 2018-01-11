@@ -1,8 +1,3 @@
-- Add select2 plugin.
-- Add bootstrap-datepicker plugin.
-- Create directives for this lib.
-- Add pagination.
-- Fix details page only to games.
-- Fix comments.
 - Fix games mode selection.
 - Add apriority algorithm, refactor code.
+- Add ability to add category
