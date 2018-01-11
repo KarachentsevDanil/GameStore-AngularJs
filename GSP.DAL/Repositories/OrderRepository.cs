@@ -42,7 +42,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Games)
                 .ThenInclude(x => x.Game)
                 .ThenInclude(x => x.Category)
-                .Where(x => x.Games.Any())
+                .Where(x => x.Games.Any() && x.Status == OrderStatus.Complete)
                 .AsEnumerable();
         }
 

@@ -8,6 +8,6 @@ namespace GSP.DAL.Repositories.Contracts
     {
         IEnumerable<Game> GetGames();
 
-        IEnumerable<Game> GetGamesByParams(FilterParams<Game> filterParams, out int totalCount);
+        IEnumerable<Game> GetGamesByParams(GamesFilterParams filterParams, out int totalCount);
     }
 }

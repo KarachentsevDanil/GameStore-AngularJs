@@ -12,7 +12,7 @@ namespace GSP.BLL.Services.Contracts
 
         IEnumerable<Game> GetGames();
 
-        IEnumerable<Game> GetGamesByParams(FilterParams<Game> gameParams, out int totalCount);
+        IEnumerable<Game> GetGamesByParams(GamesFilterParams gameParams, out int totalCount);
 
         Game GetGameById(int gameId);
 

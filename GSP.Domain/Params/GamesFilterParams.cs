@@ -1,7 +1,6 @@
 ﻿using GSP.Domain.Games;
-using GSP.Domain.Params;
 
-namespace GSP.WebClient.ViewModels
+namespace GSP.Domain.Params
 {
     public class GamesFilterParams : FilterParams<Game>
     {
@@ -14,6 +13,8 @@ namespace GSP.WebClient.ViewModels
         public int? EndPrice { get; set; }
 
         public string Customer { get; set; }
+
+        public int? CustomerId { get; set; }
 
         public GamesOutputMode OutputMode { get; set; }
     }

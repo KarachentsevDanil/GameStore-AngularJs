@@ -20,8 +20,7 @@
 
 </head>
 <body>
-
-    <div class="ui top fixed menu">
+    <div class="ui top fixed menu ng-cloak" @(User.IsInRole(Role.User.ToString()) ? $"ng-controller=orderController ng-init=getGamesFromBucket('{User.Identity.Name}');" : string.Empty)>
         <div class="item">
             <img src="~/images/icon.png" />
         </div>
@@ -33,13 +32,16 @@
         }
         else
         {
-            if (User.IsInRole(Role.User.ToString()))
-            {
-                <a class="item" asp-controller="Game" asp-action="ShowGame">Game</a>
-                <a class="item" asp-controller="Order" asp-action="Bucket">Bucket</a>
-                <a class="item" asp-controller="Order" asp-action="Order">Show My Order</a>
-                <a class="item" asp-controller="Game" asp-action="OwnGameList">Own Game List</a>
-            }
+            <a class="item" asp-controller="Game" asp-action="ShowGame">Game</a>
+            <a class="item" asp-controller="Order" asp-action="Bucket">
+                Bucket
+                @if (User.IsInRole(Role.User.ToString()))
+                {
+                    <span ng-show="CommonItem > 0" class="margin-left-2 badge label-success">{{CommonItem}}</span>
+                }
+            </a>
+            <a class="item" asp-controller="Order" asp-action="Order">Show My Order</a>
+            <a class="item" asp-controller="Game" asp-action="OwnGameList">Own Game List</a>
         }
         <div class="right menu">
 
@@ -52,7 +54,7 @@
                 }
                 else
                 {
-                    <a class="ui primary button" asp-controller="Account" asp-action="Login">LogIn</a>
+                    <a class="ui primary button" asp-controller="Account" asp-action="Login">Login</a>
                 }
             </div>
         </div>
@@ -76,8 +78,8 @@
         <script src="~/lib/semantic/dist/components/sidebar.js"></script>
         <script src="~/lib/semantic/dist/components/transition.js"></script>
         <script src="~/lib/semantic/dist/components/checkbox.js"></script>
-        
-        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"> </script>
+
+        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
         <script src="~/lib/select-2/js/select2.full.js"></script>
 
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -87,6 +89,8 @@
         <script src="~/js/Services/AlertService.js"></script>
         <script src="~/js/Directives/datepickerDirective.js"></script>
         <script src="~/js/Directives/selectDirective.js"></script>
+        <script src="~/js/Services/orderService.js"></script>
+        <script src="~/js/Controllers/orderController.js"></script>
     </environment>
 
     @RenderSection("scripts", required: false)

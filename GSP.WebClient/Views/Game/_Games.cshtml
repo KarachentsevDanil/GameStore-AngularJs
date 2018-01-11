@@ -10,7 +10,7 @@
                 {
                     <h4>Mode:</h4>
                     <div class="form-group">
-                        <select ng-model="outputMode" name="Language" class="form-control ui search dropdown" ng-click="filterGames()" init-select>
+                        <select ng-model="outputMode" name="Language" class="fluid ui search dropdown" ng-click="filterGames()" init-select>
                             <option ng-repeat="item in gamesViewModes" value={{item.value}} selected>{{item.name}}</option>
                         </select>
                     </div>
@@ -26,8 +26,8 @@
                 <hr />
                 <h4>Title:</h4>
                 <div class="form-group">
-                    <div class="ui icon input">
-                        <input class="filter-input-width" type="text" placeholder="Search..." ng-model="searchValue" ng-change="filterGames()">
+                    <div class="ui icon input fluid">
+                        <input type="text" placeholder="Search..." ng-model="searchValue" ng-change="filterGames()">
                         <i class="circular search link icon"></i>
                     </div>
                 </div>

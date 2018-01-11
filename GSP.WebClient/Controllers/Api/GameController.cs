@@ -69,8 +69,8 @@ namespace GSP.WebClient.Controllers.Api
         [HttpPost]
         public Result<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
-            SetGamesFilterParams(filterParams);
-            var games = GetGamesByFilterParams(filterParams, filterParams.OutputMode, out var totalCount);
+            SetAdditionalParams(filterParams);
+            var games = _gameService.GetGamesByParams(filterParams, out var totalCount);
             var gamesViewModel = MapperExtenctions.ToGameViewModels(games);
 
             var result = new Result<GameViewModel>
@@ -81,64 +81,13 @@ namespace GSP.WebClient.Controllers.Api
 
             return result;
         }
-        
-        private void SetGamesFilterParams(GamesFilterParams filterParams)
+
+        private void SetAdditionalParams(GamesFilterParams @params)
         {
-            var predicate = PredicateBuilder.New<Game>(x => !x.IsDeleted);
-
-            if (filterParams.CategoriesIds != null && filterParams.CategoriesIds.Any())
+            if (!string.IsNullOrEmpty(@params.Customer))
             {
-                predicate = predicate.Extend(p => filterParams.CategoriesIds.Contains(p.CategoryId), PredicateOperator.And);
-            }
-            ;
-            if (!string.IsNullOrEmpty(filterParams.Term))
-            {
-                predicate = predicate.Extend(x => x.Name.ToLower().Contains(filterParams.Term.ToLower()), PredicateOperator.And);
-            }
-
-            if (filterParams.StartPrice.HasValue && filterParams.EndPrice.HasValue)
-            {
-                predicate = predicate.Extend(x => filterParams.StartPrice <= x.Price && filterParams.EndPrice >= x.Price, PredicateOperator.And);
-            }
-
-            if (!string.IsNullOrEmpty(filterParams.Customer))
-            {
-                var customer = _customerService.GetCustomerByTerm(filterParams.Customer);
-                predicate = predicate.Extend(x => x.Orders.Any(o => o.Order.CustomerId == customer.CustomerId));
-            }
-
-            if (!string.IsNullOrEmpty(filterParams.Customer))
-            {
-                var customer = _customerService.GetCustomerByTerm(filterParams.Customer);
-                predicate = predicate.Extend(x => x.Orders.Any(o => o.Order.CustomerId == customer.CustomerId));
-            }
-
-            if (filterParams.OutputMode == GamesOutputMode.TopRate)
-            {
-                predicate = predicate.Extend(x => x.Rates.Any());
-            }
-
-            if (filterParams.OutputMode == GamesOutputMode.TopSell)
-            {
-                predicate = predicate.Extend(x => x.Orders.Any());
-            }
-
-            filterParams.Expression = predicate;
-        }
-
-        private IEnumerable<Game> GetGamesByFilterParams(FilterParams<Game> filterParams, GamesOutputMode mode, out int totalCount)
-        {
-            totalCount = 10;
-            switch (mode)
-            {
-                case GamesOutputMode.All:
-                    return _gameService.GetGamesByParams(filterParams, out totalCount);
-                case GamesOutputMode.TopSell:
-                    return _rateService.GetTopSellGames(filterParams);
-                case GamesOutputMode.TopRate:
-                    return _rateService.GetTopRateGames(filterParams);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, "Wrong option was sent.");
+                var customer = _customerService.GetCustomerByTerm(@params.Customer);
+                @params.CustomerId = customer.CustomerId;
             }
         }
     }

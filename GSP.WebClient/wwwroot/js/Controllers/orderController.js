@@ -13,7 +13,7 @@
                     $scope.GamesFromBucket = games;
 
                     $scope.CommonItem = $scope.GamesFromBucket.length;
-                    $scope.CommonPrice = _.sum(games, function (game) { return game.Price; });
+                    $scope.CommonPrice = _.reduce(games, function (game) { return game.Price; });
                 }).error(function () {
                     alert("Error occure when getting games from bucket.");
                 });

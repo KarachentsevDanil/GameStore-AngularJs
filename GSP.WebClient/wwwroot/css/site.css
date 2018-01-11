@@ -17,6 +17,11 @@ body {
     padding-right: 15px;
 }
 
+.center-content {
+    display: flex !important;
+    justify-content: center !important;
+}
+
 .filter-block {
     background: #fafafa;
 }
@@ -87,19 +92,19 @@ body {
     cursor: pointer;
 }
 
-.game-btn:hover, .game-btn:active {
-    background-color: whitesmoke;
-}
+    .game-btn:hover, .game-btn:active {
+        background-color: whitesmoke;
+    }
 
 .remove-btn {
     padding: 3px;
 }
 
-.remove-btn:hover, .remove-btn:active {
-    background-color: silver;
-    border: 1px solid gray;
-    border-radius: 3px;
-}
+    .remove-btn:hover, .remove-btn:active {
+        background-color: silver;
+        border: 1px solid gray;
+        border-radius: 3px;
+    }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
