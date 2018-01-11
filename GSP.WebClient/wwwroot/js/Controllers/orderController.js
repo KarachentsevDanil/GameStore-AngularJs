@@ -6,34 +6,53 @@
     orderController.$inject = ['$q', '$scope', 'orderService', 'AlertService'];
 
     function orderController($q, $scope, orderService, alertService) {
+        $scope.itemsPerPage = 10;
+        $scope.maxSize = 5;
+        $scope.currentPage = 1;
+        $scope.totalItems = 0;
+
+        $scope.getFilterParams = function () {
+            var params = {
+                Customer: $scope.customer,
+                PageNumber: $scope.currentPage,
+                PageSize: $scope.itemsPerPage
+            };
+
+            return params;
+        };
+
+        $scope.filterOrders = function () {
+            var params = $scope.getFilterParams();
+            $scope.getOrdersByParams(params);
+        };
+
+        $scope.getOrdersByParams = function (params) {
+            orderService.getOrdersByParams(params)
+                .success(function (result) {
+                    $scope.Orders = result.Collection;
+                    $scope.totalItems = result.TotalCount;
+                }).error(function () {
+                    alertService.showError("Error occure when getting orders.");
+                });
+        };
+
+        $scope.getAllOrders = function () {
+            $scope.filterOrders();
+        };
+
+        $scope.getCustomerOrders = function (data) {
+            $scope.customer = data;
+            $scope.filterOrders();
+        };
 
         $scope.getGamesFromBucket = function (data) {
             orderService.getGamesFromBucket(data)
                 .success(function (games) {
                     $scope.GamesFromBucket = games;
-
                     $scope.CommonItem = $scope.GamesFromBucket.length;
                     $scope.CommonPrice = _.reduce(games, function (game) { return game.Price; });
                 }).error(function () {
                     alert("Error occure when getting games from bucket.");
-                });
-        };
-
-        $scope.getAllOrders = function () {
-            orderService.getAllOrders()
-                .success(function (orders) {
-                    $scope.Orders = orders;
-                }).error(function () {
-                    alert("Error occure when getting orders.");
-                });
-        };
-
-        $scope.getCustomerOrders = function (data) {
-            orderService.getCustomerOrders(data)
-                .success(function (orders) {
-                    $scope.Orders = orders;
-                }).error(function () {
-                    alert("Error occure when getting customer orders.");
                 });
         };
 

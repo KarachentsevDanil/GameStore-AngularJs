@@ -29,7 +29,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Rates)
                 .AsQueryable();
 
-            FillGameQueryFilterParams(filterParams);
+            FillGamesQueryFilterParams(filterParams);
             query = FillSortParams(query, filterParams);
 
             totalCount = query.Count();
@@ -50,7 +50,7 @@ namespace GSP.DAL.Repositories
                 .ToList();
         }
 
-        private void FillGameQueryFilterParams(GamesFilterParams filterParams)
+        private void FillGamesQueryFilterParams(GamesFilterParams filterParams)
         {
             var predicate = PredicateBuilder.New<Game>(x => !x.IsDeleted);
 

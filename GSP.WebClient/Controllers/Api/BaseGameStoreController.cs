@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GSP.BLL.Services.Contracts;
+using GSP.Domain.Customers;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GSP.WebClient.Controllers.Api
 {
-    public class BaseWebApiController : Controller
+    public class BaseGameStoreController : Controller
     {
-        public BaseWebApiController()
+        private readonly ICustomerService _customerService;
+
+        public BaseGameStoreController(ICustomerService customerService)
         {
-            
+            _customerService = customerService;
+        }
+
+        protected Customer GetCustomerByTerm(string term)
+        {
+            return _customerService.GetCustomerByTerm(term);
         }
     }
 }

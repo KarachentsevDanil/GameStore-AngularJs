@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Services.Contracts;   
 using GSP.Domain.Orders;
+using GSP.Domain.Params;
 using GSP.WebClient.Infrastracture.Extenctions;
 using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace GSP.WebClient.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
-    public class OrderController : Controller
+    public class OrderController : BaseGameStoreController
     {
         private readonly IOrderService _orderService;
         private readonly ICustomerService _customerService;
 
-        public OrderController(IOrderService orderService, ICustomerService customerService)
+        public OrderController(IOrderService orderService, ICustomerService customerService) : base(customerService)
         {
             _orderService = orderService;
             _customerService = customerService;
@@ -24,8 +25,8 @@ namespace GSP.WebClient.Controllers.Api
         [HttpPost]
         public void CreateOrder([FromBody] OrderViewModel order)
         {
-            var customerId = _customerService.GetCustomerByTerm(order.Customer).CustomerId;
-            var newOrder = new Order { CustomerId = customerId };
+            var customer = GetCustomerByTerm(order.Customer);
+            var newOrder = new Order { CustomerId = customer.CustomerId };
             _orderService.AddOrder(newOrder);
         }
 
@@ -67,39 +68,50 @@ namespace GSP.WebClient.Controllers.Api
         [HttpGet]
         public IEnumerable<GameViewModel> GetGamesFromBucket(string customer)
         {
-            var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            var games = _orderService.GetGameFromBucket(customerId);
+            var customerModel = _customerService.GetCustomerByTerm(customer);
+            var games = _orderService.GetGameFromBucket(customerModel.CustomerId);
             return MapperExtenctions.ToGameViewModels(games);
         }
 
         [HttpGet]
         public IEnumerable<GameViewModel> GetCusomerGame(string customer)
         {
-            var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            var games = _orderService.GetCustomerGames(customerId);
+            var customerModel = _customerService.GetCustomerByTerm(customer);
+            var games = _orderService.GetCustomerGames(customerModel.CustomerId);
             return MapperExtenctions.ToGameViewModels(games);
         }
 
-        [HttpGet]
-        public IEnumerable<OrderViewModel> GetCustomerOrder(string customer)
+        [HttpPost]
+        public CollectionResult<OrderViewModel> GetOrdersByParams([FromBody]OrdersFilterParams filterParams)
         {
-            var customerId = _customerService.GetCustomerByTerm(customer).CustomerId;
-            var orders = _orderService.GetCustomerOrders(customerId);
-            return MapperExtenctions.ToOrderViewModels(orders);
-        }
+            SetAdditionalParams(filterParams);
 
-        [HttpGet]
-        public IEnumerable<OrderViewModel> GetAllOrder()
-        {
-            var orders = _orderService.GetOrders();
-            return MapperExtenctions.ToOrderViewModels(orders);
+            var orders = _orderService.GetOrdersByParams(filterParams, out var totalCount);
+            var ordersViewModel = MapperExtenctions.ToOrderViewModels(orders);
+
+            var result = new CollectionResult<OrderViewModel>
+            {
+                Collection = ordersViewModel,
+                TotalCount = totalCount
+            };
+
+            return result;
         }
 
         private Order GetCurrentOrderOfCustomer(string customerName)
         {
-            var customer = _customerService.GetCustomerByTerm(customerName);
+            var customer = GetCustomerByTerm(customerName);
             var order = _orderService.GetCurrentOrderOfCustomer(customer.CustomerId);
             return order;
+        }
+
+        private void SetAdditionalParams(OrdersFilterParams @params)
+        {
+            if (!string.IsNullOrEmpty(@params.Customer))
+            {
+                var customer = GetCustomerByTerm(@params.Customer);
+                @params.CustomerId = customer.CustomerId;
+            }
         }
     }
 }

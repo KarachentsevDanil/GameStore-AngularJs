@@ -7,25 +7,25 @@
 
     function orderService($http) {
         var baseOrderUrl = "/api/Order";
-        var getAllOrderUrl = baseOrderUrl.concat("/getallorder");
+        var getOrdersByParamsUrl = baseOrderUrl.concat("/getordersbyparams");
         var getGamesFromBucketUrl = baseOrderUrl.concat("/getgamesfrombucket?customer=");
-        var getCustomerOrderUrl = baseOrderUrl.concat("/getcustomerorder?customer=");
         var createOrderUrl = baseOrderUrl.concat("/createorder");
         var confirmOrderUrl = baseOrderUrl.concat("/confirmorder");
         var addGameToBucketUrl = baseOrderUrl.concat("/addtobucket");
         var deleteGameFromBucketUrl = baseOrderUrl.concat("/deletegamefrombucket");
-        var deleteOrderUrl = baseOrderUrl.concat("/DeleteOrder");
+        var deleteOrderUrl = baseOrderUrl.concat("/deleteorder");
 
-        this.getAllOrders = function () {
-            return $http.get(getAllOrderUrl);
+        this.getOrdersByParams = function (data) {
+            return $http({
+                method: 'POST',
+                url: getOrdersByParamsUrl,
+                data: data,
+                headers: { 'Content-Type': 'application/json' }
+            });
         };
 
         this.getGamesFromBucket = function (data) {
             return $http.get(getGamesFromBucketUrl.concat(data));
-        };
-        
-        this.getCustomerOrders = function (data) {
-            return $http.get(getCustomerOrderUrl + data);
         };
 
         this.createOrder = function (data) {

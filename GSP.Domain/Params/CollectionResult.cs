@@ -2,7 +2,7 @@
 
 namespace GSP.Domain.Params
 {
-    public class Result<T> where T : class
+    public class CollectionResult<T> where T : class
     {
         public IEnumerable<T> Collection { get; set; }
 

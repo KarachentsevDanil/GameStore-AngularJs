@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
 using GSP.WebClient.Infrastracture.Extenctions;
@@ -8,7 +6,6 @@ using GSP.WebClient.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GSP.WebClient.Controllers
 {
@@ -27,6 +24,7 @@ namespace GSP.WebClient.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddGame(IFormFile file, Game game)
         {

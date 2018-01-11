@@ -2,7 +2,6 @@
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
-using GSP.Domain.Params;
 
 namespace GSP.BLL.Services
 {
@@ -24,16 +23,6 @@ namespace GSP.BLL.Services
         public IEnumerable<Rate> GetRatesOfGame(int gameId)
         {
             return _unitOfWork.RateRepository.GetRatesOfGame(gameId);
-        }
-
-        public IEnumerable<Game> GetTopRateGames(FilterParams<Game> filterParams)
-        {
-            return _unitOfWork.RateRepository.GetTopRateGames(filterParams);
-        }
-
-        public IEnumerable<Game> GetTopSellGames(FilterParams<Game> filterParams)
-        {
-            return _unitOfWork.RateRepository.GetTopSellGames(filterParams);
         }
     }
 }

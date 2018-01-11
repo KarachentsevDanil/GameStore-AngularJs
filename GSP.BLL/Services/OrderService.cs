@@ -4,6 +4,7 @@ using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using GSP.Domain.Params;
 
 namespace GSP.BLL.Services
 {
@@ -60,14 +61,9 @@ namespace GSP.BLL.Services
                 .AsEnumerable();
         }
 
-        public IEnumerable<Order> GetCustomerOrders(int customerId)
+        public IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)
         {
-            return _unitOfWork.OrderRepository.GetCustomerOrders(customerId);
-        }
-
-        public IEnumerable<Order> GetOrders()
-        {
-            return _unitOfWork.OrderRepository.GetOrders();
+            return _unitOfWork.OrderRepository.GetOrdersByParams(filterParams, out totalCount);
         }
 
         public Order GetCurrentOrderOfCustomer(int customerId)

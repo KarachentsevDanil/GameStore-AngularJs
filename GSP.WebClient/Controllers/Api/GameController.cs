@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
 using GSP.Domain.Params;
 using GSP.WebClient.Infrastracture.Extenctions;
 using GSP.WebClient.ViewModels;
-using LinqKit;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.WebClient.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
-    public class GameController : Controller
+    public class GameController : BaseGameStoreController
     {
         private readonly IGameService _gameService;
-        private readonly ICustomerService _customerService;
-        private readonly IRateService _rateService;
 
         public GameController(
             IGameService gameService,
             ICustomerService customerService,
-            IRateService rateService)
+            IRateService rateService) : base(customerService)
         {
             _gameService = gameService;
-            _customerService = customerService;
-            _rateService = rateService;
         }
 
         [HttpPost]
@@ -67,13 +61,14 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpPost]
-        public Result<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
+        public CollectionResult<GameViewModel> GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
             SetAdditionalParams(filterParams);
+
             var games = _gameService.GetGamesByParams(filterParams, out var totalCount);
             var gamesViewModel = MapperExtenctions.ToGameViewModels(games);
 
-            var result = new Result<GameViewModel>
+            var result = new CollectionResult<GameViewModel>
             {
                 Collection = gamesViewModel,
                 TotalCount = totalCount
@@ -86,7 +81,7 @@ namespace GSP.WebClient.Controllers.Api
         {
             if (!string.IsNullOrEmpty(@params.Customer))
             {
-                var customer = _customerService.GetCustomerByTerm(@params.Customer);
+                var customer = GetCustomerByTerm(@params.Customer);
                 @params.CustomerId = customer.CustomerId;
             }
         }

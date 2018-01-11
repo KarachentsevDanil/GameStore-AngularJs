@@ -6,11 +6,7 @@ namespace GSP.DAL.Repositories.Contracts
 {
     public interface IOrderRepository : IGameStoreRepository<Order>
     {
-        IEnumerable<Order> GetOrders();
-
-        IEnumerable<Order> GetOrdersByParams(FilterParams<Order> filterParams, out int totalCount);
-
-        IEnumerable<Order> GetCustomerOrders(int customerId);
+        IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount);
 
         Order GetCurrentCustomerOrder(int customerId);
 

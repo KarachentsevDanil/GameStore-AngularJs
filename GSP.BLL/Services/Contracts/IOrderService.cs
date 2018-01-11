@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using GSP.Domain.Params;
 
 namespace GSP.BLL.Services.Contracts
 {
@@ -20,9 +21,7 @@ namespace GSP.BLL.Services.Contracts
 
         IEnumerable<Game> GetCustomerGames(int customerId);
 
-        IEnumerable<Order> GetCustomerOrders(int customerId);
-
-        IEnumerable<Order> GetOrders();
+        IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount);
 
         Order GetCurrentOrderOfCustomer(int customerId);
     }
