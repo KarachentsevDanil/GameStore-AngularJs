@@ -47,10 +47,10 @@ namespace GSP.WebClient.Controllers
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction("ShowGame", "Game");
+                    return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
                 }
 
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ModelState.AddModelError("", "Incorrect password or username.");
             }
 
             return View();
@@ -70,10 +70,10 @@ namespace GSP.WebClient.Controllers
 
                     await Authenticate(customer);
 
-                    return RedirectToAction("ShowGame", "Game");
+                    return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
                 }
 
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ModelState.AddModelError("", "User already exists.");
             }
 
             return View();

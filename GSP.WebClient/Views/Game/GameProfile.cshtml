@@ -1,4 +1,5 @@
-﻿@model GSP.WebClient.ViewModels.GameViewModel
+﻿@using GSP.BLL.Resources
+@model GSP.WebClient.ViewModels.GameViewModel
 
 @section scripts {
     <environment names="Development">
@@ -20,21 +21,17 @@
                     <img ng-src="{{CurrentGame.PhotoData}}" />
                 </div>
                 <div class="content">
-                    <span class="right floated">
-                        <i class="heart outline like icon"></i>
-                        {{Feeds.length}} likes
-                    </span>
                     <i class="comment icon"></i>
-                    {{Feeds.length}} comments
+                    {{Feeds.length}} @Entities.Game_Comments
                 </div>
                 <div class="description margin-left-5 margin-right-5">
                     <p>
                     <p class="margin-left-2">
-                        Category: {{CurrentGame.CategoryName}}
+                        @Entities.Game_Category: {{CurrentGame.CategoryName}}
                     </p>
 
                     <p class="margin-left-2">
-                        Description: {{CurrentGame.Description}}
+                        @Entities.Game_Description: {{CurrentGame.Description}}
                     </p>
 
                     <div class="pull-right">
@@ -49,10 +46,10 @@
                 <div class="ui two bottom attached buttons">
                     <div class="ui button" ng-click="addToBucket('@User.Identity.Name',game.GameId)">
                         <i class="add to cart icon"></i>
-                        Buy
+                        @Commands.Buy
                     </div>
-                    <a class="ui primary button" ng-href="https://www.youtube.com/results?search_query={{CurrentGame.Name}}">
-                        Watch
+                    <a class="ui primary button" target="_blank" ng-href="https://www.youtube.com/results?search_query={{CurrentGame.Name}}">
+                        @Commands.Watch
                     </a>
                 </div>
             </div>
@@ -61,12 +58,12 @@
                 <div class="field">
                     <p>
                         <strong>
-                            Leave your feedback
+                            @Labels.LeaveFeedback
                         </strong>
                     </p>
                     <textarea ng-model="feed.feedContent"></textarea>
                     <p>
-                        <strong>Put mark</strong>
+                        <strong>@Entities.Rating_Rating:</strong>
                         <select ng-model="feed.rating" init-select>
                             @foreach (var item in Model.Ratings)
                             {
@@ -75,9 +72,8 @@
                         </select>
                     </p>
                 </div>
-                <button class="ui primary submit labeled icon button"
-                        ng-click="createFeed(CurrentGame.GameId,'@User.Identity.Name')">
-                    <i class="icon edit"></i> Add Comment
+                <button class="ui primary labeled icon button" ng-click="createFeed(CurrentGame.GameId,'@User.Identity.Name')">
+                    <i class="icon edit"></i> @Commands.AddComment
                 </button>
             </form>
         </div>
@@ -96,10 +92,10 @@
                             </div>
                         </div>
                         <div class="extra text">
-                            Rating: {{item.DisplayRating}}
+                            @Entities.Rating_Rating: {{item.DisplayRating}}
                         </div>
                         <div class="extra text">
-                            Comment: {{item.Comment}}
+                            @Entities.Rating_Comment: {{item.Comment}}
                         </div>
 
                     </div>
@@ -113,7 +109,7 @@
         <div class="col-lg-12">
             <div class="row margin-bottom-2">
                 <h2 class="ui header center-align">
-                    You also can buy this game
+                    @Labels.RecommendedGame
                 </h2>
 
                 <div class="ui five column grid margin-top-1">
@@ -140,11 +136,11 @@
                             <div class="ui two bottom attached buttons">
                                 <div class="ui button" ng-click="addToBucket('@User.Identity.Name',recomendGames.GameId)">
                                     <i class="add to cart icon"></i>
-                                    Buy
+                                    @Commands.Buy
                                 </div>
-                                <a class="ui primary button"
+                                <a class="ui primary button" target="_blank"
                                    ng-href="https://www.youtube.com/results?search_query={{recomendGames.Name}}">
-                                    Watch
+                                    @Commands.Watch
                                 </a>
                             </div>
                         </div>

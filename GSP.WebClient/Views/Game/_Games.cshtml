@@ -1,14 +1,15 @@
-﻿@model bool
+﻿@using GSP.BLL.Resources
+@model bool
 
 <div class="container" ng-controller="gameController" @(Model ? "ng-init=getGames();getCategories();" : $"ng-init=loadCustomerGame('{User.Identity.Name}');getCategories();")>
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-md-3 filter-block">
-            <h3 class="margin-top-2">Filters: <button class="btn btn-xs btn-danger pull-right">Clear Filter</button></h3>
+            <h3 class="margin-top-2">@Labels.Filters: <button class="btn btn-xs btn-danger pull-right">@Commands.ClearFilters</button></h3>
             <div class="form-group">
                 @if (Model)
                 {
-                    <h4>Mode:</h4>
+                    <h4>@Labels.Mode:</h4>
                     <div class="form-group">
                         <select ng-model="outputMode" name="Language" class="fluid ui search dropdown" ng-click="filterGames()" init-select>
                             <option ng-repeat="item in gamesViewModes" value={{item.value}} selected>{{item.name}}</option>
@@ -16,7 +17,7 @@
                     </div>
                     <hr />
                 }
-                <h4>Categories:</h4>
+                <h4>@Labels.Categories:</h4>
                 <div class="form-group">
                     <div ng-repeat="categoryObject in category">
                         <input class="category-value" type="checkbox" data-category-id="{{categoryObject.CategoryId}}" ng-click="filterGames()" />
@@ -24,14 +25,14 @@
                     </div>
                 </div>
                 <hr />
-                <h4>Title:</h4>
+                <h4>@Labels.Title:</h4>
                 <div class="form-group">
                     <div class="ui icon input fluid">
-                        <input type="text" placeholder="Search..." ng-model="searchValue" ng-change="filterGames()">
+                        <input type="text" placeholder="@Labels.Search" ng-model="searchValue" ng-change="filterGames()">
                         <i class="circular search link icon"></i>
                     </div>
                 </div>
-                <h4>Price Range:</h4>
+                <h4>@Labels.PriceRange:</h4>
                 <div class="form-group">
                     <rzslider rz-slider-model="StartPrice" rz-slider-high="EndPrice" rz-slider-options="SliderSettings.options"></rzslider>
                 </div>
@@ -39,7 +40,7 @@
         </div>
         <div class="col-md-9">
 
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
             <div class="form-group">
                 <div class="ui four column grid">
@@ -50,10 +51,10 @@
                             </div>
                             <div class="content">
                                 <div class="header">{{game.Name}}</div>
-                                <div class="header">Genre:{{game.CategoryName}}</div>
+                                <div class="header">@Entities.Game_Category:{{game.CategoryName}}</div>
 
                                 <div class="description">
-                                    <a ng-href="/Game/GameProfile?gameId={{game.GameId}}">More details...</a>
+                                    <a ng-href="/Game/GameProfile?gameId={{game.GameId}}">@Labels.MoreDetails</a>
                                     <div class="pull-right ui red tag labels" style="display:inline-block; margin-left: 5px">
                                         <a class="ui label">
                                             ${{game.Price}}
@@ -66,18 +67,18 @@
                                 {
                                     <div class="ui button" ng-click="addToBucket('@User.Identity.Name',game.GameId)">
                                         <i class="add to cart icon"></i>
-                                        Buy
+                                        @Commands.Buy
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="ui button">
-                                        Load
+                                        @Commands.Load
                                     </div>
                                 }
-                                <a class="ui primary button" ng-href="https://www.youtube.com/results?search_query={{game.Name}}">
-                                    Watch
-                                </a>
+                                    <a class="ui primary button" target="_blank" ng-href="https://www.youtube.com/results?search_query={{game.Name}}">
+                                        @Commands.Watch
+                                    </a>
                             </div>
                         </div>
 
@@ -86,7 +87,7 @@
                 </div>
             </div>
 
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
         </div>
     </div>

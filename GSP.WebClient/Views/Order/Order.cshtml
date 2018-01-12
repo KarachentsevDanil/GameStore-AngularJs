@@ -1,4 +1,5 @@
-﻿@using GSP.Domain.Customers
+﻿@using GSP.BLL.Resources
+@using GSP.Domain.Customers
 
 @section scripts {
     <environment names="Development">
@@ -14,15 +15,15 @@
         <div class="row">
             <div>
                 <div class="list-group" ng-model="customerOrder">
-                    
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
                     <div ng-click="selectOrder(customerOrder.Games,customerOrder.OrderId)" ng-repeat="customerOrder in Orders" class="list-group-item game-btn">
                         <div class="row">
                             <div class="col-lg-10">
-                                <span>Customer: {{ customerOrder.Customer }} </span><br/>
-                                <span>Count game in Order: {{customerOrder.Games.length}}</span><br/>
-                                <span >Complete date: {{customerOrder.Date}}</span>
+                                <span>@Entities.Order_Customer: {{ customerOrder.Customer }} </span><br />
+                                <span>@Entities.Order_CountGame: {{customerOrder.Games.length}}</span><br />
+                                <span>@Entities.Order_SaleDate: {{customerOrder.SaleDate}}</span>
                             </div>
                             <div class="col-lg-2">
                                 @if (User.IsInRole(Role.Admin.ToString()))
@@ -33,7 +34,7 @@
                         </div>
                     </div>
 
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
                 </div>
             </div>
@@ -48,10 +49,12 @@
                             <img class="ui medium rounded image" ng-src={{orderGame.PhotoData}} height="200" width="150" />
                         </div>
                         <div class="col-lg-8 pull-right">
-                            <strong> Game: {{orderGame.Name}} </strong>
+                            <strong> @Entities.Game_Name: {{orderGame.Name}} </strong>
+
+                            <strong> @Entities.Game_Category: {{orderGame.Category}} </strong>
 
                             <p class="ui info message">
-                                <strong> Description: </strong>
+                                <strong> @Entities.Game_Description: </strong>
                                 {{orderGame.Description}}
                             </p>
                             <div class="ui tag labels">

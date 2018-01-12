@@ -1,5 +1,4 @@
-﻿using System;
-using GSP.Domain.Games;
+﻿using GSP.Domain.Games;
 
 namespace GSP.WebClient.ViewModels
 {

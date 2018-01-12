@@ -1,4 +1,5 @@
-﻿@section scripts {
+﻿@using GSP.BLL.Resources
+@section scripts {
     <environment names="Development">
         <script src="~/js/Controllers/categoryController.js"></script>
         <script src="~/js/Services/categoryService.js"></script>
@@ -14,31 +15,32 @@
             <div>
                 <div class="form-group">
                     <button class="ui primary button pull-right" ng-click="filterGames()">
-                        Show All
+                        @Commands.ShowAll
                     </button>
                     <div class="list-group" ng-model="game">
                         <div class="ui icon fluid input">
-                            <input ng-model="searchValue" ng-change="filterGames()" type="text" placeholder="Search...">
+                            <input ng-model="searchValue" ng-change="filterGames()" type="text" placeholder="@Labels.Search">
                             <i class="circular search link icon"></i>
                         </div>
                     </div>
-                    
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
-             
+
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+
                     <div ng-click="selectGame(game)" ng-repeat="game in Games" class="list-group-item game-btn">
                         <div class="row">
                             <div class="col-lg-10">
-                                <span>Game: {{ game.Name }}</span><br />
-                                <span>Category: {{game.CategoryName}}</span><br />
-                                <span>Price {{game.Price}}</span>
+                                <span>@Entities.Game_Name: {{ game.Name }}</span><br />
+                                <span>@Entities.Game_Category: {{game.CategoryName}}</span><br />
+                                <span>@Entities.Game_Price: {{game.Price}}</span>
                             </div>
                             <div class="col-lg-2">
                                 <span ng-click="deleteGame(game.GameId)" class="glyphicon glyphicon-trash pull-right remove-btn"></span>
                             </div>
                         </div>
                     </div>
-                    
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="->" previous-text="<-"></ul>
+
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+
                 </div>
             </div>
         </div>
@@ -47,14 +49,9 @@
         <div class="form-group form-horizontal">
             <div class="col-lg-offset-6 ui info message pull-right margin-top-10 margin-right-0 div-width-330">
 
-                Name: <input class="form-control" ng-model="EditName" type="text" />
-                Description: <textarea class="form-control" ng-model="EditDescription"> </textarea>
-                Price: <br />
-                <div class="ui right labeled input margin-top-2 margin-bottom-2">
-                    <div class="ui label">$</div>
-                    <input style="width:205px;" ng-model="EditPrice" type="text" placeholder="Amount">
-                    <div class="ui basic label">.00</div>
-                </div>
+                @Entities.Game_Name: <input class="form-control" ng-model="EditName" type="text" />
+                @Entities.Game_Description: <textarea class="form-control" ng-model="EditDescription"> </textarea>
+                @Entities.Game_Price:<input class="form-control" ng-model="EditPrice" type="number" />
 
                 <button class="primary ui button form-control margin-top-5" ng-click="editGame()">Edit</button>
             </div>
