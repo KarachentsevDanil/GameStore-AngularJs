@@ -11,9 +11,21 @@
                 {
                     <h4>@Labels.Mode:</h4>
                     <div class="form-group">
-                        <select ng-model="outputMode" name="Language" class="fluid ui search dropdown" ng-click="filterGames()" init-select>
-                            <option ng-repeat="item in gamesViewModes" value={{item.value}} selected>{{item.name}}</option>
-                        </select>
+                        <div class="dropdown fluid">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{outputModeText}}
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="" ng-click="outputMode = 0">@Labels.AllGames</a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="outputMode = 1">@Labels.TopSellGames</a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="outputMode = 2">@Labels.TopRateGames</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <hr />
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GSP.BLL.Resources;
 using GSP.BLL.Services.Contracts;   
 using GSP.Domain.Orders;
 using GSP.Domain.Params;
@@ -45,6 +46,17 @@ namespace GSP.WebClient.Controllers.Api
         public void AddToBucket([FromBody] OrderGameViewModel orderGame)
         {
             var order = GetCurrentOrderOfCustomer(orderGame.Customer);
+            if (order.Games.Any(x => x.GameId == orderGame.GameId))
+            {
+                throw new Exception(Exceptions.GameAlreadyInBucket);
+            }
+
+            var customerGames = _orderService.GetCustomerGames(order.CustomerId);
+            if (customerGames.Any(x => x.GameId == orderGame.GameId))
+            {
+                throw new Exception(Exceptions.GameAlreadyBought);
+            }
+
             var newOrderGame = new OrderGame(orderGame.GameId, order.OrderId);
 
             _orderService.AddGameToBucket(newOrderGame);
@@ -70,14 +82,6 @@ namespace GSP.WebClient.Controllers.Api
         {
             var customerModel = _customerService.GetCustomerByTerm(customer);
             var games = _orderService.GetGameFromBucket(customerModel.CustomerId);
-            return MapperExtenctions.ToGameViewModels(games);
-        }
-
-        [HttpGet]
-        public IEnumerable<GameViewModel> GetCusomerGame(string customer)
-        {
-            var customerModel = _customerService.GetCustomerByTerm(customer);
-            var games = _orderService.GetCustomerGames(customerModel.CustomerId);
             return MapperExtenctions.ToGameViewModels(games);
         }
 

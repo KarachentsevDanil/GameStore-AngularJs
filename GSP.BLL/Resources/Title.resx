@@ -117,16 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GameAlreadyBought" xml:space="preserve">
-    <value>Game already in bought.</value>
+  <data name="AddGame" xml:space="preserve">
+    <value>Add Game</value>
   </data>
-  <data name="GameAlreadyInBucket" xml:space="preserve">
-    <value>Game already in bucket.</value>
+  <data name="Bucket" xml:space="preserve">
+    <value>Bucket</value>
   </data>
-  <data name="IncorrectPasswordOrUserName" xml:space="preserve">
-    <value>Incorrect password or username.</value>
+  <data name="EditGame" xml:space="preserve">
+    <value>Edit Game</value>
   </data>
-  <data name="UserAlreadyExists" xml:space="preserve">
-    <value>User already exists.</value>
+  <data name="Games" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="MyGames" xml:space="preserve">
+    <value>My Games</value>
+  </data>
+  <data name="ShowAllOrder" xml:space="preserve">
+    <value>Orders</value>
+  </data>
+  <data name="ShowMyOrder" xml:space="preserve">
+    <value>My Order</value>
   </data>
 </root>

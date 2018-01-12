@@ -22,14 +22,14 @@ namespace GSP.BLL.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Exceptions {
+    public class Title {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Exceptions() {
+        internal Title() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GSP.BLL.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSP.BLL.Resources.Exceptions", typeof(Exceptions).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSP.BLL.Resources.Title", typeof(Title).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,83 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game already in bought..
+        ///   Looks up a localized string similar to Add Game.
         /// </summary>
-        public static string GameAlreadyBought {
+        public static string AddGame {
             get {
-                return ResourceManager.GetString("GameAlreadyBought", resourceCulture);
+                return ResourceManager.GetString("AddGame", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game already in bucket..
+        ///   Looks up a localized string similar to Bucket.
         /// </summary>
-        public static string GameAlreadyInBucket {
+        public static string Bucket {
             get {
-                return ResourceManager.GetString("GameAlreadyInBucket", resourceCulture);
+                return ResourceManager.GetString("Bucket", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect password or username..
+        ///   Looks up a localized string similar to Edit Game.
         /// </summary>
-        public static string IncorrectPasswordOrUserName {
+        public static string EditGame {
             get {
-                return ResourceManager.GetString("IncorrectPasswordOrUserName", resourceCulture);
+                return ResourceManager.GetString("EditGame", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User already exists..
+        ///   Looks up a localized string similar to Games.
         /// </summary>
-        public static string UserAlreadyExists {
+        public static string Games {
             get {
-                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string LogOut {
+            get {
+                return ResourceManager.GetString("LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Games.
+        /// </summary>
+        public static string MyGames {
+            get {
+                return ResourceManager.GetString("MyGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders.
+        /// </summary>
+        public static string ShowAllOrder {
+            get {
+                return ResourceManager.GetString("ShowAllOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Order.
+        /// </summary>
+        public static string ShowMyOrder {
+            get {
+                return ResourceManager.GetString("ShowMyOrder", resourceCulture);
             }
         }
     }

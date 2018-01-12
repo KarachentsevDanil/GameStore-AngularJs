@@ -29,7 +29,7 @@ namespace GSP.BLL.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Labels() {
+        public Labels() {
         }
         
         /// <summary>
@@ -66,6 +66,15 @@ namespace GSP.BLL.Resources {
         public static string AddGameForm {
             get {
                 return ResourceManager.GetString("AddGameForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Games.
+        /// </summary>
+        public static string AllGames {
+            get {
+                return ResourceManager.GetString("AllGames", resourceCulture);
             }
         }
         
@@ -174,6 +183,24 @@ namespace GSP.BLL.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TopRateGames.
+        /// </summary>
+        public static string TopRateGames {
+            get {
+                return ResourceManager.GetString("TopRateGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Sell Games.
+        /// </summary>
+        public static string TopSellGames {
+            get {
+                return ResourceManager.GetString("TopSellGames", resourceCulture);
             }
         }
     }

@@ -36,6 +36,16 @@
                 });
         };
 
+        $scope.$on("gameAddedToBucker", function () {
+            var text = +$('.item .badge.label-success').text();
+            $('.item .badge.label-success').text(++text);
+        });
+
+        $scope.$on("gameDeletedFromBucker", function () {
+            var text = +$('.item .badge.label-success').text();
+            $('.item .badge.label-success').text(--text);
+        });
+
         $scope.getAllOrders = function () {
             $scope.filterOrders();
         };
@@ -132,13 +142,15 @@
                     .success(function (data) {
                         resolve(data);
                     }).error(function () {
-                        console.error("Error occure when game adding to bucket.");
+                        console.error("Game already in bucket or already bought.");
                         reject();
                     });
             });
         };
 
         $scope.addToBucket = function (customer, gameId) {
+            $scope.customer = customer;
+
             var bucketRequest = {
                 Customer: customer,
                 GameId: gameId
@@ -147,6 +159,7 @@
             $scope.createAddGamePromise = addGameToBucketPromise(bucketRequest);
             $scope.createAddGamePromise.then(function () {
                 alertService.showSuccess("Game was successfully added to bucket.");
+                $scope.$emit('gameAddedToBucker');
             });
         };
 
@@ -172,6 +185,7 @@
             $scope.createDeleteGameFromBucketPromise.then(function () {
                 alertService.showSuccess("Game successfully deleted from bucket.");
                 $scope.getGamesFromBucket(bucketRequest.Customer);
+                $scope.$emit('gameDeletedFromBucker');
             });
         };
     }

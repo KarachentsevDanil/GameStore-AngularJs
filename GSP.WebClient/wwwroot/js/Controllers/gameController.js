@@ -12,6 +12,8 @@
         $scope.maxSize = 5;
         $scope.currentPage = 1;
         $scope.totalItems = 0;
+        $scope.outputMode = 0;
+        $scope.outputModeText = "All games";
 
         //Slider config
         $scope.SliderSettings = {
@@ -25,6 +27,24 @@
         };
 
         $scope.gamesViewModes = [{ name: "All games", value: 0 }, { name: "Top sell games", value: 1 }, { name: "Top rate games", value: 2 }];
+
+        $scope.$watch('outputMode', function () {
+            switch ($scope.outputMode) {
+                case 0:
+                    $scope.outputModeText = "All games";
+                    break;
+                case 1:
+                    $scope.outputModeText = "Top sell games";
+                    break;
+                case 2:
+                    $scope.outputModeText = "Top rate games";
+                    break;
+                default:
+                    break;
+            }
+
+            $scope.filterGames();
+        });
 
         $scope.$on("slideChanged", function () {
             $scope.filterGames();

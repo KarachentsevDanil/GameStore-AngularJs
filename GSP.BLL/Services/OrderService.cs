@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -56,9 +57,8 @@ namespace GSP.BLL.Services
 
         public IEnumerable<Game> GetCustomerGames(int customerId)
         {
-            return _unitOfWork.GameRepository
-                .GetAll().Where(x => x.Orders.Any(p => p.Order.CustomerId == customerId))
-                .AsEnumerable();
+            var gamesFilterParams = new GamesFilterParams(){CustomerId = customerId, PageSize = int.MaxValue};
+            return _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
         }
 
         public IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)

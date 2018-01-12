@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GSP.BLL.Resources;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Customers;
 using Microsoft.AspNetCore.Authentication;
@@ -50,7 +52,7 @@ namespace GSP.WebClient.Controllers
                     return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
                 }
 
-                ModelState.AddModelError("", "Incorrect password or username.");
+                ModelState.AddModelError(string.Empty, Exceptions.IncorrectPasswordOrUserName);
             }
 
             return View();
@@ -73,7 +75,7 @@ namespace GSP.WebClient.Controllers
                     return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
                 }
 
-                ModelState.AddModelError("", "User already exists.");
+                ModelState.AddModelError(string.Empty, Exceptions.UserAlreadyExists);
             }
 
             return View();
