@@ -5,15 +5,17 @@
     <toaster-container></toaster-container>
     <div class="row">
         <div class="col-md-3 filter-block">
-            <h3 class="margin-top-2">@Labels.Filters: <button class="btn btn-xs btn-danger pull-right">@Commands.ClearFilters</button></h3>
+            <h3 class="margin-top-2">@Labels.Filters: <button ng-click="clearFilters()" class="btn btn-xs btn-danger pull-right">@Commands.ClearFilters</button></h3>
             <div class="form-group">
                 @if (Model)
                 {
                     <h4>@Labels.Mode:</h4>
                     <div class="form-group">
                         <div class="dropdown fluid">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{outputModeText}}
-                                <span class="caret"></span></button>
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                {{outputModeText}}
+                                <span class="caret"></span>
+                            </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="" ng-click="outputMode = 0">@Labels.AllGames</a>
@@ -50,9 +52,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" cg-busy="getGamesByParamsPromise">
 
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="changePage();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
             <div class="form-group">
                 <div class="ui four column grid">
@@ -88,9 +90,9 @@
                                         @Commands.Load
                                     </div>
                                 }
-                                    <a class="ui primary button" target="_blank" ng-href="https://www.youtube.com/results?search_query={{game.Name}}">
-                                        @Commands.Watch
-                                    </a>
+                                <a class="ui primary button" target="_blank" ng-href="https://www.youtube.com/results?search_query={{game.Name}}">
+                                    @Commands.Watch
+                                </a>
                             </div>
                         </div>
 
@@ -99,7 +101,7 @@
                 </div>
             </div>
 
-            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="changePage();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
         </div>
     </div>

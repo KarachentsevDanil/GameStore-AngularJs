@@ -29,7 +29,7 @@ namespace GSP.BLL.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Labels() {
+        internal Labels() {
         }
         
         /// <summary>
@@ -187,7 +187,7 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TopRateGames.
+        ///   Looks up a localized string similar to Top Rate Games.
         /// </summary>
         public static string TopRateGames {
             get {

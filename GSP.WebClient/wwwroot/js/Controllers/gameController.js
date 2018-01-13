@@ -26,28 +26,20 @@
             }
         };
 
-        $scope.gamesViewModes = [{ name: "All games", value: 0 }, { name: "Top sell games", value: 1 }, { name: "Top rate games", value: 2 }];
+        $scope.gamesViewModes = [{ name: "All Games", value: 0 }, { name: "Top Sell Games", value: 1 }, { name: "Top Rate Games", value: 2 }];
 
         $scope.$watch('outputMode', function () {
-            switch ($scope.outputMode) {
-                case 0:
-                    $scope.outputModeText = "All games";
-                    break;
-                case 1:
-                    $scope.outputModeText = "Top sell games";
-                    break;
-                case 2:
-                    $scope.outputModeText = "Top rate games";
-                    break;
-                default:
-                    break;
-            }
-
+            var currentObject = _.find($scope.gamesViewModes, function (item) { return item.value === $scope.outputMode; });
+            $scope.outputModeText = currentObject.name;
             $scope.filterGames();
         });
 
         $scope.$on("slideChanged", function () {
             $scope.filterGames();
+        });
+
+        $scope.$on("categoryAdded", function () {
+            $scope.getCategories();
         });
 
         $scope.getCategories = function () {
@@ -58,6 +50,25 @@
                     alertService.showError("Error occure when getting categories.");
                 });
         };
+
+        $scope.clearFilterParams = function () {
+            var checkedCategories = $('.category-value:checked');
+
+            for (var i = 0; i < checkedCategories.length; i++) {
+                $(checkedCategories[i]).prop("checked", false);
+            }
+
+            $scope.searchValue = "";
+            $scope.StartPrice = 0;
+            $scope.EndPrice = 250;
+            $scope.outputMode = 0;
+            $scope.currentPage = 1;
+        };
+
+        $scope.clearFilters = function () {
+            $scope.clearFilterParams();
+            $scope.filterGames();
+        }
 
         $scope.selectGame = function (game) {
             $scope.EditName = game.Name;
@@ -95,18 +106,34 @@
         };
 
         $scope.filterGames = function () {
+            $scope.currentPage = 1;
             var params = $scope.getFilterParams();
             $scope.getGamesByParams(params);
         };
 
+        $scope.changePage = function () {
+            var params = $scope.getFilterParams();
+            $scope.getGamesByParams(params);
+        };
+
+        var getGamesByParamsPromise = function (params) {
+            return $q(function (resolve, reject) {
+                gameService.getGameByParams(params)
+                    .success(function (games) {
+                        resolve(games);
+                    }).error(function () {
+                        alertService.showError("Error occure when getting games.");
+                        reject();
+                    });
+            });
+        };
+
         $scope.getGamesByParams = function (params) {
-            gameService.getGameByParams(params)
-                .success(function (result) {
-                    $scope.Games = result.Collection;
-                    $scope.totalItems = result.TotalCount;
-                }).error(function () {
-                    alertService.showError("Error occure when getting games.");
-                });
+            $scope.getGamesByParamsPromise = getGamesByParamsPromise(params);
+            $scope.getGamesByParamsPromise.then(function(result) {
+                $scope.Games = result.Collection;
+                $scope.totalItems = result.TotalCount;
+            });
         };
 
         $scope.getGames = function () {

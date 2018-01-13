@@ -16,7 +16,7 @@
             <div>
                 <div class="list-group" ng-model="customerOrder">
 
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterOrders();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
                     <div ng-click="selectOrder(customerOrder.Games,customerOrder.OrderId)" ng-repeat="customerOrder in Orders" class="list-group-item game-btn">
                         <div class="row">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm margin-top-0" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterGames();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
+                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false" items-per-page="itemsPerPage" ng-click="filterOrders();" next-text="@Commands.NextItem" previous-text="@Commands.PreviousItem"></ul>
 
                 </div>
             </div>

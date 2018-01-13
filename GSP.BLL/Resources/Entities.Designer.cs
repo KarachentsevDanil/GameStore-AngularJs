@@ -61,6 +61,15 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Category_Name {
+            get {
+                return ResourceManager.GetString("Category_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Game_Category {

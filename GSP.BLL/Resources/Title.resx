@@ -144,4 +144,7 @@
   <data name="ShowMyOrder" xml:space="preserve">
     <value>My Order</value>
   </data>
+  <data name="AddCategory" xml:space="preserve">
+    <value>Add Category</value>
+  </data>
 </root>

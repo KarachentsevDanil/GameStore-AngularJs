@@ -29,10 +29,21 @@ namespace GSP.WebClient.Controllers
 
             return View();
         }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            if (User.IsInRole(Role.Admin.ToString()))
+            {
+                return RedirectToAction("EditOrDeleteGame", "Game");
+            }
+
+            if (User.IsInRole(Role.User.ToString()))
+            {
+                return RedirectToAction("ShowGame", "Game");
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

@@ -87,10 +87,10 @@ namespace GSP.DAL.Repositories
                     games = games.OrderBy(x => x.Name).AsQueryable();
                     break;
                 case GamesOutputMode.TopSell:
-                    games = games.OrderBy(x => x.Orders.Count).AsQueryable();
+                    games = games.Where(t=> t.Orders.Any()).OrderByDescending(x => x.Orders.Count).AsQueryable();
                     break;
                 case GamesOutputMode.TopRate:
-                    games = games.OrderBy(x => x.Rates.Sum(t => (int)t.Rating)).AsQueryable();
+                    games = games.Where(t=> t.Rates.Any()).OrderByDescending(x => x.Rates.Sum(t => (int)t.Rating)).AsQueryable();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(gamesFilterParams.OutputMode), gamesFilterParams.OutputMode, "Wrong option was sent.");

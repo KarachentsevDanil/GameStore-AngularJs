@@ -15,7 +15,9 @@
     "underscore": "1.8.3",
     "select2": "4.0.5",
     "bootstrap-datepicker": "v1.7.1",
-    "angular-bootstrap": "2.5.0"
+    "angular-bootstrap": "2.5.0",
+    "angular-busy": "v4.1.4",
+    "font-awesome": "Font-Awesome#v4.7.0"
   },
   "resolutions": {
     "angular": "1.5.7",

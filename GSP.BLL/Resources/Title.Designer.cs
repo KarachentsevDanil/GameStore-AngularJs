@@ -61,6 +61,15 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Category.
+        /// </summary>
+        public static string AddCategory {
+            get {
+                return ResourceManager.GetString("AddCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Game.
         /// </summary>
         public static string AddGame {

@@ -1,0 +1,28 @@
+﻿@using GSP.BLL.Resources
+
+<div class="modal fade" id="addCategory" ng-controller="categoryController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">@Title.AddCategory</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">@Entities.Category_Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="Name" ng-model="name" placeholder="@Entities.Category_Name" class="form-control" autofocus required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="addCategory()">@Commands.AddCategory</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Commands.Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

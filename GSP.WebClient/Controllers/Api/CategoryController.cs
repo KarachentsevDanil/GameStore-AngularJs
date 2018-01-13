@@ -20,5 +20,11 @@ namespace GSP.WebClient.Controllers.Api
         {
             return _categoryService.GetCategories();
         }
+
+        [HttpPost]
+        public void AddCategory([FromBody]Category category)
+        {
+            _categoryService.AddCategory(category.Name);
+        }
     }
 }

@@ -55,6 +55,12 @@
     <None Include="wwwroot\lib\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <None Include="wwwroot\lib\angular-bootstrap\ui-bootstrap.js" />
     <None Include="wwwroot\lib\angular-bootstrap\ui-bootstrap.min.js" />
+    <None Include="wwwroot\lib\angular-busy\angular-busy.js" />
+    <None Include="wwwroot\lib\angular-busy\dist\angular-busy.js" />
+    <None Include="wwwroot\lib\angular-busy\dist\angular-busy.min.js" />
+    <None Include="wwwroot\lib\angular-busy\dist\index.js" />
+    <None Include="wwwroot\lib\angular-busy\index.js" />
+    <None Include="wwwroot\lib\angular-busy\LICENSE" />
     <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker.css.map" />
     <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker3.css.map" />

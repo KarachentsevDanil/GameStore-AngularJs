@@ -61,6 +61,15 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Category.
+        /// </summary>
+        public static string AddCategory {
+            get {
+                return ResourceManager.GetString("AddCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Comment.
         /// </summary>
         public static string AddComment {
@@ -84,6 +93,15 @@ namespace GSP.BLL.Resources {
         public static string Buy {
             get {
                 return ResourceManager.GetString("Buy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
