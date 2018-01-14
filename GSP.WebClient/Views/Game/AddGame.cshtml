@@ -26,12 +26,19 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">@Entities.Game_Category:</label>
                 <div class="col-sm-9">
-                    <span data-toggle="modal" data-target="#addCategory" class="btn btn-sm btn-default"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                    <select ng-model="categor" class="form-control" name="CategoryId">
-                        <option ng-repeat="categor in category" value="{{categor.CategoryId}}">
-                            {{categor.Name}}
-                        </option>
-                    </select>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button class="btn blue" data-target="#addCategory" data-toggle="modal" type="button">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </span>
+
+                        <select ng-model="categor" class="form-control width-70" name="CategoryId">
+                            <option ng-repeat="categor in category" value="{{categor.CategoryId}}">
+                                {{categor.Name}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +59,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">@Entities.Game_Photo:</label>
                 <div class="col-sm-9">
-                    <input class="ui basic button form-control" type="file" name="file"/>
+                    <input class="ui basic button form-control" type="file" name="file" />
                 </div>
             </div>
 

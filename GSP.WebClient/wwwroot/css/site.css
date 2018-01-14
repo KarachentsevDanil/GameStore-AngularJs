@@ -94,6 +94,11 @@ body {
 .center-align {
     text-align: center;
 }
+
+.width-70 {
+    width: 68% !important;
+}
+
 /*Game styles*/
 
 .game-btn {

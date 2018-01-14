@@ -60,7 +60,7 @@ namespace GSP.WebClient.Controllers
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
+                    return RedirectToAction(user.Role == Role.Admin ? "EditOrDeleteGame" : "ShowGame", "Game");
                 }
 
                 ModelState.AddModelError(string.Empty, Exceptions.IncorrectPasswordOrUserName);
@@ -83,7 +83,7 @@ namespace GSP.WebClient.Controllers
 
                     await Authenticate(customer);
 
-                    return RedirectToAction(User.IsInRole(Role.Admin.ToString()) ? "EditOrDeleteGame" : "ShowGame", "Game");
+                    return RedirectToAction("ShowGame", "Game");
                 }
 
                 ModelState.AddModelError(string.Empty, Exceptions.UserAlreadyExists);

@@ -134,10 +134,9 @@ namespace GSP.AprioriAlgoritm.Helper
 
         private HashSet<int> TryMergeItemsets(List<int> firstSet, List<int> secondSet)
         {
+            var length = firstSet.Count;
 
-            int length = firstSet.Count;
-
-            for (int i = 0; i < length - 1; ++i)
+            for (var i = 0; i < length - 1; ++i)
             {
                 if (!firstSet[i].Equals(secondSet[i]))
                 {
@@ -150,16 +149,17 @@ namespace GSP.AprioriAlgoritm.Helper
                 return null;
             }
 
-            var ret = new HashSet<int>();
+            var result = new HashSet<int>();
 
             for (int i = 0; i < length - 1; ++i)
             {
-                ret.Add(firstSet[i]);
+                result.Add(firstSet[i]);
             }
 
-            ret.Add(firstSet[length - 1]);
-            ret.Add(secondSet[length - 1]);
-            return ret;
+            result.Add(firstSet[length - 1]);
+            result.Add(secondSet[length - 1]);
+
+            return result;
         }
 
         private List<HashSet<int>> GetFrequentItems(List<HashSet<int>> itemsetList, Dictionary<HashSet<int>, int> supportCountMap, double minimumSupport)
@@ -170,8 +170,10 @@ namespace GSP.AprioriAlgoritm.Helper
             {
                 foreach (var item in itemset)
                 {
-                    var tmp = new HashSet<int>();
-                    tmp.Add(item);
+                    var set = new HashSet<int>
+                    {
+                        item
+                    };
 
                     if (supportCountMap.Keys.Any(x => x.Contains(item)))
                     {
@@ -180,13 +182,13 @@ namespace GSP.AprioriAlgoritm.Helper
                     }
                     else
                     {
-                        supportCountMap.Add(tmp, 1);
+                        supportCountMap.Add(set, 1);
                     }
-                    int value = 0;
-                    if (map.TryGetValue(item, out value))
+
+                    if (map.TryGetValue(item, out int value))
                         map[item]++;
                     else if (!map.ContainsKey(item))
-                        map.Add(item, 0 + 1);
+                        map.Add(item, 1);
                 }
             }
 
@@ -194,10 +196,13 @@ namespace GSP.AprioriAlgoritm.Helper
 
             foreach (KeyValuePair<int, int> entry in map)
             {
-                if (1.0 * entry.Value / map.Count >= minimumSupport)
+                if (MaximumSupportValue * entry.Value / map.Count >= minimumSupport)
                 {
-                    var itemset = new HashSet<int>();
-                    itemset.Add(entry.Key);
+                    var itemset = new HashSet<int>
+                    {
+                        entry.Key
+                    };
+
                     frequentItemsetList.Add(itemset);
                 }
             }

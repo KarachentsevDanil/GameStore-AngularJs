@@ -50,12 +50,19 @@ namespace GSP.BLL.Services
 
         public IEnumerable<Game> GetRecomendedGames(int gameId)
         {
-            var totalTransactionsCount = _unitOfWork.OrderRepository.GetAll().Count(t => t.Status == Domain.Orders.OrderStatus.Complete);
+            var totalTransactionsCount = _unitOfWork.OrderRepository
+                .GetAll().Count(t => t.Status == Domain.Orders.OrderStatus.Complete);
+
             var gameTransactions = _unitOfWork.OrderRepository.GetAll()
                 .Include(t => t.Games)
                 .Where(x => x.Games.Any(t => t.GameId == gameId))
                 .Select(t => t.Games.Select(g => g.GameId).ToArray())
                 .ToList();
+
+            if (!gameTransactions.Any())
+            {
+                return Enumerable.Empty<Game>();
+            }
 
             var recomendedGamesIds = _recomendationService.GetRecomendations(gameTransactions, totalTransactionsCount, gameId);
             var games = _unitOfWork.GameRepository.GetGamesByIds(recomendedGamesIds.ToArray());
