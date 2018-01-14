@@ -47,9 +47,9 @@ namespace GSP.WebClient.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<GameViewModel> GetGames()
+        public IEnumerable<GameViewModel> GetRecomendedGames(int gameId)
         {
-            var games = _gameService.GetGames().ToList();
+            var games = _gameService.GetRecomendedGames(gameId);
             return MapperExtenctions.ToGameViewModels(games);
         }
 

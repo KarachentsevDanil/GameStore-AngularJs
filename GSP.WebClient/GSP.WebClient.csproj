@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj" />
     <ProjectReference Include="..\GSP.BLL\GSP.BLL.csproj" />
     <ProjectReference Include="..\GSP.DAL\GSP.DAL.csproj" />
     <ProjectReference Include="..\GSP.Domain\GSP.Domain.csproj" />

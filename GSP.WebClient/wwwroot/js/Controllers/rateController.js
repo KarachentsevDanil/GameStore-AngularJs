@@ -39,31 +39,12 @@
             });
         };
 
-        $scope.getGameById = function (data) {
-            rateService.getGameById(data)
-                .success(function (game) {
-                    $scope.CurrentGame = game;
-                }).error(function () {
-                    alertService.showError("Error occure when getting game.");
-                });
-        };
-
         $scope.getFeedsByGameId = function (data) {
             rateService.getGameRates(data)
                 .success(function (feeds) {
                     $scope.Feeds = feeds;
                 }).error(function () {
                     alertService.showError("Error occure when getting comments for game.");
-                });
-        };
-
-
-        $scope.getRecomendationToGame = function (data) {
-            rateService.getRecomendationToGame(data)
-                .success(function (games) {
-                    $scope.RecomendGames = games;
-                }).error(function () {
-                    alertService.showError("Error occure when getting reccomended games for game.");
                 });
         };
 

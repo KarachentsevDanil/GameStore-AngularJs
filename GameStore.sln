@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Domain", "1. Domain", "{2068A070-15EB-4DDD-B858-7F0DA5F5AAD5}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.WebClient", "GSP.WebCli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Extenctions", "5. Extenctions", "{1EF5AB92-589E-4807-BC62-228FAF6FA6F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.AprioriAlgoritm", "GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj", "{01792557-C69F-45B7-97B4-E26B46A4289D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.AprioriAlgoritm", "GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj", "{01792557-C69F-45B7-97B4-E26B46A4289D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

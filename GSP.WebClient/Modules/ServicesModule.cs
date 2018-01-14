@@ -1,7 +1,8 @@
 ﻿using Autofac;
+using GSP.AprioriAlgoritm.Contracts;
+using GSP.AprioriAlgoritm.Service;
 using GSP.BLL.Services;
 using GSP.BLL.Services.Contracts;
-using GSP.DAL.Repositories.Contracts;
 
 namespace GSP.WebClient.Modules
 {
@@ -14,6 +15,7 @@ namespace GSP.WebClient.Modules
             builder.RegisterType<GameService>().As<IGameService>();
             builder.RegisterType<OrderService>().As<IOrderService>();
             builder.RegisterType<RateService>().As<IRateService>();
+            builder.RegisterType<RecomendationService>().As<IRecomendationService>();
         }
     }
 }

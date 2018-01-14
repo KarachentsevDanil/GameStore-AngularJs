@@ -8,13 +8,18 @@
     function gameService($http) {
         var baseGameUrl = "/api/Game";
         var getGameByParams = baseGameUrl.concat("/getgamesbyparams");
-        var getGamesUrl = baseGameUrl.concat("/getgames");
+        var getRecomendedGamesUrl = baseGameUrl.concat("/getrecomendedgames?gameId=");
+        var getGameByIdUrl = baseGameUrl.concat("/getgamebyid?gameId=");
         var createGameUrl = baseGameUrl.concat("/creategame");
         var updateGameUrl = baseGameUrl.concat("/editgame");
         var deleteGameUrl = baseGameUrl.concat("/deletegame");
 
-        this.getGame = function () {
-            return $http.get(getGamesUrl);
+        this.getRecomendedGames = function (gameId) {
+            return $http.get(getRecomendedGamesUrl.concat(gameId));
+        };
+        
+        this.getGameById = function (data) {
+            return $http.get(getGameByIdUrl + data);
         };
         
         this.getGameByParams = function (data) {

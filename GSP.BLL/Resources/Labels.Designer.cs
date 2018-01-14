@@ -160,7 +160,7 @@ namespace GSP.BLL.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You also can buy this games.
+        ///   Looks up a localized string similar to Also you can buy this games.
         /// </summary>
         public static string RecommendedGame {
             get {

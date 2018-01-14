@@ -51,6 +51,24 @@
                 });
         };
 
+        $scope.getGameById = function (data) {
+            gameService.getGameById(data)
+                .success(function (game) {
+                    $scope.CurrentGame = game;
+                }).error(function () {
+                    alertService.showError("Error occure when getting game.");
+                });
+        };
+
+        $scope.getRecomendedGames = function (gameId) {
+            gameService.getRecomendedGames(gameId)
+                .success(function (games) {
+                    $scope.recomendGames = games;
+                }).error(function () {
+                    alertService.showError("Error occure when recomendations for game.");
+                });
+        };
+
         $scope.clearFilterParams = function () {
             var checkedCategories = $('.category-value:checked');
 

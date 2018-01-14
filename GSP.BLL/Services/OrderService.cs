@@ -51,6 +51,11 @@ namespace GSP.BLL.Services
         public IEnumerable<Game> GetGameFromBucket(int customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
+            if(order == null)
+            {
+                return Enumerable.Empty<Game>();
+            }
+
             var games = order.Games.Select(x => x.Game).ToList();
             return games;
         }

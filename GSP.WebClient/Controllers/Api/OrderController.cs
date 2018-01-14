@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Resources;
-using GSP.BLL.Services.Contracts;   
+using GSP.BLL.Services.Contracts;
 using GSP.Domain.Orders;
 using GSP.Domain.Params;
 using GSP.WebClient.Infrastracture.Extenctions;
@@ -26,9 +26,14 @@ namespace GSP.WebClient.Controllers.Api
         [HttpPost]
         public void CreateOrder([FromBody] OrderViewModel order)
         {
-            var customer = GetCustomerByTerm(order.Customer);
-            var newOrder = new Order { CustomerId = customer.CustomerId };
-            _orderService.AddOrder(newOrder);
+            var currentOrder = GetCurrentOrderOfCustomer(order.Customer);
+
+            if (currentOrder == null)
+            {
+                var customer = GetCustomerByTerm(order.Customer);
+                var newOrder = new Order { CustomerId = customer.CustomerId };
+                _orderService.AddOrder(newOrder);
+            }
         }
 
         [HttpPost]

@@ -43,13 +43,6 @@ namespace GSP.DAL.Repositories
             return result;
         }
 
-        public IEnumerable<Game> GetGames()
-        {
-            return _dbContext.Games
-                .Include(x => x.Category)
-                .ToList();
-        }
-
         private void FillGamesQueryFilterParams(GamesFilterParams filterParams)
         {
             var predicate = PredicateBuilder.New<Game>(x => !x.IsDeleted);
@@ -97,6 +90,27 @@ namespace GSP.DAL.Repositories
             }
 
             return games;
+        }
+
+        public IEnumerable<Game> GetGamesByIds(int[] ids)
+        {
+            return _dbContext.Games
+                .Include(x => x.Category)
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Order)
+                .Include(x => x.Rates)
+                .Where(t => ids.Contains(t.GameId))
+                .ToList();
+        }
+
+        public Game GetGameById(int id)
+        {
+            return _dbContext.Games
+                .Include(x => x.Category)
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Order)
+                .Include(x => x.Rates)
+                .FirstOrDefault(t => id == t.GameId);
         }
     }
 }

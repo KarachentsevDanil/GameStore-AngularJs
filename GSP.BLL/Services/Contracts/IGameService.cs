@@ -10,10 +10,10 @@ namespace GSP.BLL.Services.Contracts
 
         void UpdateGame(Game game);
 
-        IEnumerable<Game> GetGames();
+        IEnumerable<Game> GetRecomendedGames(int gameId);
 
         IEnumerable<Game> GetGamesByParams(GamesFilterParams gameParams, out int totalCount);
-
+        
         Game GetGameById(int gameId);
 
         void DeleteGame(int gameId);
