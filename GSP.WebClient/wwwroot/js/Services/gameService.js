@@ -43,7 +43,7 @@
         this.editGame = function (data) {
             return $http({
                 method: 'POST',
-                url: url + updateGameUrl,
+                url: updateGameUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -52,7 +52,7 @@
         this.deleteGame = function (data) {
             return $http({
                 method: 'POST',
-                url: url + deleteGameUrl,
+                url: deleteGameUrl,
                 data: data,
                 headers: { 'Content-Type': 'application/json' }
             });
