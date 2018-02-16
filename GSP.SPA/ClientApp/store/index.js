@@ -1,5 +1,6 @@
-﻿import Vue from 'vue'
+import Vue from 'vue'
 import Vuex from 'vuex'
+import authenticationStore from '../pages/auth/store/index';
 
 Vue.use(Vuex)
 
@@ -25,8 +26,16 @@ const actions = ({
     }
 })
 
-export default new Vuex.Store({
+
+const store = new Vuex.Store({
     state,
     mutations,
-    actions
+    actions,
+    modules: {
+        authStore: authenticationStore
+    }
 });
+
+console.log(store);
+
+export default store;

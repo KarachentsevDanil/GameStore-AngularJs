@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
-using GSP.Domain.Customers;
+using GSP.BLL.Dto.Customer;
 
 namespace GSP.BLL.Services.Contracts
 {
     public interface ICustomerService
     {
-        void AddCustomer(Customer customer);
+        CustomerDto GetCustomerByTerm(string term);
 
-        void UpdateCustomer(Customer customer);
-
-        Customer GetCustomerByTerm(string term);
-
-        IEnumerable<Customer> GetCustomers();
+        IEnumerable<CustomerDto> GetCustomers();
     }
 }

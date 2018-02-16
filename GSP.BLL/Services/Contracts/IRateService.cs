@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using GSP.Domain.Games;
+using GSP.BLL.Dto.Rate;
 
 namespace GSP.BLL.Services.Contracts
 {
     public interface IRateService
     {
-        void AddFeedbackToGame(Rate rate);
+        void AddFeedbackToGame(CreateRateDto rate);
 
-        IEnumerable<Rate> GetRatesOfGame(int gameId);
+        IEnumerable<RateDto> GetRatesOfGame(int gameId);
     }
 }

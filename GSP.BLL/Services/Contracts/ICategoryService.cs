@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using GSP.Domain.Games;
+using GSP.BLL.Dto.Category;
 
 namespace GSP.BLL.Services.Contracts
 {
     public interface ICategoryService
     {
-        void AddCategory(string name);
+        void AddCategory(CreateCategoryDto category);
 
-        Category GetCategoryByName(string name);
+        CategoryDto GetCategoryByName(string name);
 
-        IEnumerable<Category> GetCategories();
+        IEnumerable<CategoryDto> GetCategories();
     }
 }

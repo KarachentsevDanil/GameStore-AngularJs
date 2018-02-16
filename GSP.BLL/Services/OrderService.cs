@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
+using GSP.BLL.Dto.Game;
+using GSP.BLL.Dto.Order;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -18,15 +19,17 @@ namespace GSP.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddOrder(Order order)
+        public void AddOrder(CreateOrderDto order)
         {
-            _unitOfWork.OrderRepository.Add(order);
+            var newOrder = AutoMapper.Mapper.Map<CreateOrderDto, Order>(order);
+            _unitOfWork.OrderRepository.Add(newOrder);
             _unitOfWork.Commit();
         }
 
-        public void UpdateOrder(Order order)
+        public void UpdateOrder(CompleteOrderDto order)
         {
-            _unitOfWork.OrderRepository.Update(order);
+            var completedOrder = AutoMapper.Mapper.Map<CompleteOrderDto, Order>(order);
+            _unitOfWork.OrderRepository.Update(completedOrder);
             _unitOfWork.Commit();
         }
 
@@ -36,45 +39,49 @@ namespace GSP.BLL.Services
             _unitOfWork.Commit();
         }
 
-        public void AddGameToBucket(OrderGame game)
+        public void AddGameToBucket(AddGameToBucketDto game)
         {
-            _unitOfWork.OrderRepository.AddGameToBucket(game);
+            var orderGame = AutoMapper.Mapper.Map<AddGameToBucketDto, OrderGame>(game);
+            _unitOfWork.OrderRepository.AddGameToBucket(orderGame);
             _unitOfWork.Commit();
         }
 
-        public void DeleteGameFromBucket(OrderGame game)
+        public void DeleteGameFromBucket(AddGameToBucketDto game)
         {
             _unitOfWork.OrderRepository.DeleteGameFromBucket(game.OrderGameId);
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<Game> GetGameFromBucket(int customerId)
+        public IEnumerable<GameDto> GetGameFromBucket(int customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
-            if(order == null)
+
+            if (order == null)
             {
-                return Enumerable.Empty<Game>();
+                return Enumerable.Empty<GameDto>();
             }
 
             var games = order.Games.Select(x => x.Game).ToList();
-            return games;
+            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
 
-        public IEnumerable<Game> GetCustomerGames(int customerId)
+        public IEnumerable<GameDto> GetCustomerGames(int customerId)
         {
-            var gamesFilterParams = new GamesFilterParams(){CustomerId = customerId, PageSize = int.MaxValue};
-            return _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
+            var gamesFilterParams = new GamesFilterParams() { CustomerId = customerId, PageSize = int.MaxValue };
+            var games = _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
+            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
 
-        public IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)
+        public IEnumerable<OrderDto> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)
         {
-            return _unitOfWork.OrderRepository.GetOrdersByParams(filterParams, out totalCount);
+            var orders = _unitOfWork.OrderRepository.GetOrdersByParams(filterParams, out totalCount);
+            return AutoMapper.Mapper.Map<IEnumerable<Order>, List<OrderDto>>(orders);
         }
 
-        public Order GetCurrentOrderOfCustomer(int customerId)
+        public OrderDto GetCurrentOrderOfCustomer(int customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
-            return order;
+            return AutoMapper.Mapper.Map<Order, OrderDto>(order);
         }
     }
 }

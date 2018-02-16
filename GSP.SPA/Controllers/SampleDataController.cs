@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Vue2Spa.Controllers
+namespace GSP.SPA.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller

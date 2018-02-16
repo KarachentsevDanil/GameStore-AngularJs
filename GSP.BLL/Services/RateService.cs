@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GSP.BLL.Dto.Rate;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -14,15 +15,17 @@ namespace GSP.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddFeedbackToGame(Rate rate)
+        public void AddFeedbackToGame(CreateRateDto rate)
         {
-            _unitOfWork.RateRepository.Add(rate);
+            var newRate = AutoMapper.Mapper.Map<CreateRateDto, Rate>(rate);
+            _unitOfWork.RateRepository.Add(newRate);
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<Rate> GetRatesOfGame(int gameId)
+        public IEnumerable<RateDto> GetRatesOfGame(int gameId)
         {
-            return _unitOfWork.RateRepository.GetRatesOfGame(gameId);
+            var rates = _unitOfWork.RateRepository.GetRatesOfGame(gameId);
+            return AutoMapper.Mapper.Map<IEnumerable<Rate>, List<RateDto>>(rates);
         }
     }
 }

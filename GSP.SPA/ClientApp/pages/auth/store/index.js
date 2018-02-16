@@ -1,0 +1,18 @@
+import getters from "./getters";
+import mutations from "./mutators";
+import actions from "./actions";
+
+const state = {
+    username: "",
+    acessToken: ""
+};
+
+const store = {
+    namespaced: true,
+    state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+};
+
+export default store;

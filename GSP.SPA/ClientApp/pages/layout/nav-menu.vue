@@ -53,6 +53,11 @@
                         path: "/fetch-data",
                         display: "Fetch data",
                         style: "glyphicon glyphicon-th-list"
+                    },
+                    {
+                        path: "/login",
+                        display: "Sign in",
+                        style: "glyphicon glyphicon-th-list"
                     }
                 ],
                 drawer: false,

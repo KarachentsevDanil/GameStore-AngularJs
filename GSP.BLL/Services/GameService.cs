@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GSP.AprioriAlgoritm.Contracts;
+using GSP.BLL.Dto.Game;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -20,26 +21,30 @@ namespace GSP.BLL.Services
             _recomendationService = recomendationService;
         }
 
-        public void AddGame(Game game)
+        public void AddGame(CreateGameDto game)
         {
-            _unitOfWork.GameRepository.Add(game);
+            var newGame = AutoMapper.Mapper.Map<CreateGameDto, Game>(game);
+            _unitOfWork.GameRepository.Add(newGame);
             _unitOfWork.Commit();
         }
 
-        public void UpdateGame(Game game)
+        public void UpdateGame(CreateGameDto game)
         {
-            _unitOfWork.GameRepository.Update(game);
+            var updateGame = AutoMapper.Mapper.Map<CreateGameDto, Game>(game);
+            _unitOfWork.GameRepository.Update(updateGame);
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<Game> GetGamesByParams(GamesFilterParams gameParams, out int totalCount)
+        public IEnumerable<GameDto> GetGamesByParams(GamesFilterParams gameParams, out int totalCount)
         {
-            return _unitOfWork.GameRepository.GetGamesByParams(gameParams, out totalCount);
+            var games = _unitOfWork.GameRepository.GetGamesByParams(gameParams, out totalCount);
+            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
 
-        public Game GetGameById(int gameId)
+        public GameDto GetGameById(int gameId)
         {
-            return _unitOfWork.GameRepository.GetGameById(gameId);
+            var game = _unitOfWork.GameRepository.GetGameById(gameId);
+            return AutoMapper.Mapper.Map<Game, GameDto>(game);
         }
 
         public void DeleteGame(int gameId)
@@ -48,7 +53,7 @@ namespace GSP.BLL.Services
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<Game> GetRecomendedGames(int gameId)
+        public IEnumerable<GameDto> GetRecomendedGames(int gameId)
         {
             var totalTransactionsCount = _unitOfWork.OrderRepository
                 .GetAll().Count(t => t.Status == Domain.Orders.OrderStatus.Complete);
@@ -61,13 +66,13 @@ namespace GSP.BLL.Services
 
             if (!gameTransactions.Any())
             {
-                return Enumerable.Empty<Game>();
+                return Enumerable.Empty<GameDto>();
             }
 
             var recomendedGamesIds = _recomendationService.GetRecomendations(gameTransactions, totalTransactionsCount, gameId);
             var games = _unitOfWork.GameRepository.GetGamesByIds(recomendedGamesIds.ToArray());
 
-            return games;
+            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
     }
 }

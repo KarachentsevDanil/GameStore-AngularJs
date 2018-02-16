@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GSP.BLL.Dto.Category;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -14,20 +15,23 @@ namespace GSP.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddCategory(string name)
+        public void AddCategory(CreateCategoryDto category)
         {
-            _unitOfWork.CategoryRepository.Add(new Category(name));
+            var newCategory = AutoMapper.Mapper.Map<CreateCategoryDto, Category>(category);
+            _unitOfWork.CategoryRepository.Add(newCategory);
             _unitOfWork.Commit();
         }
 
-        public Category GetCategoryByName(string name)
+        public CategoryDto GetCategoryByName(string name)
         {
-            return _unitOfWork.CategoryRepository.GetCategoryByName(name);
+            var category = _unitOfWork.CategoryRepository.GetCategoryByName(name);
+            return AutoMapper.Mapper.Map<Category, CategoryDto>(category);
         }
 
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<CategoryDto> GetCategories()
         {
-            return _unitOfWork.CategoryRepository.GetCategories();
+            var categories = _unitOfWork.CategoryRepository.GetCategories();
+            return AutoMapper.Mapper.Map<IEnumerable<Category>, List<CategoryDto>>(categories);
         }
     }
 }

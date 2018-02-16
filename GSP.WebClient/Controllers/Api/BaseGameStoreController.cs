@@ -1,21 +1,21 @@
-﻿using GSP.BLL.Services.Contracts;
-using GSP.Domain.Customers;
-using Microsoft.AspNetCore.Mvc;
+﻿//using GSP.BLL.Services.Contracts;
+//using GSP.Domain.Customers;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace GSP.WebClient.Controllers.Api
-{
-    public class BaseGameStoreController : Controller
-    {
-        private readonly ICustomerService _customerService;
+//namespace GSP.WebClient.Controllers.Api
+//{
+//    public class BaseGameStoreController : Controller
+//    {
+//        private readonly ICustomerService _customerService;
 
-        public BaseGameStoreController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
+//        public BaseGameStoreController(ICustomerService customerService)
+//        {
+//            _customerService = customerService;
+//        }
 
-        protected Customer GetCustomerByTerm(string term)
-        {
-            return _customerService.GetCustomerByTerm(term);
-        }
-    }
-}
+//        protected Customer GetCustomerByTerm(string term)
+//        {
+//            return _customerService.GetCustomerByTerm(term);
+//        }
+//    }
+//}

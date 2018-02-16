@@ -40,7 +40,7 @@ namespace GSP.WebClient.Controllers
                 }
             }
 
-            _gameService.AddGame(game);
+            //_gameService.AddGame(game);
 
             return RedirectToAction("EditOrDeleteGame");
         }

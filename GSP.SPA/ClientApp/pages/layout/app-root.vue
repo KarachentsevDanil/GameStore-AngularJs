@@ -29,5 +29,7 @@
     }
 </script>
 <style>
-
+    .btn {
+        padding: 0px;
+    }
 </style>

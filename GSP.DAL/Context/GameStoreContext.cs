@@ -2,11 +2,12 @@
 using GSP.Domain.Customers;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GSP.DAL.Context
 {
-    public class GameStoreContext : DbContext
+    public class GameStoreContext : IdentityDbContext<Customer>
     {
         public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
         { }
