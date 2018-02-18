@@ -1,1 +1,2 @@
-export const ADD_TOKEN_MUTATOR = 'addToken';
+export const SET_TOKEN_MUTATOR = 'setToken';
+export const SET_USER_MUTATOR = 'setUser';

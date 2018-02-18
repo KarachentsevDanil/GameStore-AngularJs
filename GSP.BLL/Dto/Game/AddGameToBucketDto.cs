@@ -8,6 +8,6 @@
 
         public int GameId { get; set; }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 }

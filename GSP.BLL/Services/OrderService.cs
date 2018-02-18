@@ -52,7 +52,7 @@ namespace GSP.BLL.Services
             _unitOfWork.Commit();
         }
 
-        public IEnumerable<GameDto> GetGameFromBucket(int customerId)
+        public IEnumerable<GameDto> GetGameFromBucket(string customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
 
@@ -65,7 +65,7 @@ namespace GSP.BLL.Services
             return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
 
-        public IEnumerable<GameDto> GetCustomerGames(int customerId)
+        public IEnumerable<GameDto> GetCustomerGames(string customerId)
         {
             var gamesFilterParams = new GamesFilterParams() { CustomerId = customerId, PageSize = int.MaxValue };
             var games = _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
@@ -78,7 +78,7 @@ namespace GSP.BLL.Services
             return AutoMapper.Mapper.Map<IEnumerable<Order>, List<OrderDto>>(orders);
         }
 
-        public OrderDto GetCurrentOrderOfCustomer(int customerId)
+        public OrderDto GetCurrentOrderOfCustomer(string customerId)
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
             return AutoMapper.Mapper.Map<Order, OrderDto>(order);

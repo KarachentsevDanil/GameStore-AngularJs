@@ -3,6 +3,7 @@
 }
 
 /* Highlighting rules for nav menu items */
+
 .main-nav li a.active,
 .main-nav li a.active:hover,
 .main-nav li a.active:focus {
@@ -11,6 +12,7 @@
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
+
 .main-nav {
     position: fixed;
     top: 0;
@@ -63,4 +65,46 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+.authorization-block div.container {
+    margin: 60px 0px 0px 0px;
+}
+
+.authorization-block .login-block {
+    background: white;
+    border: 3px solid white;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px 2px rgba(34, 36, 38, 0.15);
+}
+
+.authorization-block .form-header {
+    border-top-left-radius: 2px !important;
+    border-top-right-radius: 2px !important;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.authorization-block .form-body {
+    padding: 15px;
+}
+
+.authorization-block .form-sign-block {
+    background: white;
+    text-align: center;
+}
+
+.authorization-block .registr-link-block {
+    background: white;
+    text-align: center;
+    margin-top: 10px;
+    border: 3px solid white;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px 0 rgba(34, 36, 38, 0.15);
+    padding-top: 10px;
+    height: 45px;
+}
+
+.authorization-block .form-button {
+    width: 200px;
 }

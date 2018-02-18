@@ -6,12 +6,19 @@
                     <div class="form-header deep-purple darken-1">
                         <v-card-title class="white--text deep-purple darken-1">
                             <span class="text-xs-center">
-                                Login
+                                Resitration
                             </span>
                         </v-card-title>
                     </div>
                     <div class="form-body">
                         <form>
+                            <v-text-field label="Full Name"
+                                          v-model="user.fullName"
+                                          :error-messages="fullNameErrors"
+                                          @input="$v.user.fullName.$touch()"
+                                          @blur="$v.user.fullName.$touch()"
+                                          required></v-text-field>
+
                             <v-text-field label="E-mail"
                                           v-model="user.email"
                                           :error-messages="emailErrors"
@@ -29,15 +36,35 @@
                                           :type="'password'"
                                           required></v-text-field>
 
-                            <v-checkbox label="Remember me ?" v-model="user.rememberMe"></v-checkbox>
+                            <v-menu ref="menu"
+                                    lazy
+                                    :close-on-content-click="false"
+                                    v-model="menu"
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    :nudge-right="40"
+                                    min-width="290px"
+                                    :return-value.sync="user.birthday">
+                                <v-text-field slot="activator"
+                                              label="Picker in menu"
+                                              v-model="user.birthday"
+                                              prepend-icon="event"
+                                              readonly></v-text-field>
+                                <v-date-picker v-model="user.birthday" no-title scrollable>
+                                    <v-spacer></v-spacer>
+                                    <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                                    <v-btn flat color="primary" @click="$refs.menu.save(user.birthday)">OK</v-btn>
+                                </v-date-picker>
+                            </v-menu>
 
-                            <v-btn class="form-button" @click="submit" color="info">Sign In</v-btn>
+                            <v-btn class="form-button" @click="submit" color="info">Registr</v-btn>
                         </form>
                     </div>
                 </v-card>
 
                 <div class="registr-link-block">
-                    New to us? <router-link to="/registr" active-class="active" exact><a>Sign Up</a></router-link>
+                    Have account? <router-link to="/login" active-class="active" exact><a>Sign In</a></router-link>
                 </div>
             </div>
         </div>
@@ -45,9 +72,7 @@
 </template>
 
 <script>
-import * as authActions from "../store/types/action-types";
-import * as authGetters from "../store/types/getter-types";
-import * as authResources from "../store/resources";
+import * as authenticationService from "../api/authentication-service";
 import { mapGetters } from "vuex";
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
@@ -58,42 +83,36 @@ export default {
   validations: {
     user: {
       email: { required, email },
-      password: { required, minLength: minLength(6) }
+      password: { required, minLength: minLength(6) },
+      fullName: { required }
     }
   },
   data: () => ({
     user: {
       email: "",
       password: "",
-      rememberMe: false
-    }
+      fullName: "",
+      birthday: null
+    },
+    menu: false
   }),
   methods: {
-    submit() {
+    async submit() {
       let data = {
-        user: {
-          Email: this.user.email,
-          Password: this.user.password,
-          RememberMe: this.user.rememberMe
-        },
-        router: this.$router
+        Email: this.user.email,
+        Password: this.user.password,
+        FullName: this.user.fullName,
+        DateOfBirthsday: this.user.birthday
       };
 
-      this.$store.dispatch(
-        authResources.AUTH_STORE_NAMESPACE.concat(authActions.LOGIN_ACTION),
-        data
-      );
+      let response = await authenticationService.registr(data);
+      
+      if (response.status === 200) {
+        this.$router.push("/login");
+      }
     }
   },
   computed: {
-    ...mapGetters({
-      getUsername: authResources.AUTH_STORE_NAMESPACE.concat(
-        authGetters.GET_USER_GETTER
-      ),
-      getToken: authResources.AUTH_STORE_NAMESPACE.concat(
-        authGetters.GET_TOKEN_GETTER
-      )
-    }),
     passwordErrors() {
       const errors = [];
       if (!this.$v.user.password.$dirty) return errors;
@@ -107,6 +126,12 @@ export default {
       if (!this.$v.user.email.$dirty) return errors;
       !this.$v.user.email.email && errors.push("Must be valid e-mail");
       !this.$v.user.email.required && errors.push("E-mail is required");
+      return errors;
+    },
+    fullNameErrors() {
+      const errors = [];
+      if (!this.$v.user.fullName.$dirty) return errors;
+      !this.$v.user.fullName.required && errors.push("Full Name is required");
       return errors;
     }
   }

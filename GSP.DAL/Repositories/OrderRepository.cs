@@ -39,7 +39,7 @@ namespace GSP.DAL.Repositories
                 .AsEnumerable();
         }
         
-        public Order GetCurrentCustomerOrder(int customerId)
+        public Order GetCurrentCustomerOrder(string customerId)
         {
             return _dbContext.Orders
                 .Include(x => x.Games)
@@ -63,7 +63,7 @@ namespace GSP.DAL.Repositories
         {
             var predicate = PredicateBuilder.New<Order>(x => x.Status == OrderStatus.Complete);
 
-            if (filterParams.CustomerId.HasValue)
+            if (!string.IsNullOrEmpty(filterParams.CustomerId))
             {
                 predicate = predicate.Extend(x => x.CustomerId == filterParams.CustomerId, PredicateOperator.And);
             }

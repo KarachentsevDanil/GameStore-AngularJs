@@ -3,8 +3,8 @@ import mutations from "./mutators";
 import actions from "./actions";
 
 const state = {
-    username: "",
-    acessToken: ""
+    user: null,
+    token: ""
 };
 
 const store = {

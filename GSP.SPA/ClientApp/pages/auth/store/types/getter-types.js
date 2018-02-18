@@ -1,2 +1,2 @@
-export const GET_USERNAME_GETTER = 'getAcessToke';
-export const GET_TOKEN_GETTER = 'getUsername';
+export const GET_USER_GETTER = 'getUser';
+export const GET_TOKEN_GETTER = 'getToken';

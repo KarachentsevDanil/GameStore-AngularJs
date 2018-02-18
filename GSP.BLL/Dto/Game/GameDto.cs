@@ -7,6 +7,8 @@ namespace GSP.BLL.Dto.Game
     {
         public int GameId { get; set; }
 
+        public string Name { get; set; }
+
         public int CategoryId { get; set; }
 
         public string CategoryName { get; set; }

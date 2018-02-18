@@ -9,7 +9,7 @@ namespace GSP.Domain.Games
     {
         public int RateId { get; set; }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         public int GameId { get; set; }
 

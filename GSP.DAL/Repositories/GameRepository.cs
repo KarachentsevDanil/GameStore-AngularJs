@@ -62,7 +62,7 @@ namespace GSP.DAL.Repositories
                 predicate = predicate.Extend(x => filterParams.StartPrice <= x.Price && filterParams.EndPrice >= x.Price, PredicateOperator.And);
             }
 
-            if (filterParams.CustomerId.HasValue)
+            if (!string.IsNullOrEmpty(filterParams.CustomerId))
             {
                 predicate = predicate.Extend(x => x.Orders.Any(o => o.Order.CustomerId == filterParams.CustomerId && o.Order.Status == OrderStatus.Complete), PredicateOperator.And);
             }

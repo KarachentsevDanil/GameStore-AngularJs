@@ -1,11 +1,33 @@
-import CounterExample from './pages/layout/counter-example'
-import FetchData from './pages/layout/fetch-data'
-import HomePage from './pages/layout/home-page'
-import LoginPage from './pages/auth/pages/login'
+export const userRoutes = [{
+        path: '/games',
+        display: 'Games',
+        icon: 'fas fa-gamepad'
+    },
+    {
+        path: '/bucket',
+        display: 'Bucket',
+        icon: 'fal fa-shopping-cart'
+    },
+    {
+        path: '/my-games',
+        display: 'My Games',
+        icon: 'fas fa-gamepad'
+    }
+]
 
-export const routes = [
-    { path: '/', component: HomePage, display: 'Home', style: 'glyphicon glyphicon-home' },
-    { path: '/counter', component: CounterExample, display: 'Counter', style: 'glyphicon glyphicon-education' },
-    { path: '/fetch-data', component: FetchData, display: 'Fetch data', style: 'glyphicon glyphicon-th-list' },
-    { path: '/login', component: LoginPage, display: 'Login', style: 'glyphicon glyphicon-th-list' }
+export const adminRoutes = [{
+        path: '/add-game',
+        display: 'Add Game',
+        icon: 'far fa-plus-square'
+    },
+    {
+        path: '/edit-games',
+        display: 'Edit Games',
+        icon: 'fal fa-edit'
+    },
+    {
+        path: '/orders',
+        display: 'Orders',
+        icon: 'fal fa-archive'
+    }
 ]

@@ -1,4 +1,7 @@
 export default {
-    getAcessToke: state => state.acessToken,
-    getUsername: state => state.username
+    getToken: state => !state.token ? sessionStorage.token : state.token,
+    getUser: state => !state.user ?
+             !sessionStorage.user ?
+               '' : $.parseJSON(sessionStorage.user)
+                  : state.user
 }

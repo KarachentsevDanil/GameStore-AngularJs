@@ -1,6 +1,10 @@
 export default {
-    addToken(state, response) {
-        state.username = response.data.username;
-        state.acessToken = response.data.access_token;
+    setToken(state, token) {
+        sessionStorage.setItem('token', token);
+        state.token = token;
+    },
+    setUser(state, user) {
+        sessionStorage.setItem('user', JSON.stringify(user));
+        state.user = user;
     }
 };

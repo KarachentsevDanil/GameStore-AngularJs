@@ -3,7 +3,12 @@ import * as mutations from './types/mutators-types';
 
 export default {
     async login(context, data) {
-        let token = await authenticationService.getToken(data);
-        context.commit(mutations.ADD_TOKEN_MUTATOR, token);
+        let userDate = await authenticationService.login(data.user);
+
+        if (userDate.data) {
+            context.commit(mutations.SET_TOKEN_MUTATOR, userDate.data.token);
+            context.commit(mutations.SET_USER_MUTATOR, userDate.data.user);
+            data.router.push('/');
+        }
     }
 }

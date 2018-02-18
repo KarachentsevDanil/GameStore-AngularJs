@@ -6,6 +6,6 @@ namespace GSP.Domain.Params
     {
         public string Customer { get; set; }
 
-        public int? CustomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 }

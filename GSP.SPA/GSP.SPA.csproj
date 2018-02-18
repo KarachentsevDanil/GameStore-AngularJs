@@ -32,6 +32,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\components\" />
+    <Folder Include="ClientApp\pages\games\api\" />
+    <Folder Include="ClientApp\pages\games\pages\edit-games\" />
+    <Folder Include="ClientApp\pages\games\pages\game-details\" />
+    <Folder Include="ClientApp\pages\games\store\" />
+    <Folder Include="ClientApp\pages\orders\api\" />
+    <Folder Include="ClientApp\pages\orders\pages\" />
+    <Folder Include="ClientApp\pages\orders\store\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->

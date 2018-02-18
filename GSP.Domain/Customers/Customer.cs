@@ -10,10 +10,8 @@ namespace GSP.Domain.Customers
     [JsonObject(IsReference = true)]
     public class Customer : IdentityUser
     {
-        public int CustomerId { get; set; }
-
         public string FullName { get; set; }
-        
+
         public string Password { get; set; }
 
         public Role Role { get; set; }

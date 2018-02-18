@@ -74,7 +74,7 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<GameDto> GetGamesFromBucket(int customerId)
+        public IEnumerable<GameDto> GetGamesFromBucket(string customerId)
         {
             var games = _orderService.GetGameFromBucket(customerId);
             return games;
@@ -96,7 +96,7 @@ namespace GSP.SPA.Controllers.Api
             return result;
         }
 
-        private OrderDto GetCurrentOrderOfCustomer(int customerId)
+        private OrderDto GetCurrentOrderOfCustomer(string customerId)
         {
             var order = _orderService.GetCurrentOrderOfCustomer(customerId);
             return order;

@@ -8,7 +8,7 @@ namespace GSP.DAL.Repositories.Contracts
     {
         IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount);
 
-        Order GetCurrentCustomerOrder(int customerId);
+        Order GetCurrentCustomerOrder(string customerId);
 
         void AddGameToBucket(OrderGame game);
 

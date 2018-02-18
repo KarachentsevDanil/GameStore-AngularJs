@@ -1,11 +1,15 @@
-﻿namespace GSP.BLL.Dto.Customer
+﻿using GSP.Domain.Customers;
+
+namespace GSP.BLL.Dto.Customer
 {
     public class CustomerDto
     {
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         public string Email { get; set; }
 
         public string FullName { get; set; }
+
+        public string Role { get; set; }
     }
 }

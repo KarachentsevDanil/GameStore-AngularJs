@@ -17,12 +17,12 @@ namespace GSP.BLL.Services.Contracts
 
         void DeleteGameFromBucket(AddGameToBucketDto game);
 
-        IEnumerable<GameDto> GetGameFromBucket(int customerId);
+        IEnumerable<GameDto> GetGameFromBucket(string customerId);
 
-        IEnumerable<GameDto> GetCustomerGames(int customerId);
+        IEnumerable<GameDto> GetCustomerGames(string customerId);
 
         IEnumerable<OrderDto> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount);
 
-        OrderDto GetCurrentOrderOfCustomer(int customerId);
+        OrderDto GetCurrentOrderOfCustomer(string customerId);
     }
 }
