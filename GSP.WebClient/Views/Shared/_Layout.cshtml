@@ -7,19 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GameStore</title>
 
-    <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
-        <link rel="stylesheet" href="~/lib/angular-slider/angular-slider.css" />
-        <link href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-        <link href="~/lib/select-2/css/select2.css" rel="stylesheet" />
-        <link href="~/lib/semantic/dist/semantic.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="~/lib/semantic/dist/components/popup.css">
-        <link href="~/lib/angular-busy/angular-busy.css" rel="stylesheet" />
-        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    </environment>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/AngularJS-Toaster/toaster.css" />
+    <link rel="stylesheet" href="~/lib/angular-slider/angular-slider.css" />
+    <link href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/lib/select-2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/semantic/dist/semantic.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/lib/semantic/dist/components/popup.css">
+    <link href="~/lib/angular-busy/angular-busy.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -33,12 +31,12 @@
             <a class="item" asp-controller="Game" asp-action="EditOrDeleteGame">@Title.EditGame</a>
             <a class="item" asp-controller="Order" asp-action="Order">@Title.ShowAllOrder</a>
         }
-        else if(User.IsInRole(Role.User.ToString()))
+        else if (User.IsInRole(Role.User.ToString()))
         {
             <a class="item" asp-controller="Game" asp-action="ShowGame">@Title.Games</a>
             <a class="item" asp-controller="Order" asp-action="Bucket">
                 <span class="margin-right-5-fixed">Bucket</span>
-                
+
                 @if (User.IsInRole(Role.User.ToString()))
                 {
                     <span ng-show="CommonItem > 0" class="badge label-success">{{CommonItem}}</span>
@@ -67,35 +65,33 @@
         @RenderBody()
     </div>
 
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/angular/angular.js"></script>
-        <script src="~/lib/angular-busy/angular-busy.js"></script>
-        <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
-        <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/lib/angular-slider/angular-slider.js"></script>
-        <script src="~/lib/underscore/underscore.js"></script>
-        <script src="~/lib/semantic/dist/semantic.js"></script>
-        <script src="~/lib/semantic/dist/components/transition.js"></script>
-        <script src="~/lib/semantic/dist/components/dropdown.js"></script>
-        <script src="~/lib/semantic/dist/components/sidebar.js"></script>
-        <script src="~/lib/semantic/dist/components/transition.js"></script>
-        <script src="~/lib/semantic/dist/components/checkbox.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular-busy/angular-busy.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/angular-slider/angular-slider.js"></script>
+    <script src="~/lib/underscore/underscore.js"></script>
+    <script src="~/lib/semantic/dist/semantic.js"></script>
+    <script src="~/lib/semantic/dist/components/transition.js"></script>
+    <script src="~/lib/semantic/dist/components/dropdown.js"></script>
+    <script src="~/lib/semantic/dist/components/sidebar.js"></script>
+    <script src="~/lib/semantic/dist/components/transition.js"></script>
+    <script src="~/lib/semantic/dist/components/checkbox.js"></script>
 
-        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-        <script src="~/lib/select-2/js/select2.full.js"></script>
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/lib/select-2/js/select2.full.js"></script>
 
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/js/GameStoreApp.js"></script>
-        <script src="~/lib/angular-animate/angular-animate.js"></script>
-        <script src="~/lib/AngularJS-Toaster/toaster.js"></script>
-        <script src="~/js/Services/AlertService.js"></script>
-        <script src="~/js/Directives/datepickerDirective.js"></script>
-        <script src="~/js/Directives/selectDirective.js"></script>
-        <script src="~/js/Services/orderService.js"></script>
-        <script src="~/js/Controllers/orderController.js"></script>
-    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/GameStoreApp.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.js"></script>
+    <script src="~/lib/AngularJS-Toaster/toaster.js"></script>
+    <script src="~/js/Services/AlertService.js"></script>
+    <script src="~/js/Directives/datepickerDirective.js"></script>
+    <script src="~/js/Directives/selectDirective.js"></script>
+    <script src="~/js/Services/orderService.js"></script>
+    <script src="~/js/Controllers/orderController.js"></script>
 
     @RenderSection("scripts", required: false)
 

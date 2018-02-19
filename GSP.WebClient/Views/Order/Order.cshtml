@@ -2,10 +2,8 @@
 @using GSP.Domain.Customers
 
 @section scripts {
-    <environment names="Development">
-        <script src="~/js/Controllers/orderController.js"></script>
-        <script src="~/js/Services/orderService.js"></script>
-    </environment>
+    <script src="~/js/Controllers/orderController.js"></script>
+    <script src="~/js/Services/orderService.js"></script>
 }
 
 <div class="container ng-cloak margin-top-2" ng-controller="orderController" ng-init="@(User.IsInRole(Role.User.ToString()) ? $"getCustomerOrders('{User.Identity.Name}')" : "getAllOrders()")">
