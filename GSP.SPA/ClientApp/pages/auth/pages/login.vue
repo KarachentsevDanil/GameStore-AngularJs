@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-lg-offset-3 col-sm-12 authorization-block">
+            <div class="col-lg-6 col-lg-offset-3 col-sm-12 authorization-block">
                 <v-card class="form-sign-block">
                     <div class="form-header deep-purple darken-1">
                         <v-card-title class="white--text deep-purple darken-1">

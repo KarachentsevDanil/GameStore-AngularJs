@@ -6,14 +6,18 @@ import store from './store'
 import { sync } from 'vuex-router-sync'
 import App from './pages/layout/app-root'
 import pagination from './assets/vue-pagination/vue-pagination'
+import vueSlider from 'vue-slider-component';
+import BlockUI from 'vue-blockui'
 
 Vue.prototype.$http = axios;
 
 sync(store, router)
 
 Vue.use(Vuetify);
+Vue.use(BlockUI);
 
 Vue.component('pagination', pagination)
+Vue.component('vueSlider', vueSlider)
 
 const app = new Vue({
     store,

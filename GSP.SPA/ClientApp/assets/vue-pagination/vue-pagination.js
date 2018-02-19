@@ -57,30 +57,25 @@ export default {
     },
     computed: {
         _total() {
-            return this.total
+            return this.total;
         },
         _pageSize() {
-            return this.pageSize
+            return this.pageSize;
         },
         lastPage() {
             let _total = this._total / this._pageSize;
-            if (_total < 1)
-                return 1;
+            if (_total < 1) return 1;
 
-            if (_total % 1 != 0)
-                return parseInt(_total + 1);
+            if (_total % 1 != 0) return parseInt(_total + 1);
 
             return _total;
         },
         array() {
-
             let _from = this.currentPage - this.config.offset;
-            if (_from < 1)
-                _from = 1;
+            if (_from < 1) _from = 1;
 
-            let _to = _from + (this.config.offset * 2);
-            if (_to >= this.lastPage)
-                _to = this.lastPage;
+            let _to = _from + this.config.offset * 2;
+            if (_to >= this.lastPage) _to = this.lastPage;
 
             let _arr = [];
             while (_from <= _to) {
@@ -91,14 +86,17 @@ export default {
             return _arr;
         },
         config() {
-            return Object.assign({
-                offset: 2,
-                ariaNext: 'Próximo',
-                ariaPrevious: 'Anterior',
-                previousText: '«',
-                nextText: '»',
-                alwaysShowPrevNext: true
-            }, this.options);
+            return Object.assign(
+                {
+                    offset: 3,
+                    ariaNext: "Próximo",
+                    ariaPrevious: "Anterior",
+                    previousText: "«",
+                    nextText: "»",
+                    alwaysShowPrevNext: true
+                },
+                this.options
+            );
         }
     },
     methods: {
@@ -106,11 +104,13 @@ export default {
             return this.config.alwaysShowPrevNext || this.currentPage > 1;
         },
         showNext() {
-            return this.config.alwaysShowPrevNext || this.currentPage < this.lastPage;
+            return (
+                this.config.alwaysShowPrevNext ||
+                this.currentPage < this.lastPage
+            );
         },
         changePage(page) {
             if (this.currentPage === page) return;
-            this.currentPage = page;
             this.callback(page);
         }
     }

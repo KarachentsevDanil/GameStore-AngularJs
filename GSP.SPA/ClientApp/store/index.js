@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authenticationStore from '../pages/auth/store/index';
+// import gamesStore from '../pages/games/store/index';
+import ordersStore from '../pages/orders/store/index';
 
 Vue.use(Vuex)
 
@@ -32,10 +34,9 @@ const store = new Vuex.Store({
     mutations,
     actions,
     modules: {
-        authStore: authenticationStore
+        authStore: authenticationStore,
+        ordersStore: ordersStore
     }
 });
-
-console.log(store);
 
 export default store;

@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = "http://localhost:56624/"
+axios.defaults.baseURL = "http://localhost:65225/"
 
 export const getData = (params) => {
     return axios.get(params.url);

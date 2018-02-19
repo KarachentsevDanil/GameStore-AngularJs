@@ -12,6 +12,11 @@ export const userRoutes = [{
         path: '/my-games',
         display: 'My Games',
         icon: 'fas fa-gamepad'
+    },
+    {
+        path: '/my-orders',
+        display: 'My Orders',
+        icon: 'fal fa-archive'
     }
 ]
 

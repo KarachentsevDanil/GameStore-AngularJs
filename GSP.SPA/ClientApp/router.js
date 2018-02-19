@@ -6,6 +6,8 @@ import HomePage from './pages/layout/home-page'
 import LoginPage from './pages/auth/pages/login'
 import RegistrationPage from './pages/auth/pages/registration'
 import GamesPage from './pages/games/pages/games/games'
+import MyGamesPage from './pages/games/pages/games/my-games'
+import BucketPage from './pages/orders/pages/bucket/bucket'
 
 Vue.use(VueRouter);
 
@@ -32,6 +34,14 @@ const routes = [{
     {
         path: '/games',
         component: GamesPage
+    },
+    {
+        path: '/my-games',
+        component: MyGamesPage
+    },
+    {
+        path: '/bucket',
+        component: BucketPage
     }
 ]
 

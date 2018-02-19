@@ -4,6 +4,7 @@ using AutoMapper;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Rate;
 using GSP.Domain.Games;
+using GSP.Domain.Orders;
 
 namespace GSP.BLL.Mapper
 {
@@ -21,6 +22,10 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.Orders, p => p.Ignore())
                 .ForMember(x => x.Category, p => p.Ignore())
                 .ForMember(x => x.IsDeleted, p => p.UseValue(false));
+
+            CreateMap<AddGameToBucketDto, OrderGame>()
+                .ForMember(x => x.Order, p => p.Ignore())
+                .ForMember(x => x.Game, p => p.Ignore());
         }
     }
 }

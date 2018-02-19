@@ -20,7 +20,8 @@ module.exports = (env) => {
         entry: {
             vendor: ['bootstrap', 'bootstrap/dist/css/bootstrap.css', 'event-source-polyfill', 'vue', 'vuex', 'axios',
                 'vue-router', 'jquery', './ClientApp/assets/font-awesome/css/fontawesome-all.css', 'chart.js/dist/Chart.js',
-                '@fancyapps/fancybox/dist/jquery.fancybox.min.js', '@fancyapps/fancybox/dist/jquery.fancybox.min.css']
+                '@fancyapps/fancybox/dist/jquery.fancybox.min.js', '@fancyapps/fancybox/dist/jquery.fancybox.min.css',
+                'underscore']
         },
         output: {
             path: path.join(__dirname, 'wwwroot', 'dist'),
@@ -36,7 +37,7 @@ module.exports = (env) => {
                     safe: true
                 }
             }),
-            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', '_': 'underscore' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'

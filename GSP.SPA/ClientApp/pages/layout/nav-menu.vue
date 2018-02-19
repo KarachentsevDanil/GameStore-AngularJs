@@ -5,7 +5,7 @@
                 <v-list-tile>
                     <v-list-tile-content>
                         <v-list-tile-title>
-                            <span>Menu</span>
+                            <span>Hi, {{ getUser.FullName }}</span>
                         </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
@@ -36,10 +36,7 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>Game Store</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-badge color="cyan" right>
-                <span slot="badge">6</span>
-                <v-icon large color="grey lighten-1">shopping_cart</v-icon>
-            </v-badge>
+            <bucketItems></bucketItems>
         </v-toolbar>
     </div>
 </template>
@@ -49,8 +46,12 @@ import * as routes from "../../routes";
 import * as authGetters from "../auth/store/types/getter-types";
 import * as authResources from "../auth/store/resources";
 import { mapGetters } from "vuex";
+import bucketItems from '../orders/pages/bucket/bucket-list';
 
 export default {
+  components:{
+    bucketItems
+  },
   data() {
     return {
       drawer: false,
@@ -78,6 +79,7 @@ export default {
 <style>
 .nav-menu .toolbar.nav-menu-bar {
   background-color: #5e35b1 !important;
+  z-index: 20;
 }
 
 .nav-menu .toolbar.nav-menu-bar .badge {
@@ -120,5 +122,9 @@ export default {
 
 .nav-menu .toolbar-username i {
   margin-right: 15px;
+}
+
+.navigation-drawer.navigation-drawer--clipped.navigation-drawer--open{
+  z-index: 10;
 }
 </style>

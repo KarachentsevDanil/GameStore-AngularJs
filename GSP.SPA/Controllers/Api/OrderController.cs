@@ -15,31 +15,15 @@ namespace GSP.SPA.Controllers.Api
     public class OrderController : BaseGameStoreController
     {
         private readonly IOrderService _orderService;
-        private readonly ICustomerService _customerService;
 
         public OrderController(IOrderService orderService, ICustomerService customerService) : base(customerService)
         {
             _orderService = orderService;
-            _customerService = customerService;
         }
 
         [HttpPost]
-        public void CreateOrder([FromBody] CreateOrderDto order)
+        public void ConfirmOrder([FromBody] OrderDto order)
         {
-            var currentOrder = GetCurrentOrderOfCustomer(order.CustomerId);
-
-            if (currentOrder == null)
-            {
-                _orderService.AddOrder(order);
-            }
-        }
-
-        [HttpPost]
-        public void ConfirmOrder([FromBody] CompleteOrderDto order)
-        {
-            order.SaleDate = DateTime.Now;
-            order.Status = OrderStatus.Complete;
-
             _orderService.UpdateOrder(order);
         }
 
@@ -47,6 +31,7 @@ namespace GSP.SPA.Controllers.Api
         public void AddToBucket([FromBody] AddGameToBucketDto orderGame)
         {
             var order = GetCurrentOrderOfCustomer(orderGame.CustomerId);
+
             if (order.Games.Any(x => x.GameId == orderGame.GameId))
             {
                 throw new Exception(Exceptions.GameAlreadyInBucket);
@@ -57,6 +42,8 @@ namespace GSP.SPA.Controllers.Api
             {
                 throw new Exception(Exceptions.GameAlreadyBought);
             }
+
+            orderGame.OrderId = order.OrderId;
 
             _orderService.AddGameToBucket(orderGame);
         }
@@ -73,10 +60,10 @@ namespace GSP.SPA.Controllers.Api
             _orderService.DeleteOrder(orderId);
         }
 
-        [HttpGet]
-        public IEnumerable<GameDto> GetGamesFromBucket(string customerId)
+        [HttpPost]
+        public IEnumerable<GameDto> GetGamesFromBucket([FromBody] OrderDto order)
         {
-            var games = _orderService.GetGameFromBucket(customerId);
+            var games = _orderService.GetGameFromBucket(order.CustomerId);
             return games;
         }
 
@@ -99,6 +86,18 @@ namespace GSP.SPA.Controllers.Api
         private OrderDto GetCurrentOrderOfCustomer(string customerId)
         {
             var order = _orderService.GetCurrentOrderOfCustomer(customerId);
+
+            if (order == null)
+            {
+                var newOrder = new CreateOrderDto
+                {
+                    CustomerId = customerId
+                };
+
+                _orderService.AddOrder(newOrder);
+                order = _orderService.GetCurrentOrderOfCustomer(customerId);
+            }
+
             return order;
         }
 

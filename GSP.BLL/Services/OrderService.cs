@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Order;
@@ -19,16 +20,23 @@ namespace GSP.BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public void AddOrder(CreateOrderDto order)
+        public int AddOrder(CreateOrderDto order)
         {
             var newOrder = AutoMapper.Mapper.Map<CreateOrderDto, Order>(order);
+
             _unitOfWork.OrderRepository.Add(newOrder);
             _unitOfWork.Commit();
+
+            return newOrder.OrderId;
         }
 
-        public void UpdateOrder(CompleteOrderDto order)
+        public void UpdateOrder(OrderDto order)
         {
-            var completedOrder = AutoMapper.Mapper.Map<CompleteOrderDto, Order>(order);
+            var completedOrder = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(order.CustomerId);
+
+            completedOrder.SaleDate = DateTime.Now;
+            completedOrder.Status = OrderStatus.Complete;
+
             _unitOfWork.OrderRepository.Update(completedOrder);
             _unitOfWork.Commit();
         }
@@ -48,7 +56,10 @@ namespace GSP.BLL.Services
 
         public void DeleteGameFromBucket(AddGameToBucketDto game)
         {
-            _unitOfWork.OrderRepository.DeleteGameFromBucket(game.OrderGameId);
+            var completedOrder = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(game.CustomerId);
+            var orderGameId = completedOrder.Games.First(x => x.GameId == game.GameId).OrderGameId;
+
+            _unitOfWork.OrderRepository.DeleteGameFromBucket(orderGameId);
             _unitOfWork.Commit();
         }
 

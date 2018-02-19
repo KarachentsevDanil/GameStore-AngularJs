@@ -7,9 +7,9 @@ namespace GSP.BLL.Services.Contracts
 {
     public interface IOrderService
     {
-        void AddOrder(CreateOrderDto order);
+        int AddOrder(CreateOrderDto order);
 
-        void UpdateOrder(CompleteOrderDto order);
+        void UpdateOrder(OrderDto order);
 
         void DeleteOrder(int orderId);
 
