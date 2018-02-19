@@ -32,13 +32,14 @@
                 </template>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar class="indigo" dark app clipped-left fixed color="indigo darken-4">
+        <v-toolbar class="indigo nav-menu-bar" dark app clipped-left fixed color="deep-purple darken-1">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>PALMS BEACH FACILITY</v-toolbar-title>
+            <v-toolbar-title>Game Store</v-toolbar-title>
             <v-spacer></v-spacer>
-            <div class="notifications-bar">
-                <i class="fa fa-bell"></i><span class="notification-count">3</span>
-            </div>
+            <v-badge color="cyan" right>
+                <span slot="badge">6</span>
+                <v-icon large color="grey lighten-1">shopping_cart</v-icon>
+            </v-badge>
         </v-toolbar>
     </div>
 </template>
@@ -75,6 +76,25 @@ export default {
 };
 </script>
 <style>
+.nav-menu .toolbar.nav-menu-bar {
+  background-color: #5e35b1 !important;
+}
+
+.nav-menu .toolbar.nav-menu-bar .badge {
+  margin-top: 10px;
+  margin-right: 25px !important;
+  background-color: #5e35b1;
+}
+
+.nav-menu .toolbar.nav-menu-bar .badge .badge__badge.cyan {
+  right: -10px;
+}
+
+.nav-menu .toolbar.nav-menu-bar .badge .icon.material-icons {
+  font-size: 30px;
+  color: white !important;
+}
+
 .nav-menu .toolbar-username {
   display: inline-block;
   margin-left: 20px;
@@ -84,27 +104,13 @@ export default {
   position: relative;
 }
 
-.nav-menu a:hover{
-    text-decoration: none;
-    color:black;
+.nav-menu a:hover {
+  text-decoration: none;
+  color: black;
 }
 
-.nav-menu a:active{
-    text-decoration: none;
-}
-
-.nav-menu .notifications-bar .notification-count {
-  position: absolute;
-  top: -5px;
-  left: 10px;
-  display: inline-block;
-  width: 13px;
-  text-align: center;
-  height: 13px;
-  background: red;
-  font-size: 11px;
-  border-radius: 50%;
-  cursor: pointer;
+.nav-menu a:active {
+  text-decoration: none;
 }
 
 .nav-menu i {
