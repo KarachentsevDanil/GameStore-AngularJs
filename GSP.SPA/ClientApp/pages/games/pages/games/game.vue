@@ -1,7 +1,7 @@
 <template>
-    <div class="col-lg-3 col-md-4 col-sm-12 game-block">
+    <div class="col-sm-12 game-block">
         <v-card>
-            <v-card-media :src="game.Photo" height="320px">
+            <v-card-media :src="game.Photo" height="420px">
             </v-card-media>
             <v-card-title primary-title>
                 <div>
@@ -12,49 +12,102 @@
                     <div>
                         <span class="bold"> Price: </span> {{ game.Price }} USD
                     </div>
+                <div>
+                    <span class="bold"> Description: </span> {{ game.Description }}
+                </div>
+                <div>
+                    <span class="bold">Rating: </span> <star-rating v-model="game.AverageRate" :show-rating="false" :read-only="true" :increment="0.01" :star-size="16"></star-rating> {{ game.AverageRate }} / 5
+                </div>
                 </div>
             </v-card-title>
             <v-card-actions>
                 <v-btn class="flat-button" color="primary" @click="addGameToBucket">Buy <v-icon right dark>shopping_cart</v-icon> </v-btn>
-                <v-btn class="flat-button">Details</v-btn>
+                <v-btn v-if="!isDetailsPage" class="flat-button" :to="'/game-details/' + game.GameId">Details</v-btn>
             </v-card-actions>
         </v-card>
     </div>
 </template>
 
 <script>
-    import * as authGetters from "../../../auth/store/types/getter-types";
-    import * as authResources from "../../../auth/store/resources";
+import * as authGetters from "../../../auth/store/types/getter-types";
+import * as authResources from "../../../auth/store/resources";
 
-    import * as ordersActions from "../../../orders/store/types/action-types";
-    import * as ordersResources from "../../../orders/store/resources";
+import * as ordersActions from "../../../orders/store/types/action-types";
+import * as ordersResources from "../../../orders/store/resources";
 
-    import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
-    export default {
-        props: {
-            game: {
-                type: Object,
-                required: true
-            }
-        },
-        methods: {
-            ...mapGetters({
-                getCurrentUser: authResources.AUTH_STORE_NAMESPACE.concat(
-                    authGetters.GET_USER_GETTER
-                )
-            }),
-            addGameToBucket() {
-                let addGame = {
-                    GameId: this.game.GameId,
-                    CustomerId: this.getCurrentUser().CustomerId
-                };
+export default {
+  props: {
+    game: {
+      type: Object,
+      required: true
+    },
+    isDetailsPage: {
+      type: Boolean,
+      required: false
+    }
+  },
+  methods: {
+    ...mapGetters({
+      getCurrentUser: authResources.AUTH_STORE_NAMESPACE.concat(
+        authGetters.GET_USER_GETTER
+      )
+    }),
+    addGameToBucket() {
+      let addGame = {
+        GameId: this.game.GameId,
+        CustomerId: this.getCurrentUser().CustomerId
+      };
 
-                this.$store.dispatch(
-                    ordersResources.ORDERS_STORE_NAMESPACE.concat(ordersActions.ADD_GAME_TO_BUCKET_ACTION),
-                    addGame
-                );
-            }
-        }
-    };
+      this.$store.dispatch(
+        ordersResources.ORDERS_STORE_NAMESPACE.concat(
+          ordersActions.ADD_GAME_TO_BUCKET_ACTION
+        ),
+        addGame
+      );
+    }
+  }
+};
 </script>
+
+<style scoped>
+@media (min-width: 1600px) {
+  div.game-block {
+    width: 25% !important;
+  }
+}
+
+@media (min-width: 1300px) {
+  div.game-block {
+    width: 33.3%;
+  }
+}
+
+.game-block .vue-star-rating {
+  display: inline-block !important;
+}
+
+.game-block .card__title.card__title--primary {
+    padding-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 4px;
+}
+
+button.flat-button {
+  width: 47%;
+}
+
+a.flat-button {
+  width: 47%;
+}
+
+.game-block {
+  margin-bottom: 25px;
+}
+
+.game-block .bold {
+  margin-top: 3px;
+  font-weight: bold;
+}
+</style>

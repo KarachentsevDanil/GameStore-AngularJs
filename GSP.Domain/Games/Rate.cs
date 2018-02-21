@@ -15,7 +15,7 @@ namespace GSP.Domain.Games
 
         public string Comment { get; set; }
 
-        public Rating Rating { get; set; }
+        public float Rating { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

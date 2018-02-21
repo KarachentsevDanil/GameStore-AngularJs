@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace GSP.SPA.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
-    public class OrderController : BaseGameStoreController
+    public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
 
-        public OrderController(IOrderService orderService, ICustomerService customerService) : base(customerService)
+        public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
@@ -70,8 +70,6 @@ namespace GSP.SPA.Controllers.Api
         [HttpPost]
         public CollectionResult<OrderDto> GetOrdersByParams([FromBody]OrdersFilterParams filterParams)
         {
-            SetAdditionalParams(filterParams);
-
             var orders = _orderService.GetOrdersByParams(filterParams, out var totalCount);
 
             var result = new CollectionResult<OrderDto>
@@ -99,15 +97,6 @@ namespace GSP.SPA.Controllers.Api
             }
 
             return order;
-        }
-
-        private void SetAdditionalParams(OrdersFilterParams @params)
-        {
-            if (!string.IsNullOrEmpty(@params.Customer))
-            {
-                var customer = GetCustomerByTerm(@params.Customer);
-                @params.CustomerId = customer.CustomerId;
-            }
         }
     }
 }

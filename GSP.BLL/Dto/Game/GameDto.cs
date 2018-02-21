@@ -21,6 +21,8 @@ namespace GSP.BLL.Dto.Game
 
         public List<RateDto> Rates { get; set; }
 
+        public float AverageRate { get; set; }
+
         public GameDto()
         {
             Rates = new List<RateDto>();

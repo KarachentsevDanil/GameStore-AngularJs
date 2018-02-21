@@ -1,0 +1,1 @@
+export const GET_LOADER_OPTIONS_GETTER = 'getLoaderOptions';

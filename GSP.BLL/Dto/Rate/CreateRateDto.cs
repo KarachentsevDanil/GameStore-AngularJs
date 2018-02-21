@@ -1,5 +1,4 @@
 ﻿using System;
-using GSP.Domain.Games;
 
 namespace GSP.BLL.Dto.Rate
 {
@@ -13,8 +12,8 @@ namespace GSP.BLL.Dto.Rate
 
         public string Comment { get; set; }
 
-        public Rating Rating { get; set; }
+        public float Rating { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
     }
 }

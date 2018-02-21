@@ -8,7 +8,8 @@ export default {
         if (userDate.data) {
             context.commit(mutations.SET_TOKEN_MUTATOR, userDate.data.token);
             context.commit(mutations.SET_USER_MUTATOR, userDate.data.user);
-            data.router.push('/');
+            
+            data.router.push('/games');
         }
     }
 }

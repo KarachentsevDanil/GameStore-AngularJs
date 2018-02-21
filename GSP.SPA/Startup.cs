@@ -31,7 +31,7 @@ namespace GSP.SPA
         {
             services.AddIdentityAuthorization();
 
-            //services.AddCors();
+            services.AddCors();
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -61,7 +61,7 @@ namespace GSP.SPA
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseStaticFiles();
 

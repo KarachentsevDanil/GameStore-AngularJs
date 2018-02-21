@@ -14,7 +14,7 @@
 
         public string Comment { get; set; }
 
-        public string Rating { get; set; }
+        public float Rating { get; set; }
 
         public string CreatedOn { get; set; }
     }

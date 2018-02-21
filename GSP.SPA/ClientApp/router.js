@@ -1,28 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import CounterExample from './pages/layout/counter-example'
-import FetchData from './pages/layout/fetch-data'
-import HomePage from './pages/layout/home-page'
 import LoginPage from './pages/auth/pages/login'
 import RegistrationPage from './pages/auth/pages/registration'
+
 import GamesPage from './pages/games/pages/games/games'
 import MyGamesPage from './pages/games/pages/games/my-games'
+import GameDetails from './pages/games/pages/games/details/game-details-layout'
+
 import BucketPage from './pages/orders/pages/bucket/bucket'
+import OrdersPage from './pages/orders/pages/orders/orders'
+import MyOrdersPage from './pages/orders/pages/orders/my-orders'
 
 Vue.use(VueRouter);
 
-const routes = [{
-        path: '/',
-        component: HomePage
-    },
-    {
-        path: '/counter',
-        component: CounterExample
-    },
-    {
-        path: '/fetch-data',
-        component: FetchData
-    },
+const routes = [
     {
         path: '/login',
         component: LoginPage
@@ -36,18 +27,35 @@ const routes = [{
         component: GamesPage
     },
     {
+        path:'/game-details/:id',
+        component: GameDetails,
+        props: true
+    },
+    {
         path: '/my-games',
         component: MyGamesPage
     },
     {
         path: '/bucket',
         component: BucketPage
+    },
+    {
+        path: '/orders',
+        component: OrdersPage
+    },
+    {
+        path: '/my-orders',
+        component: MyOrdersPage
+    },
+    {
+        path: '*',
+        component: LoginPage
     }
-]
+];
 
 let router = new VueRouter({
     mode: 'history',
     routes
-})
+});
 
 export default router

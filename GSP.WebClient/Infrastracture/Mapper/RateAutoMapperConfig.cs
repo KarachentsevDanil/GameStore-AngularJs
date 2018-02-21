@@ -9,7 +9,6 @@ namespace GSP.WebClient.Infrastracture.Mapper
         public RateAutoMapperConfig()
         {
             CreateMap<Rate, RateViewModel>()
-                .ForMember(x => x.DisplayRating, p => p.MapFrom(t => t.Rating.ToString()))
                 .ForMember(x => x.Customer, p => p.MapFrom(t => t.Customer.FullName))
                 .ForMember(x => x.CreatedOn, p => p.MapFrom(t => t.CreatedOn.ToShortDateString()));
         }

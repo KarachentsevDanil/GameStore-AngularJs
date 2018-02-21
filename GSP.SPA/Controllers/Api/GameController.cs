@@ -6,15 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.SPA.Controllers.Api
 {
-    [Route("api/[controller]/[action]")]
-    public class GameController : BaseGameStoreController
+    [Route("api/[controller]/[action]/{id?}")]
+    public class GameController : Controller
     {
         private readonly IGameService _gameService;
 
-        public GameController(
-            IGameService gameService,
-            ICustomerService customerService,
-            IRateService rateService) : base(customerService)
+        public GameController(IGameService gameService)
         {
             _gameService = gameService;
         }
@@ -26,9 +23,9 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        public void DeleteGame([FromBody] int gameId)
+        public void DeleteGame([FromBody] int id)
         {
-            _gameService.DeleteGame(gameId);
+            _gameService.DeleteGame(id);
         }
 
         [HttpPost]
@@ -38,24 +35,22 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<GameDto> GetRecomendedGames(int gameId)
+        public IEnumerable<GameDto> GetRecomendedGames(int id)
         {
-            var games = _gameService.GetRecomendedGames(gameId);
+            var games = _gameService.GetRecomendedGames(id);
             return games;
         }
 
         [HttpGet]
-        public GameDto GetGameById(int gameId)
+        public GameDto GetGameById(int id)
         {
-            var game = _gameService.GetGameById(gameId);
+            var game = _gameService.GetGameById(id);
             return game;
         }
 
         [HttpPost]
         public CollectionResult<GameDto> GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
-            SetAdditionalParams(filterParams);
-
             var games = _gameService.GetGamesByParams(filterParams, out var totalCount);
 
             var result = new CollectionResult<GameDto>
@@ -65,15 +60,6 @@ namespace GSP.SPA.Controllers.Api
             };
 
             return result;
-        }
-
-        private void SetAdditionalParams(GamesFilterParams @params)
-        {
-            if (!string.IsNullOrEmpty(@params.Customer))
-            {
-                var customer = GetCustomerByTerm(@params.Customer);
-                @params.CustomerId = customer.CustomerId;
-            }
         }
     }
 }

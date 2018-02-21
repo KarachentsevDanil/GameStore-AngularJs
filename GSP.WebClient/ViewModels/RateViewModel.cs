@@ -10,9 +10,7 @@ namespace GSP.WebClient.ViewModels
 
         public string Comment { get; set; }
 
-        public Rating Rating { get; set; }
-
-        public string DisplayRating { get; set; }
+        public float Rating { get; set; }
 
         public string CreatedOn { get; set; }
 

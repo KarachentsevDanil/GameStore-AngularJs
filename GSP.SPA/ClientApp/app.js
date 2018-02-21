@@ -8,22 +8,24 @@ import App from './pages/layout/app-root'
 import pagination from './assets/vue-pagination/vue-pagination'
 import vueSlider from 'vue-slider-component';
 import BlockUI from 'vue-blockui'
+import StarRating from 'vue-star-rating'
 
 Vue.prototype.$http = axios;
 
-sync(store, router)
+sync(store, router);
 
 Vue.use(Vuetify);
 Vue.use(BlockUI);
 
-Vue.component('pagination', pagination)
-Vue.component('vueSlider', vueSlider)
+Vue.component('pagination', pagination);
+Vue.component('vueSlider', vueSlider);
+Vue.component('starRating', StarRating);
 
 const app = new Vue({
     store,
     router,
     ...App
-})
+});
 
 export {
     app,

@@ -17,6 +17,11 @@ export const userRoutes = [{
         path: '/my-orders',
         display: 'My Orders',
         icon: 'fal fa-archive'
+    },
+    {
+        path: '/login',
+        display: 'Logout',
+        icon: 'far fa-sign-out'
     }
 ]
 

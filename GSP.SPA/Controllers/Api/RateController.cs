@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.SPA.Controllers.Api
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]/{id?}")]
     public class RateController : Controller
     {
         private readonly IRateService _rateService;
@@ -16,9 +16,9 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<RateDto> GetGameRates(int gameId)
+        public IEnumerable<RateDto> GetGameRates(int id)
         {
-            var rates = _rateService.GetRatesOfGame(gameId);
+            var rates = _rateService.GetRatesOfGame(id);
             return rates;
         }
 

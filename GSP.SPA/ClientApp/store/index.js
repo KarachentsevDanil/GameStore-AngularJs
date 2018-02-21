@@ -1,38 +1,28 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import authenticationStore from '../pages/auth/store/index';
+import Vue from "vue";
+import Vuex from "vuex";
+import authenticationStore from "../pages/auth/store/index";
 // import gamesStore from '../pages/games/store/index';
-import ordersStore from '../pages/orders/store/index';
+import ordersStore from "../pages/orders/store/index";
 
-Vue.use(Vuex)
+import actions from "./actions";
+import getters from "./getters";
+import mutations from "./mutators";
 
-// TYPES
-const MAIN_SET_COUNTER = 'MAIN_SET_COUNTER'
+Vue.use(Vuex);
 
-// STATE
 const state = {
-    counter: 0
-}
-
-// MUTATIONS
-const mutations = {
-    [MAIN_SET_COUNTER](state, obj) {
-        state.counter = obj.counter
+    options: {
+        message: "Please wait ...",
+        icon: '<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>',
+        isLoading: false
     }
-}
-
-// ACTIONS
-const actions = ({
-    setCounter({ commit }, obj) {
-        commit(MAIN_SET_COUNTER, obj)
-    }
-})
-
+};
 
 const store = new Vuex.Store({
-    state,
-    mutations,
+    state: state,
     actions,
+    getters,
+    mutations,
     modules: {
         authStore: authenticationStore,
         ordersStore: ordersStore
