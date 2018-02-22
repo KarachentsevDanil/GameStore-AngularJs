@@ -1,6 +1,16 @@
 <template>
     <div class="container">
         <div class="row">
+          <div class="col-lg-12 breadcrumb-bar">
+            <ol class="breadcrumb breadcrumb-nav-bar">
+              <li>
+                 <router-link to="/games">Games</router-link>
+              </li>
+              <li class="active">{{game.Name}}</li>
+            </ol>
+          </div>
+        </div>
+        <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <game-details :game="game" :buyGame="addGameToBucket"></game-details>
             </div>
@@ -71,6 +81,15 @@ export default {
 </script>
 
 <style>
+.container .breadcrumb-bar{
+  padding-left: 30px;
+}
+
+.container .breadcrumb.breadcrumb-nav-bar{
+  background-color: white;
+  border: 1px solid whitesmoke;
+  box-shadow: 0px 2px 2px 0 rgba(34, 36, 38, 0.15);
+}
 
 .game-details-block hr{
     margin: 0px;

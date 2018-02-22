@@ -12,12 +12,9 @@
                     <div>
                         <span class="bold"> Price: </span> {{ game.Price }} USD
                     </div>
-                <div>
-                    <span class="bold"> Description: </span> {{ game.Description }}
-                </div>
-                <div>
-                    <span class="bold">Rating: </span> <star-rating v-model="game.AverageRate" :show-rating="false" :read-only="true" :increment="0.01" :star-size="16"></star-rating> {{ game.AverageRate }} / 5
-                </div>
+                    <div>
+                        <span class="bold">Rating: </span> <star-rating v-model="game.AverageRate" :show-rating="false" :read-only="true" :increment="0.01" :star-size="16"></star-rating> {{ game.AverageRate }} / 5
+                    </div>
                 </div>
             </v-card-title>
             <v-card-actions>

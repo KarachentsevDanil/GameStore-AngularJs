@@ -11,7 +11,7 @@
                 <template v-for="(game) in getGamesInBucket">
                     <v-list-tile avatar :key="game.GameId">
                         <v-list-tile-avatar>
-                            <img :src="game.Photo">
+                            <img :src="game.Icon">
                         </v-list-tile-avatar>
                         <v-list-tile-content>
                             <v-list-tile-title> {{game.Name}} </v-list-tile-title>
