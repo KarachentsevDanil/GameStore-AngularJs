@@ -39,5 +39,10 @@ export const adminRoutes = [{
         path: '/orders',
         display: 'Orders',
         icon: 'fal fa-archive'
+    },
+    {
+        path: '/login',
+        display: 'Logout',
+        icon: 'far fa-sign-out'
     }
 ]

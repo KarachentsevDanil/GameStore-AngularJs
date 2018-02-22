@@ -9,7 +9,7 @@ namespace GSP.DAL.Context.Mappings
     {
         public void MapEntity(EntityTypeBuilder<Rate> builder)
         {
-            builder.ToTable("Rate", "core");
+            builder.ToTable("Rates", "core");
 
             builder.HasKey(x => x.RateId);
 

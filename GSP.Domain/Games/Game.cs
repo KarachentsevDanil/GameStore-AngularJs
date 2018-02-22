@@ -19,9 +19,13 @@ namespace GSP.Domain.Games
 
         public byte[] Photo { get; set; }
 
+        public byte[] Icon { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<OrderGame> Orders { get; set; }
+
+        public virtual ICollection<GamePhoto> Photos { get; set; }
 
         public virtual ICollection<Rate> Rates { get; set; }
 
@@ -31,6 +35,7 @@ namespace GSP.Domain.Games
         {
             Orders = new List<OrderGame>();
             Rates = new List<Rate>();
+            Photos = new List<GamePhoto>();
         }
     }
 }

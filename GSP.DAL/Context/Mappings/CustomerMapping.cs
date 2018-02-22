@@ -9,7 +9,7 @@ namespace GSP.DAL.Context.Mappings
     {
         public void MapEntity(EntityTypeBuilder<Customer> builder)
         {
-            builder.ToTable("Customer", "core");
+            builder.ToTable("Customers", "core");
         }
     }
 }

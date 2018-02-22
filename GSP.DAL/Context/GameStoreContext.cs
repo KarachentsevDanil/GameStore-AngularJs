@@ -27,14 +27,14 @@ namespace GSP.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             new CategoryMapping().MapEntity(builder.Entity<Category>());
             new CustomerMapping().MapEntity(builder.Entity<Customer>());
             new GameMapping().MapEntity(builder.Entity<Game>());
             new OrderGameMapping().MapEntity(builder.Entity<OrderGame>());
             new OrderMapping().MapEntity(builder.Entity<Order>());
             new RateMapping().MapEntity(builder.Entity<Rate>());
-
-            base.OnModelCreating(builder);
         }
     }
 }

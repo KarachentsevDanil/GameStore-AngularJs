@@ -27,6 +27,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Order)
                 .Include(x => x.Rates)
+                .Include(x => x.Photos)
                 .AsQueryable();
 
             FillGamesQueryFilterParams(filterParams);
@@ -99,6 +100,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Order)
                 .Include(x => x.Rates)
+                .Include(x => x.Photos)
                 .Where(t => ids.Contains(t.GameId))
                 .ToList();
         }
@@ -110,6 +112,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Order)
                 .Include(x => x.Rates)
+                .Include(x => x.Photos)
                 .FirstOrDefault(t => id == t.GameId);
         }
     }

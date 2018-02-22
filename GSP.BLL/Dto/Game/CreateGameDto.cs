@@ -1,4 +1,6 @@
-﻿namespace GSP.BLL.Dto.Game
+﻿using System.Collections.Generic;
+
+namespace GSP.BLL.Dto.Game
 {
     public class CreateGameDto
     {
@@ -12,6 +14,10 @@
 
         public float Price { get; set; }
 
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
+
+        public string Icon { get; set; }
+
+        public List<CreateGamePhotoDto> Photos { get; set; }
     }
 }

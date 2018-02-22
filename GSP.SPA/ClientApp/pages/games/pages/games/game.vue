@@ -84,6 +84,11 @@ export default {
   }
 }
 
+.game-block .headline{
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .game-block .vue-star-rating {
   display: inline-block !important;
 }

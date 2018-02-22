@@ -9,6 +9,8 @@ import pagination from './assets/vue-pagination/vue-pagination'
 import vueSlider from 'vue-slider-component';
 import BlockUI from 'vue-blockui'
 import StarRating from 'vue-star-rating'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.css'
 
 Vue.prototype.$http = axios;
 
@@ -18,6 +20,7 @@ Vue.use(Vuetify);
 Vue.use(BlockUI);
 
 Vue.component('pagination', pagination);
+Vue.component('vueDropzone', vue2Dropzone);
 Vue.component('vueSlider', vueSlider);
 Vue.component('starRating', StarRating);
 

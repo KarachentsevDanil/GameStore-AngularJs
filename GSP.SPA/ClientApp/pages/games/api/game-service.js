@@ -5,6 +5,16 @@ const baseGameUrl = 'api/game/';
 const getGamesUrl = baseGameUrl + 'GetGamesByParams';
 const getGameByIdUrl = baseGameUrl + 'GetGameById';
 const getRecomendedGamesByIdUrl = baseGameUrl + 'GetRecomendedGames';
+const addGameUrl = baseGameUrl + 'CreateGame';
+
+export const addGame = data => {
+    let params = {
+        url: addGameUrl,
+        data: data
+    };
+
+    return httpService.postData(params);
+};
 
 export const getGames = data => {
     let params = {
