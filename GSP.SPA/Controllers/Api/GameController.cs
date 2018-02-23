@@ -29,7 +29,7 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        public void EditGame([FromBody] CreateGameDto game)
+        public void EditGame([FromBody] GameDto game)
         {
             _gameService.UpdateGame(game);
         }

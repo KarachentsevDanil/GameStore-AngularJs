@@ -8,7 +8,7 @@ namespace GSP.BLL.Services.Contracts
     {
         void AddGame(CreateGameDto game);
 
-        void UpdateGame(CreateGameDto game);
+        void UpdateGame(GameDto game);
 
         IEnumerable<GameDto> GetRecomendedGames(int gameId);
 

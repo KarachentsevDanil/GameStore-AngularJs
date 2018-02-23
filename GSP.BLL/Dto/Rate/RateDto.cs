@@ -1,4 +1,6 @@
-﻿namespace GSP.BLL.Dto.Rate
+﻿using System;
+
+namespace GSP.BLL.Dto.Rate
 {
     public class RateDto
     {
@@ -17,5 +19,7 @@
         public float Rating { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public DateTime CreatedOnDate { get; set; }
     }
 }

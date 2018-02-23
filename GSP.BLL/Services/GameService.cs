@@ -28,9 +28,9 @@ namespace GSP.BLL.Services
             _unitOfWork.Commit();
         }
 
-        public void UpdateGame(CreateGameDto game)
+        public void UpdateGame(GameDto game)
         {
-            var updateGame = AutoMapper.Mapper.Map<CreateGameDto, Game>(game);
+            var updateGame = AutoMapper.Mapper.Map<GameDto, Game>(game);
             _unitOfWork.GameRepository.Update(updateGame);
             _unitOfWork.Commit();
         }

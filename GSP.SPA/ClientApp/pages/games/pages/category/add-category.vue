@@ -23,7 +23,7 @@
     import { validationMixin } from "vuelidate";
     import { required } from "vuelidate/lib/validators";
 
-    import * as categoryService from "../../../api/category-service";
+    import * as categoryService from "../../api/category-service";
 
     export default {
         props: {

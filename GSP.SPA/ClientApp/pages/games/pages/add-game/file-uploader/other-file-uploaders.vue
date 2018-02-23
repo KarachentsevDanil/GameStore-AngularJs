@@ -48,10 +48,6 @@ export default {
           "<span class='upload-text'><i class='fal fa-cloud-upload'></i> Upload photo's for gallery</span>"
       }
     };
-  },
-  clearPhotos() {
-    this.$refs.iconDropzoe.removeAllFiles();
-    this.$refs.galleryDropzoe.removeAllFiles();
   }
 };
 </script>

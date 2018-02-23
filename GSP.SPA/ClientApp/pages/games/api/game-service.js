@@ -1,15 +1,25 @@
 import * as httpService from "../../../api/http-service";
 
-const baseGameUrl = 'api/game/';
+const baseGameUrl = "api/game/";
 
-const getGamesUrl = baseGameUrl + 'GetGamesByParams';
-const getGameByIdUrl = baseGameUrl + 'GetGameById';
-const getRecomendedGamesByIdUrl = baseGameUrl + 'GetRecomendedGames';
-const addGameUrl = baseGameUrl + 'CreateGame';
+const getGamesUrl = baseGameUrl + "GetGamesByParams";
+const getGameByIdUrl = baseGameUrl + "GetGameById";
+const getRecomendedGamesByIdUrl = baseGameUrl + "GetRecomendedGames";
+const addGameUrl = baseGameUrl + "CreateGame";
+const editGameUrl = baseGameUrl + "EditGame";
 
 export const addGame = data => {
     let params = {
         url: addGameUrl,
+        data: data
+    };
+
+    return httpService.postData(params);
+};
+
+export const editGame = data => {
+    let params = {
+        url: editGameUrl,
         data: data
     };
 

@@ -32,11 +32,6 @@ export default {
           "<span class='upload-text'><i class='fal fa-cloud-upload'></i> Upload main photo</span>"
       }
     };
-  },
-  methods:{
-      clearPhoto(){
-          this.$refs.mainDropzoe.removeAllFiles();
-      }
   }
 };
 </script>

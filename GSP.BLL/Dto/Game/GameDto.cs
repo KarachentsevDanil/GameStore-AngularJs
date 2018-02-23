@@ -19,7 +19,11 @@ namespace GSP.BLL.Dto.Game
 
         public string Photo { get; set; }
 
+        public string PhotoContent { get; set; }
+
         public string Icon { get; set; }
+
+        public string IconContent { get; set; }
 
         public List<RateDto> Rates { get; set; }
 
