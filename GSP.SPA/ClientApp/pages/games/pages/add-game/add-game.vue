@@ -46,118 +46,121 @@
 </template>
 
 <script>
-    import { validationMixin } from "vuelidate";
-    import { required } from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 
-    import * as gameService from "../../api/game-service";
+import * as gameService from "../../api/game-service";
 
-    import mainFileUploaderComponent from "./file-uploader/main-file-uploader";
-    import otherFilesUploaderComponent from "./file-uploader/other-file-uploaders";
+import mainFileUploaderComponent from "./file-uploader/main-file-uploader";
+import otherFilesUploaderComponent from "./file-uploader/other-file-uploaders";
 
-    export default {
-        components: {
-            "main-file-uploader": mainFileUploaderComponent,
-            "other-file-uploaders": otherFilesUploaderComponent
-        },
-        props: {
-            categories: {
-                type: Array,
-                required
-            }
-        },
-        mixins: [validationMixin],
-        validations: {
-            game: {
-                name: { required },
-                price: { required },
-                description: { required }
-            }
-        },
-        data: () => ({
-            baseDropzoneOptions: {
-                url: "https://httpbin.org/post",
-                thumbnailWidth: 200,
-                addRemoveLinks: true
-            },
-            game: {
-                name: "",
-                categoryId: 0,
-                price: 0,
-                description: ""
-            },
-            files: {
-                mainFile: "",
-                iconFile: "",
-                galleryFiles: []
-            }
-        }),
-        methods: {
-            getFileData(file) {
-                let fileData = file.dataURL.split("base64,")[1];
-                return fileData;
-            },
-            mainfileSuccessfullyAdded(file, response) {
-                this.files.mainFile = this.getFileData(file);
-            },
-            iconfileSuccessfullyAdded(file, response) {
-                this.files.iconFile = this.getFileData(file);
-            },
-            galleryFileSuccessfullyAdded(file, response) {
-                this.files.galleryFiles.push(this.getFileData(file));
-            },
-            async addGame() {
-                let newGame = {
-                    Name: this.game.name,
-                    CategoryId: this.game.categoryId,
-                    Description: this.game.description,
-                    Price: this.game.price,
-                    Photo: this.files.mainFile,
-                    Icon: this.files.iconFile,
-                    Photos: this.files.galleryFiles.map(content => {
-                        return {
-                            Photo: content
-                        };
-                    })
-                };
+export default {
+  components: {
+    "main-file-uploader": mainFileUploaderComponent,
+    "other-file-uploaders": otherFilesUploaderComponent
+  },
+  props: {
+    categories: {
+      type: Array,
+      required
+    }
+  },
+  mixins: [validationMixin],
+  validations: {
+    game: {
+      name: { required },
+      price: { required },
+      description: { required }
+    }
+  },
+  data: () => ({
+    baseDropzoneOptions: {
+      url: "https://httpbin.org/post",
+      thumbnailWidth: 200,
+      addRemoveLinks: true
+    },
+    game: {
+      name: "",
+      categoryId: 0,
+      price: 0,
+      description: ""
+    },
+    files: {
+      mainFile: "",
+      iconFile: "",
+      galleryFiles: []
+    }
+  }),
+  methods: {
+    getFileData(file) {
+      let fileData = file.dataURL.split("base64,")[1];
+      return fileData;
+    },
+    mainfileSuccessfullyAdded(file, response) {
+      this.files.mainFile = this.getFileData(file);
+    },
+    iconfileSuccessfullyAdded(file, response) {
+      this.files.iconFile = this.getFileData(file);
+    },
+    galleryFileSuccessfullyAdded(file, response) {
+      this.files.galleryFiles.push(this.getFileData(file));
+    },
+    async addGame() {
+      let newGame = {
+        Name: this.game.name,
+        CategoryId: this.game.categoryId,
+        Description: this.game.description,
+        Price: this.game.price,
+        Photo: this.files.mainFile,
+        Icon: this.files.iconFile,
+        Photos: this.files.galleryFiles.map(content => {
+          return {
+            Photo: content
+          };
+        })
+      };
 
-                await gameService.addGame(newGame);
-                
-                this.clearGame();
-                this.$noty.success("Game was successfylly added.");
-            },
-            clearGame() {
-                this.game.name = "";
-                this.game.categoryId = 0;
-                this.game.price = 0;
-                this.game.description = "";
+      try {
+        await gameService.addGame(newGame);
+        this.clearGame();
+        this.$noty.success("Game was successfylly added.");
+      } catch (error) {
+        this.$noty.success("Error occure while adding game.");
+      }
+    },
+    clearGame() {
+      this.game.name = "";
+      this.game.categoryId = 0;
+      this.game.price = 0;
+      this.game.description = "";
 
-                this.$refs.mainUploader.$refs.mainDropzoe.removeAllFiles();
-                this.$refs.otherUploaders.$refs.iconDropzoe.removeAllFiles();
-                this.$refs.otherUploaders.$refs.galleryDropzoe.removeAllFiles();
+      this.$refs.mainUploader.$refs.mainDropzoe.removeAllFiles();
+      this.$refs.otherUploaders.$refs.iconDropzoe.removeAllFiles();
+      this.$refs.otherUploaders.$refs.galleryDropzoe.removeAllFiles();
 
-                this.$v.$reset();
-            }
-        },
-        computed: {
-            nameErrors() {
-                const errors = [];
-                if (!this.$v.game.name.$dirty) return errors;
-                !this.$v.game.name.required && errors.push("Name is required.");
-                return errors;
-            },
-            priceErrors() {
-                const errors = [];
-                if (!this.$v.game.price.$dirty) return errors;
-                !this.$v.game.price.required && errors.push("Price is required");
-                return errors;
-            },
-            descriptionErrors() {
-                const errors = [];
-                if (!this.$v.game.description.$dirty) return errors;
-                !this.$v.game.description.required &&
-                    errors.push("Description is required");
-                return errors;
-            }
-        }
-    };
+      this.$v.$reset();
+    }
+  },
+  computed: {
+    nameErrors() {
+      const errors = [];
+      if (!this.$v.game.name.$dirty) return errors;
+      !this.$v.game.name.required && errors.push("Name is required.");
+      return errors;
+    },
+    priceErrors() {
+      const errors = [];
+      if (!this.$v.game.price.$dirty) return errors;
+      !this.$v.game.price.required && errors.push("Price is required");
+      return errors;
+    },
+    descriptionErrors() {
+      const errors = [];
+      if (!this.$v.game.description.$dirty) return errors;
+      !this.$v.game.description.required &&
+        errors.push("Description is required");
+      return errors;
+    }
+  }
+};
 </script>

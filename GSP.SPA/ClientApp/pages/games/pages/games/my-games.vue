@@ -11,9 +11,6 @@ import gamesComponent from "./games";
 import * as authGetters from "../../../auth/store/types/getter-types";
 import * as authResources from "../../../auth/store/resources";
 
-import * as gamesActions from "../../store/types/action-types";
-import * as gamesResources from "../../store/resources";
-
 import { mapGetters } from "vuex";
 
 export default {

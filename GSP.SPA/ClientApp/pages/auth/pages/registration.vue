@@ -105,10 +105,12 @@ export default {
         DateOfBirthsday: this.user.birthday
       };
 
-      let response = await authenticationService.registr(data);
-      
-      if (response.status === 200) {
+      try {
+        let response = await authenticationService.registr(data);
+        this.$noty.success("Account was created.");
         this.$router.push("/login");
+      } catch (error) {
+        this.$noty.error("Error occure when registr user.");
       }
     }
   },

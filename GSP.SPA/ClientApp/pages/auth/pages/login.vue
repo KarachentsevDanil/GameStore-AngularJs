@@ -76,7 +76,8 @@ export default {
           Password: this.user.password,
           RememberMe: this.user.rememberMe
         },
-        router: this.$router
+        router: this.$router,
+        notification: this.$noty
       };
 
       this.$store.dispatch(

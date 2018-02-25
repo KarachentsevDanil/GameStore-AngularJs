@@ -108,6 +108,33 @@ export default {
 </script>
 
 <style>
+@media (min-width: 1800px) {
+  .details-container.game-block .game-details-block .icons-block {
+    left: 170px;
+  }
+  .details-container.game-block .game-details-block .text-block {
+    left: 90px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .game-block .game-details-block .icons-block {
+    left: 105px;
+  }
+  .game-block .game-details-block .text-block {
+    left: 75px;
+  }
+}
+
+@media (min-width: 768px) {
+  .game-details-block .icons-block {
+    left: 405px;
+  }
+  .game-details-block .text-block {
+    left: 315px;
+  }
+}
+
 .margin-top-5 {
   margin-top: 7px !important;
 }
@@ -129,7 +156,7 @@ export default {
 .text-block {
   position: absolute;
   top: 360px;
-  left: 80px;
+  left: 90px;
   font-size: 20px;
   color: orange;
 }
@@ -137,7 +164,7 @@ export default {
 .icons-block {
   position: absolute;
   top: 300px;
-  left: 160px;
+  left: 170px;
 }
 
 .details-container .game-details-block {

@@ -6,7 +6,7 @@
                 </pagination>
             </div>
             <div class="orders-info">
-                <div v-for="(order) in orders" class="order-details" :key="order.OrderId" @click="selectOrder(order)">
+                <div v-for="(order) in orders" :class="{'order-details' : true, active: isActive(order.OrderId)}" :key="order.OrderId" @click="selectOrder(order)">
                     <h4>
                         Order #{{ order.OrderId }}
                     </h4>
@@ -91,6 +91,9 @@ export default {
 
       return total;
     },
+    isActive(orderId) {
+      return this.currentOrder != null && this.currentOrder.OrderId === orderId;
+    },
     async loadOrders(params) {
       let ordersResponse = (await orderService.getOrdersByParams(params)).data;
 
@@ -125,9 +128,9 @@ export default {
 
 
 <style scoped>
-.orders-info{
-    margin-top: 10px;
-    margin-bottom: 10px;
+.orders-info {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .order-details {
@@ -140,6 +143,10 @@ export default {
 .order-details:hover {
   background-color: whitesmoke;
   cursor: pointer;
+}
+
+.active {
+  background-color: whitesmoke;
 }
 
 .order-details p {

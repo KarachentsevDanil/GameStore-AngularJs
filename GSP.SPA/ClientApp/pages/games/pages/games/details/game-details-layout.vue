@@ -66,7 +66,8 @@ export default {
     addGameToBucket(gameId) {
       let addGame = {
         GameId: gameId,
-        CustomerId: this.getCurrentUser().CustomerId
+        CustomerId: this.getCurrentUser().CustomerId,
+        notify: this.$noty
       };
 
       this.$store.dispatch(

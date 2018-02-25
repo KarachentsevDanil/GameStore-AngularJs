@@ -130,12 +130,16 @@ export default {
       });
     },
     async editGame() {
-      await gameService.editGame(this.game);
+      try {
+        await gameService.editGame(this.game);
 
-      this.clearGame();
-      this.refreshGameAfterUpdate();
+        this.clearGame();
+        this.refreshGameAfterUpdate();
 
-      this.$noty.success("Game was successfylly updated.");
+        this.$noty.success("Game was successfylly updated.");
+      } catch (error) {
+        this.$noty.success("Error occure while updating game.");
+      }
     },
     clearGame() {
       this.$refs.fileUploaders.$refs.mainDropzoe.removeAllFiles();
