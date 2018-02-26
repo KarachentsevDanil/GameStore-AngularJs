@@ -8,16 +8,16 @@
             <div class="orders-info">
                 <div v-for="(order) in orders" :class="{'order-details' : true, active: isActive(order.OrderId)}" :key="order.OrderId" @click="selectOrder(order)">
                     <h4>
-                        Order #{{ order.OrderId }}
+                        {{resources.properties.orderNumber}} {{ order.OrderId }}
                     </h4>
                     <p>
-                        <span class="bold"> Customer:</span> {{order.CustomerName}}
+                        <span class="bold"> {{resources.properties.customerLabel}}</span> {{order.CustomerName}}
                     </p>
                     <p>
-                        <span class="bold"> Count Games:</span> {{order.Games.length}}
+                        <span class="bold"> {{resources.properties.countGamesLabel}}</span> {{order.Games.length}}
                     </p>
                     <p>
-                        <span class="bold"> Total Price:</span> {{getOrderTotalPrice(order.Games)}}
+                        <span class="bold"> {{resources.properties.totalPriceLabel}}</span> {{getOrderTotalPrice(order.Games)}} {{resources.properties.moneyLabel}}
                     </p>
                 </div>
             </div>
@@ -33,131 +33,136 @@
 </template>
 
 <script>
-import * as orderService from "../../api/order-service";
-import orderGameComponent from "../order-game/order-game";
+    import * as orderService from "../../api/order-service";
+    import * as resources from "../../resources/resources";
 
-export default {
-  components: {
-    orderGame: orderGameComponent
-  },
-  data() {
-    return {
-      orders: [],
-      currentOrder: null,
-      filters: {
-        pagination: {
-          total: 0,
-          pageSize: 12,
-          currentPage: 1,
-          paginationOptions: {
-            offset: 3,
-            previousText: "Prev",
-            nextText: "Next",
-            alwaysShowPrevNext: true
-          }
-        }
-      }
-    };
-  },
-  props: {
-    customerId: {
-      type: String
-    }
-  },
-  async beforeMount() {
-    let params = {
-      PageSize: 12,
-      PageNumber: 1,
-      CustomerId: this.customerId
-    };
+    import orderGameComponent from "../order-game/order-game";
 
-    let ordersResponse = (await orderService.getOrdersByParams(params)).data;
-
-    this.orders = ordersResponse.Collection;
-    this.filters.pagination.total = ordersResponse.TotalCount;
-  },
-  methods: {
-    selectOrder(order) {
-      this.currentOrder = order;
-    },
-    getOrderTotalPrice(games) {
-      let total = _.reduce(
-        games,
-        (sum, game) => {
-          return sum + game.Price;
+    export default {
+        components: {
+            orderGame: orderGameComponent
         },
-        0
-      );
+        data() {
+            return {
+                orders: [],
+                currentOrder: null,
+                filters: {
+                    pagination: {
+                        total: 0,
+                        pageSize: 12,
+                        currentPage: 1,
+                        paginationOptions: {
+                            offset: 3,
+                            previousText: "Prev",
+                            nextText: "Next",
+                            alwaysShowPrevNext: true
+                        }
+                    }
+                },
+                resources: {
+                    ...resources.lables
+                }
+            };
+        },
+        props: {
+            customerId: {
+                type: String
+            }
+        },
+        async beforeMount() {
+            let params = {
+                PageSize: 12,
+                PageNumber: 1,
+                CustomerId: this.customerId
+            };
 
-      return total;
-    },
-    isActive(orderId) {
-      return this.currentOrder != null && this.currentOrder.OrderId === orderId;
-    },
-    async loadOrders(params) {
-      let ordersResponse = (await orderService.getOrdersByParams(params)).data;
+            let ordersResponse = (await orderService.getOrdersByParams(params)).data;
 
-      this.orders = ordersResponse.Collection;
-      this.filters.pagination.total = ordersResponse.TotalCount;
-    },
-    getFilterParams() {
-      let params = {
-        PageSize: 12,
-        PageNumber: 1,
-        CustomerId: this.customerId
-      };
+            this.orders = ordersResponse.Collection;
+            this.filters.pagination.total = ordersResponse.TotalCount;
+        },
+        methods: {
+            selectOrder(order) {
+                this.currentOrder = order;
+            },
+            getOrderTotalPrice(games) {
+                let total = _.reduce(
+                    games,
+                    (sum, game) => {
+                        return sum + game.Price;
+                    },
+                    0
+                );
 
-      return params;
-    },
-    pageChanged(page) {
-      this.filters.pagination.currentPage = page;
+                return total;
+            },
+            isActive(orderId) {
+                return this.currentOrder != null && this.currentOrder.OrderId === orderId;
+            },
+            async loadOrders(params) {
+                let ordersResponse = (await orderService.getOrdersByParams(params)).data;
 
-      let params = this.getFilterParams();
-      params.PageNumber = page;
+                this.orders = ordersResponse.Collection;
+                this.filters.pagination.total = ordersResponse.TotalCount;
+            },
+            getFilterParams() {
+                let params = {
+                    PageSize: 12,
+                    PageNumber: 1,
+                    CustomerId: this.customerId
+                };
 
-      this.loadOrders(params);
-    }
-  },
-  computed: {
-    hasSelectedOrder() {
-      return this.currentOrder != null;
-    }
-  }
-};
+                return params;
+            },
+            pageChanged(page) {
+                this.filters.pagination.currentPage = page;
+
+                let params = this.getFilterParams();
+                params.PageNumber = page;
+
+                this.loadOrders(params);
+            }
+        },
+        computed: {
+            hasSelectedOrder() {
+                return this.currentOrder != null;
+            }
+        }
+    };
 </script>
 
 
 <style scoped>
-.orders-info {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+    .orders-info {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
-.order-details {
-  background: white;
-  border-bottom: 2px solid whitesmoke;
-  padding: 10px;
-  box-shadow: 0px 2px 2px 0 rgba(34, 36, 38, 0.15);
-}
+    .order-details {
+        background: white;
+        border-bottom: 2px solid whitesmoke;
+        padding: 10px;
+        box-shadow: 0px 2px 2px 0 rgba(34, 36, 38, 0.15);
+    }
 
-.order-details:hover {
-  background-color: whitesmoke;
-  cursor: pointer;
-}
+        .order-details:hover {
+            background-color: whitesmoke;
+            cursor: pointer;
+        }
 
-.active {
-  background-color: whitesmoke;
-}
+    .active {
+        background-color: whitesmoke;
+    }
 
-.order-details p {
-  margin-bottom: 2px;
-}
+    .order-details p {
+        margin-bottom: 2px;
+    }
 
-p span.bold {
-  font-weight: bold;
-}
+    p span.bold {
+        font-weight: bold;
+    }
 
-p {
-  font-size: 14px;
-}
+    p {
+        font-size: 14px;
+    }
 </style>

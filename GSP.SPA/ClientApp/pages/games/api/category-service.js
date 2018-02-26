@@ -1,12 +1,9 @@
 import * as httpService from "../../../api/http-service";
-
-const baseGameUrl = 'api/category/';
-const getCategoriesUrl = baseGameUrl + 'GetCategories';
-const addCategoryUrl = baseGameUrl + 'AddCategory';
+import * as resources from '../resources/resources';
 
 export const getCategories = () => {
     let params = {
-        url: getCategoriesUrl
+        url: resources.categoryUrls.getCategoriesUrl
     };
 
     return httpService.getData(params);
@@ -14,7 +11,7 @@ export const getCategories = () => {
 
 export const addCategory = (data) => {
     let params = {
-        url: addCategoryUrl,
+        url: resources.categoryUrls.addCategoryUrl,
         data: data
     };
 

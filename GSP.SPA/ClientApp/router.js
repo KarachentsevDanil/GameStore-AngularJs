@@ -1,72 +1,26 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import LoginPage from './pages/auth/pages/login'
-import RegistrationPage from './pages/auth/pages/registration'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import LoginPage from "./pages/auth/pages/login";
 
-import GamesPage from './pages/games/pages/games/games'
-import MyGamesPage from './pages/games/pages/games/my-games'
-import GameDetails from './pages/games/pages/games/details/game-details-layout'
-
-import AddGamePage from './pages/games/pages/add-game/add-game-layout';
-import EditGamesPage from './pages/games/pages/edit-games/edit-games';
-
-import BucketPage from './pages/orders/pages/bucket/bucket'
-import OrdersPage from './pages/orders/pages/orders/orders'
-import MyOrdersPage from './pages/orders/pages/orders/my-orders'
+import authorizationRoutes from "./routes/authorizationRoutes";
+import gameRoutes from "./routes/gameRoutes";
+import orderRoutes from "./routes/orderRoutes";
 
 Vue.use(VueRouter);
 
-const routes = [{
-        path: '/login',
-        component: LoginPage
-    },
+const routes = [
+    ...authorizationRoutes,
+    ...gameRoutes,
+    ...orderRoutes,
     {
-        path: '/registr',
-        component: RegistrationPage
-    },
-    {
-        path: '/add-game',
-        component: AddGamePage
-    },
-    {
-        path: '/edit-games',
-        component: EditGamesPage
-    },
-    {
-        path: '/games',
-        name: 'games',
-        component: GamesPage
-    },
-    {
-        path: '/game-details/:id',
-        component: GameDetails,
-        props: true
-    },
-    {
-        path: '/my-games',
-        component: MyGamesPage
-    },
-    {
-        path: '/bucket',
-        component: BucketPage
-    },
-    {
-        path: '/orders',
-        component: OrdersPage
-    },
-    {
-        path: '/my-orders',
-        component: MyOrdersPage
-    },
-    {
-        path: '*',
+        path: "*",
         component: LoginPage
     }
 ];
 
 let router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes
 });
 
-export default router
+export default router;

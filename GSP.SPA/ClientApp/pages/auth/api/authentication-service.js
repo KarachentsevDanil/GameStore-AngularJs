@@ -1,12 +1,9 @@
 import * as httpService from "../../../api/http-service";
-
-const baseAccountUrl = 'api/account/';
-const loginUrl = baseAccountUrl + 'login';
-const registrationUrl = baseAccountUrl + 'register';
+import * as authResources from "../resources/resources";
 
 export const login = data => {
     let params = {
-        url: loginUrl,
+        url: authResources.accountUrls.loginUrl,
         data: data
     };
 
@@ -15,7 +12,7 @@ export const login = data => {
 
 export const registr = data => {
     let params = {
-        url: registrationUrl,
+        url: authResources.accountUrls.registrationUrl,
         data: data
     };
 

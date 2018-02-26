@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import authenticationStore from "../pages/auth/store/index";
-// import gamesStore from '../pages/games/store/index';
 import ordersStore from "../pages/orders/store/index";
 
 import actions from "./actions";

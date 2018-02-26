@@ -6,20 +6,20 @@
                     <div class="form-header deep-purple darken-1">
                         <v-card-title class="white--text deep-purple darken-1">
                             <span class="text-xs-center">
-                                Resitration
+                                {{ labels.headers.resitrationLabel }}
                             </span>
                         </v-card-title>
                     </div>
                     <div class="form-body">
                         <form>
-                            <v-text-field label="Full Name"
+                            <v-text-field :label="labels.properties.fullNameLabel"
                                           v-model="user.fullName"
                                           :error-messages="fullNameErrors"
                                           @input="$v.user.fullName.$touch()"
                                           @blur="$v.user.fullName.$touch()"
                                           required></v-text-field>
 
-                            <v-text-field label="E-mail"
+                            <v-text-field :label="labels.properties.emailLable"
                                           v-model="user.email"
                                           :error-messages="emailErrors"
                                           @input="$v.user.email.$touch()"
@@ -28,7 +28,7 @@
 
                             <v-text-field v-model="user.password"
                                           :error-messages="passwordErrors"
-                                          label="Password"
+                                          :label="labels.properties.passwordLabel"
                                           hint="At least 6 characters"
                                           min="6"
                                           @input="$v.user.password.$touch()"
@@ -58,13 +58,13 @@
                                 </v-date-picker>
                             </v-menu>
 
-                            <v-btn class="form-button" @click="submit" color="info">Registr</v-btn>
+                            <v-btn class="form-button" @click="submit" color="info">{{labels.commands.registrLabel}}</v-btn>
                         </form>
                     </div>
                 </v-card>
 
                 <div class="registr-link-block">
-                    Have account? <router-link to="/login" active-class="active" exact><a>Sign In</a></router-link>
+                    {{labels.commands.haveAccountLabel}} <router-link to="/login" active-class="active" exact><a>{{labels.commands.signInLabel}}</a></router-link>
                 </div>
             </div>
         </div>
@@ -72,70 +72,75 @@
 </template>
 
 <script>
-import * as authenticationService from "../api/authentication-service";
-import { mapGetters } from "vuex";
-import { validationMixin } from "vuelidate";
-import { required, minLength, email } from "vuelidate/lib/validators";
+    import * as authenticationService from "../api/authentication-service";
+    import * as authTextResources from "../resources/resources";
 
-export default {
-  mixins: [validationMixin],
+    import { mapGetters } from "vuex";
+    import { validationMixin } from "vuelidate";
+    import { required, minLength, email } from "vuelidate/lib/validators";
 
-  validations: {
-    user: {
-      email: { required, email },
-      password: { required, minLength: minLength(6) },
-      fullName: { required }
-    }
-  },
-  data: () => ({
-    user: {
-      email: "",
-      password: "",
-      fullName: "",
-      birthday: null
-    },
-    menu: false
-  }),
-  methods: {
-    async submit() {
-      let data = {
-        Email: this.user.email,
-        Password: this.user.password,
-        FullName: this.user.fullName,
-        DateOfBirthsday: this.user.birthday
-      };
+    export default {
+        mixins: [validationMixin],
 
-      try {
-        let response = await authenticationService.registr(data);
-        this.$noty.success("Account was created.");
-        this.$router.push("/login");
-      } catch (error) {
-        this.$noty.error("Error occure when registr user.");
-      }
-    }
-  },
-  computed: {
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.user.password.$dirty) return errors;
-      !this.$v.user.password.minLength &&
-        errors.push("Password must be at least 6 characters long");
-      !this.$v.user.password.required && errors.push("Password is required.");
-      return errors;
-    },
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.user.email.$dirty) return errors;
-      !this.$v.user.email.email && errors.push("Must be valid e-mail");
-      !this.$v.user.email.required && errors.push("E-mail is required");
-      return errors;
-    },
-    fullNameErrors() {
-      const errors = [];
-      if (!this.$v.user.fullName.$dirty) return errors;
-      !this.$v.user.fullName.required && errors.push("Full Name is required");
-      return errors;
-    }
-  }
-};
+        validations: {
+            user: {
+                email: { required, email },
+                password: { required, minLength: minLength(6) },
+                fullName: { required }
+            }
+        },
+        data: () => ({
+            user: {
+                email: "",
+                password: "",
+                fullName: "",
+                birthday: null
+            },
+            labels: {
+                ...authTextResources.lables
+            },
+            menu: false
+        }),
+        methods: {
+            async submit() {
+                let data = {
+                    Email: this.user.email,
+                    Password: this.user.password,
+                    FullName: this.user.fullName,
+                    DateOfBirthsday: this.user.birthday
+                };
+
+                try {
+                    let response = await authenticationService.registr(data);
+                    this.$noty.success(authTextResources.popupMessages.accountCreatedMessage);
+                    this.$router.push("/login");
+                } catch (error) {
+                    this.$noty.error(authTextResources.popupMessages.accountCreationFailedMessage);
+                }
+            }
+        },
+        computed: {
+            passwordErrors() {
+                const errors = [];
+                if (!this.$v.user.password.$dirty) return errors;
+                !this.$v.user.password.minLength &&
+                    errors.push(authTextResources.lables.validationMessages.passwordLengthMessage);
+                !this.$v.user.password.required && errors.push(authTextResources.lables.validationMessages.passwordRequiredMessage);
+                return errors;
+            },
+            emailErrors() {
+                const errors = [];
+                if (!this.$v.user.email.$dirty) return errors;
+                !this.$v.user.email.email && errors.push(authTextResources.lables.validationMessages.emailMessage);
+                !this.$v.user.email.required && errors.push(authTextResources.lables.validationMessages.emailRequiredMessage);
+                return errors;
+            },
+            fullNameErrors() {
+                const errors = [];
+                if (!this.$v.user.fullName.$dirty) return errors;
+                !this.$v.user.fullName.required && errors.push(authTextResources.lables.validationMessages.fullNameRequiredMessage);
+                return errors;
+            }
+        }
+    };
 </script>

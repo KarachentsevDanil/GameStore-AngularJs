@@ -1,9 +1,9 @@
 <template>
     <v-dialog v-model="dialog.showDialog" max-width="400">
         <v-card>
-            <v-card-title class="headline">Add Category</v-card-title>
+            <v-card-title class="headline"> {{labels.headers.addCategoryLabel}} </v-card-title>
             <v-card-text>
-                <v-text-field label="Name"
+                <v-text-field :label="labels.properties.categoryNameLabel"
                               v-model="category.name"
                               :error-messages="categoryNameErrors"
                               @input="$v.category.name.$touch()"
@@ -12,8 +12,12 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="addCategory">Add</v-btn>
-                <v-btn @click.native="dialog.showDialog = false">Close</v-btn>
+                <v-btn color="primary" @click="addCategory">
+                    {{labels.commands.addCategoryLabel}}
+                </v-btn>
+                <v-btn @click.native="dialog.showDialog = false">
+                    {{labels.commands.closeLabel}}
+                </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -24,6 +28,7 @@
     import { required } from "vuelidate/lib/validators";
 
     import * as categoryService from "../../api/category-service";
+    import * as resources from "../../resources/resources";
 
     export default {
         props: {
@@ -46,14 +51,15 @@
             return {
                 category: {
                     name: ""
-                }
+                },
+                labels: resources.categoryLabels
             };
         },
         computed: {
             categoryNameErrors() {
                 const errors = [];
                 if (!this.$v.category.name.$dirty) return errors;
-                !this.$v.category.name.required && errors.push("Name is required.");
+                !this.$v.category.name.required && errors.push(resources.categoryLabels.validationMessages.categoryNameRequired);
                 return errors;
             }
         },
@@ -70,7 +76,7 @@
                 this.refreshCategories();
 
                 this.dialog.showDialog = false;
-                this.$noty.success("Category was successfylly added.");
+                this.$noty.success(resources.popupMessages.categoryCreatedMessage);
             },
             clearCategory() {
                 this.category.name = "";

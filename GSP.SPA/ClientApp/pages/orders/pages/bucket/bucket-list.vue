@@ -17,10 +17,10 @@
                             <v-list-tile-title> {{game.Name}} </v-list-tile-title>
                             <v-list-tile-sub-title>
                                 <p>
-                                    <span class="bold"> Category: </span> {{game.CategoryName}}
+                                    <span class="bold"> {{resources.properties.categoryLabel}} </span> {{game.CategoryName}}
                                 </p>
                                 <p>
-                                    <span class="bold"> Price: </span> {{game.Price}} USD
+                                    <span class="bold"> {{resources.properties.priceLabel}} </span> {{game.Price}} {{resources.properties.moneyLabel}}
                                 </p>
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
@@ -30,14 +30,14 @@
             <hr>
             <div class="total-block">
                 <p>
-                    <span class="bold">Count Games: {{getCountGames}} </span>
+                    <span class="bold">{{resources.properties.countGamesLabel}} {{getCountGames}} </span>
                 </p>
                 <p>
-                    <span class="bold">Total Price: {{getOrderTotal}} USD </span>
+                    <span class="bold">{{resources.properties.totalPriceLabel}} {{getOrderTotal}} {{resources.properties.moneyLabel}} </span>
                 </p>
             </div>
             <div class="checkout-block">
-                <v-btn block color="primary" to="/bucket" dark>Checkout <v-icon right dark>shopping_cart</v-icon> </v-btn>
+                <v-btn block color="primary" to="/bucket" dark> {{resources.commands.checkoutOrderLabel}} <v-icon right dark>shopping_cart</v-icon> </v-btn>
             </div>
         </div>
     </v-menu>
@@ -47,6 +47,7 @@
     import * as ordersGetters from "../../store/types/getter-types";
     import * as ordersActions from "../../store/types/action-types";
     import * as ordersResources from "../../store/resources";
+    import * as resources from "../../resources/resources";
 
     import * as authResources from "../../../auth/store/resources";
     import * as authGetters from "../../../auth/store/types/getter-types";
@@ -54,6 +55,13 @@
     import { mapGetters } from "vuex";
 
     export default {
+        data() {
+            return {
+                resources: {
+                    ...resources.lables
+                }
+            };
+        },
         methods: {
             ...mapGetters({
                 getGames: ordersResources.ORDERS_STORE_NAMESPACE.concat(

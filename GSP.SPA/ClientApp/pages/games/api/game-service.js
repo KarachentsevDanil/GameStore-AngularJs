@@ -1,16 +1,9 @@
 import * as httpService from "../../../api/http-service";
-
-const baseGameUrl = "api/game/";
-
-const getGamesUrl = baseGameUrl + "GetGamesByParams";
-const getGameByIdUrl = baseGameUrl + "GetGameById";
-const getRecomendedGamesByIdUrl = baseGameUrl + "GetRecomendedGames";
-const addGameUrl = baseGameUrl + "CreateGame";
-const editGameUrl = baseGameUrl + "EditGame";
+import * as resources from '../resources/resources';
 
 export const addGame = data => {
     let params = {
-        url: addGameUrl,
+        url: resources.gameUrls.addGameUrl,
         data: data
     };
 
@@ -19,7 +12,7 @@ export const addGame = data => {
 
 export const editGame = data => {
     let params = {
-        url: editGameUrl,
+        url: resources.gameUrls.editGameUrl,
         data: data
     };
 
@@ -28,7 +21,7 @@ export const editGame = data => {
 
 export const getGames = data => {
     let params = {
-        url: getGamesUrl,
+        url: resources.gameUrls.getGamesUrl,
         data: data
     };
 
@@ -37,7 +30,7 @@ export const getGames = data => {
 
 export const getRecomendedGamesById = id => {
     let params = {
-        url: getRecomendedGamesByIdUrl.concat(`/${id}`)
+        url: resources.gameUrls.getRecomendedGamesByIdUrl.concat(`/${id}`)
     };
 
     return httpService.getData(params);
@@ -45,7 +38,7 @@ export const getRecomendedGamesById = id => {
 
 export const getGameById = id => {
     let params = {
-        url: getGameByIdUrl.concat(`/${id}`)
+        url: resources.gameUrls.getGameByIdUrl.concat(`/${id}`)
     };
 
     return httpService.getData(params);

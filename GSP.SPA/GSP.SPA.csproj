@@ -24,9 +24,12 @@
   <ItemGroup>
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
+    <Compile Remove="ClientApp\pages\games\pages\game-details\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\pages\games\pages\game-details\**" />
+    <None Remove="ClientApp\pages\games\pages\game-details\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj" />
@@ -38,8 +41,6 @@
     <Folder Include="ClientApp\components\" />
     <Folder Include="ClientApp\pages\games\api\" />
     <Folder Include="ClientApp\pages\games\pages\edit-games\" />
-    <Folder Include="ClientApp\pages\games\pages\game-details\" />
-    <Folder Include="ClientApp\pages\games\store\" />
     <Folder Include="ClientApp\pages\orders\pages\orders\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">

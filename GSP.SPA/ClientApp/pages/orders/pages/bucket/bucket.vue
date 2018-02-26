@@ -8,20 +8,20 @@
                 <div class="deep-purple darken-1">
                     <v-card-title class="white--text deep-purple darken-1">
                         <span class="text-md-center">
-                            Order details
+                            {{resources.headers.orderDetailsLabel}}
                         </span>
                     </v-card-title>
                 </div>
                 <div class="order-details-block">
                     <p>
-                        <span class="bold"> Count Games:</span> {{getCountGames}}
+                        <span class="bold"> {{resources.properties.countGamesLabel}}</span> {{getCountGames}}
                     </p>
                     <p>
-                        <span class="bold"> Total Price:</span> {{getOrderTotal}} USD
+                        <span class="bold"> {{resources.properties.totalPriceLabel}}</span> {{getOrderTotal}} {{resources.properties.moneyLabel}}
                     </p>
                 </div>
                 <div class="order-complete-block">
-                    <v-btn block color="primary" dark @click="completeOrder">Confirm Order <v-icon right dark>shopping_cart</v-icon> </v-btn>
+                    <v-btn block color="primary" dark @click="completeOrder">{{resources.commands.confirmOrderLabel}} <v-icon right dark>shopping_cart</v-icon> </v-btn>
                 </div>
             </v-card>
         </div>
@@ -32,6 +32,7 @@
     import * as ordersGetters from "../../store/types/getter-types";
     import * as ordersActions from "../../store/types/action-types";
     import * as ordersResources from "../../store/resources";
+    import * as resources from "../../resources/resources";
 
     import * as authResources from "../../../auth/store/resources";
     import * as authGetters from "../../../auth/store/types/getter-types";
@@ -42,6 +43,13 @@
     import orderGameComponent from "../order-game/order-game";
 
     export default {
+        data() {
+            return {
+                resources: {
+                    ...resources.lables
+                }
+            };
+        },
         components: {
             orderGame: orderGameComponent
         },
@@ -70,7 +78,7 @@
                     user
                 );
 
-                this.$router.push("/orders");
+                this.$router.push("/my-orders");
             },
             async deleteGameFromBucket(gameId) {
                 let user = this.getUser();
@@ -80,7 +88,12 @@
                     GameId: gameId
                 };
 
-                await orderService.deleteGameFromOrder(completeOrderDto);
+                try {
+                    await orderService.deleteGameFromOrder(completeOrderDto);
+                    this.$noty.success(resources.popupMessages.gameDeletedFromBucket);
+                } catch (e) {
+                    this.$noty.error(resources.popupMessages.gameDeletedFromBucketError);
+                }
 
                 this.$store.dispatch(
                     ordersResources.ORDERS_STORE_NAMESPACE.concat(

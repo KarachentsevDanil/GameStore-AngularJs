@@ -1,5 +1,6 @@
 import * as authenticationService from '../api/authentication-service';
 import * as mutations from './types/mutators-types';
+import * as authResources from '../resources/resources';
 
 export default {
     async login(context, data) {
@@ -11,10 +12,8 @@ export default {
                 context.commit(mutations.SET_USER_MUTATOR, userDate.data.user);
                 data.router.push('/games');
             }
-            
-            notification.error('Email or password was incorrect. Try again.');
         } catch (error) {
-            notification.error('Email or password was incorrect. Try again.');
+            data.notification.error(authResources.popupMessages.loginFailedMessage);
         }
     }
 }

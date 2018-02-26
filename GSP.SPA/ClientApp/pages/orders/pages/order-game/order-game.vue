@@ -9,13 +9,13 @@
                     {{game.Name}}
                 </h3>
                 <p>
-                    <span class="bold"> Category:</span> {{game.CategoryName}}
+                    <span class="bold"> {{resources.properties.categoryLabel}}</span> {{game.CategoryName}}
                 </p>
                 <p>
-                    <span class="bold"> Price:</span> {{game.Price}} USD
+                    <span class="bold"> {{resources.properties.priceLabel}}</span> {{game.Price}} {{resources.properties.moneyLabel}}
                 </p>
                 <p>
-                    <span class="bold"> Description:</span> {{game.Description}}
+                    <span class="bold"> {{resources.properties.descriptionLabel}}</span> {{game.Description}}
                 </p>
                 <v-btn v-if="!hideDeleteAction" right fab dark small color="red" class="pull-right" @click="deleteGameFromBucket(game.GameId)">
                     <i class="icon theme--dark far fa-trash-alt"></i>
@@ -26,7 +26,16 @@
 </template>
 
 <script>
+    import * as resources from "../../resources/resources";
+
     export default {
+        data() {
+            return {
+                resources: {
+                    ...resources.lables
+                }
+            };
+        },
         props: {
             game: {
                 type: Object,

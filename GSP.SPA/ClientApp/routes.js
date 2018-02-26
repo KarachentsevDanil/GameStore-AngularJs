@@ -1,48 +1,50 @@
-export const userRoutes = [{
-        path: '/games',
-        display: 'Games',
-        icon: 'fas fa-gamepad'
+export const userRoutes = [
+    {
+        path: "/games",
+        display: "Games",
+        icon: "fas fa-gamepad"
     },
     {
-        path: '/bucket',
-        display: 'Bucket',
-        icon: 'fal fa-shopping-cart'
+        path: "/bucket",
+        display: "Bucket",
+        icon: "fal fa-shopping-cart"
     },
     {
-        path: '/my-games',
-        display: 'My Games',
-        icon: 'fas fa-gamepad'
+        path: "/my-games",
+        display: "My Games",
+        icon: "fas fa-gamepad"
     },
     {
-        path: '/my-orders',
-        display: 'My Orders',
-        icon: 'fal fa-archive'
+        path: "/my-orders",
+        display: "My Orders",
+        icon: "fal fa-archive"
     },
     {
-        path: '/login',
-        display: 'Logout',
-        icon: 'far fa-sign-out'
+        path: "/login",
+        display: "Logout",
+        icon: "far fa-sign-out"
     }
-]
+];
 
-export const adminRoutes = [{
-        path: '/add-game',
-        display: 'Add Game',
-        icon: 'far fa-plus-square'
+export const adminRoutes = [
+    {
+        path: "/add-game",
+        display: "Add Game",
+        icon: "far fa-plus-square"
     },
     {
-        path: '/edit-games',
-        display: 'Edit Games',
-        icon: 'fal fa-edit'
+        path: "/edit-games",
+        display: "Edit Games",
+        icon: "fal fa-edit"
     },
     {
-        path: '/orders',
-        display: 'Orders',
-        icon: 'fal fa-archive'
+        path: "/orders",
+        display: "Orders",
+        icon: "fal fa-archive"
     },
     {
-        path: '/login',
-        display: 'Logout',
-        icon: 'far fa-sign-out'
+        path: "/login",
+        display: "Logout",
+        icon: "far fa-sign-out"
     }
-]
+];

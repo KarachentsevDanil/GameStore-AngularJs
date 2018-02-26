@@ -1,13 +1,9 @@
 import * as httpService from "../../../api/http-service";
-
-const baseRateUrl = 'api/rate/';
-
-const getGameRatesByIdUrl = baseRateUrl + 'GetGameRates';
-const addRateToGameUrl = baseRateUrl + 'CreateFeed';
+import * as resources from '../resources/resources';
 
 export const addRateToGame = data => {
     let params = {
-        url: addRateToGameUrl,
+        url: resources.rateUrls.addRateToGameUrl,
         data: data
     };
 
@@ -16,7 +12,7 @@ export const addRateToGame = data => {
 
 export const getGameRatesById = id => {
     let params = {
-        url: getGameRatesByIdUrl.concat(`/${id}`)
+        url: resources.rateUrls.getGameRatesByIdUrl.concat(`/${id}`)
     };
 
     return httpService.getData(params);

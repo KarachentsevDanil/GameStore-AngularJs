@@ -1,16 +1,9 @@
 ﻿import * as httpService from "../../../api/http-service";
-
-const baseOrderUrl = 'api/order/';
-
-const addGameToBucketUrl = baseOrderUrl + 'AddToBucket';
-const getGamesFromBucketUrl = baseOrderUrl + 'GetGamesFromBucket';
-const completeOrderUrl = baseOrderUrl + 'ConfirmOrder';
-const deleteGameFromOrderUrl = baseOrderUrl + 'DeleteGameFromBucket';
-const getOrdersByParamsUrl = baseOrderUrl + 'GetOrdersByParams';
+import * as orderResources from '../resources/resources';
 
 export const getOrdersByParams = ordersParams => {
     let params = {
-        url: getOrdersByParamsUrl,
+        url: orderResources.ordersUrls.getOrdersByParamsUrl,
         data: ordersParams
     };
 
@@ -19,7 +12,7 @@ export const getOrdersByParams = ordersParams => {
 
 export const getGamesFromBucket = customerId => {
     let params = {
-        url: getGamesFromBucketUrl,
+        url: orderResources.ordersUrls.getGamesFromBucketUrl,
         data: {
             CustomerId: customerId
         }
@@ -30,7 +23,7 @@ export const getGamesFromBucket = customerId => {
 
 export const deleteGameFromOrder = data => {
     let params = {
-        url: deleteGameFromOrderUrl,
+        url: orderResources.ordersUrls.deleteGameFromOrderUrl,
         data: data
     };
     
@@ -39,7 +32,7 @@ export const deleteGameFromOrder = data => {
 
 export const addGameToBucket = data => {
     let params = {
-        url: addGameToBucketUrl,
+        url: orderResources.ordersUrls.addGameToBucketUrl,
         data: data
     };
 
@@ -48,7 +41,7 @@ export const addGameToBucket = data => {
 
 export const completeOrder = data => {
     let params = {
-        url: completeOrderUrl,
+        url: orderResources.ordersUrls.completeOrderUrl,
         data: data
     };
     

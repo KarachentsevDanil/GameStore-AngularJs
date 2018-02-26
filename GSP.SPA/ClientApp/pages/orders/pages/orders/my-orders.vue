@@ -7,6 +7,7 @@
 <script>
     import * as authResources from "../../../auth/store/resources";
     import * as authGetters from "../../../auth/store/types/getter-types";
+
     import { mapGetters } from "vuex";
 
     import ordersComponent from "./orders.vue";
