@@ -40,7 +40,7 @@
             <other-file-uploaders ref="otherUploaders" :baseOptions="baseDropzoneOptions" :iconfileSuccessfullyAdded="iconfileSuccessfullyAdded" :galleryFileSuccessfullyAdded="galleryFileSuccessfullyAdded"> </other-file-uploaders>
         </div>
         <div class="row">
-            <v-btn class="add-game-btn" color="primary" @click="addGame"> {{labels.commands.addGameLabel}} </v-btn>
+            <v-btn class="add-game-btn" color="primary" @click="addGame" :disabled="isInvaild"> {{labels.commands.addGameLabel}} </v-btn>
         </div>
     </div>
 </template>
@@ -51,6 +51,7 @@
 
     import * as gameService from "../../api/game-service";
     import * as resources from "../../resources/resources";
+    import * as mainStoreActions from "../../../../store/types/action-types";
 
     import mainFileUploaderComponent from "./file-uploader/main-file-uploader";
     import otherFilesUploaderComponent from "./file-uploader/other-file-uploaders";
@@ -123,9 +124,13 @@
                 };
 
                 try {
+                    this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Game is creating ...");
+
                     await gameService.addGame(newGame);
                     this.clearGame();
                     this.$noty.success(resources.popupMessages.gameAddedMessage);
+
+                    this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
                 } catch (error) {
                     this.$noty.success(resources.popupMessages.gameAddedErrorMessage);
                 }
@@ -144,6 +149,9 @@
             }
         },
         computed: {
+            isInvaild() {
+                return this.$v.$invalid || !this.files.mainFile || !this.files.iconFile;
+            },
             nameErrors() {
                 const errors = [];
                 if (!this.$v.game.name.$dirty) return errors;

@@ -58,7 +58,7 @@
                                 </v-date-picker>
                             </v-menu>
 
-                            <v-btn class="form-button" @click="submit" color="info">{{labels.commands.registrLabel}}</v-btn>
+                            <v-btn class="form-button" :disabled="isInvaild" @click="submit" color="info">{{labels.commands.registrLabel}}</v-btn>
                         </form>
                     </div>
                 </v-card>
@@ -74,6 +74,7 @@
 <script>
     import * as authenticationService from "../api/authentication-service";
     import * as authTextResources from "../resources/resources";
+    import * as mainStoreActions from "../../../store/types/action-types";
 
     import { mapGetters } from "vuex";
     import { validationMixin } from "vuelidate";
@@ -111,15 +112,23 @@
                 };
 
                 try {
+                    this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Account is creating ...");
+
                     let response = await authenticationService.registr(data);
                     this.$noty.success(authTextResources.popupMessages.accountCreatedMessage);
                     this.$router.push("/login");
+
+
+                    this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
                 } catch (error) {
                     this.$noty.error(authTextResources.popupMessages.accountCreationFailedMessage);
                 }
             }
         },
         computed: {
+            isInvaild() {
+                return this.$v.$invalid;
+            },
             passwordErrors() {
                 const errors = [];
                 if (!this.$v.user.password.$dirty) return errors;

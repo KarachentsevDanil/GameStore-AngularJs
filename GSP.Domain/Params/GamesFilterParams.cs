@@ -16,13 +16,15 @@ namespace GSP.Domain.Params
 
         public string CustomerId { get; set; }
 
-        public GamesOutputMode OutputMode { get; set; }
+        public GameSortMode SortMode { get; set; }
     }
 
-    public enum GamesOutputMode
+    public enum GameSortMode
     {
-        All = 0,
-        TopSell = 1,
-        TopRate = 2
+        ByName = 0,
+        ByCountOfSales = 1,
+        ByRating = 2,
+        ByPriceHighToLow = 3,
+        ByPriceLowToHigh = 4
     }
 }

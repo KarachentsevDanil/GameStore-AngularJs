@@ -31,7 +31,7 @@
 
                             <v-checkbox :label="labels.properties.remeberMeLabel" v-model="user.rememberMe"></v-checkbox>
 
-                            <v-btn class="form-button" @click="submit" color="info">{{labels.commands.signInLabel}}</v-btn>
+                            <v-btn class="form-button" @click="submit" color="info" :disabled="isInvaild">{{labels.commands.signInLabel}}</v-btn>
                         </form>
                     </div>
                 </v-card>
@@ -92,6 +92,9 @@
             }
         },
         computed: {
+            isInvaild() {
+                return this.$v.$invalid;
+            },
             ...mapGetters({
                 getUsername: authResources.AUTH_STORE_NAMESPACE.concat(
                     authGetters.GET_USER_GETTER

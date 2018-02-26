@@ -32,7 +32,7 @@
         data() {
             return {
                 comments: [],
-                labels: resources.gameLabels
+                labels: resources.rateLabels
             };
         },
         props: {

@@ -78,16 +78,24 @@
                 modes: [
                     {
                         id: 0,
-                        text: "All Games"
+                        text: "By name"
                     },
                     {
                         id: 1,
-                        text: "Top Sell Games"
+                        text: "By number of sales"
                     },
                     {
                         id: 2,
-                        text: "Top Rate Games"
-                    }
+                        text: "By rating"
+                    },
+                    {
+                        id: 3,
+                        text: "By price: high to low"
+                    },
+                    {
+                        id: 4,
+                        text: "By price: low to high"
+                    },
                 ],
                 min: 0,
                 max: 200,
@@ -103,7 +111,7 @@
                     filterParams.Term != "" ||
                     filterParams.StartPrice > 0 ||
                     filterParams.EndPrice < 200 ||
-                    filterParams.OutputMode != 0;
+                    filterParams.SortMode != 0;
 
                 return hasFilter;
             }
@@ -130,7 +138,7 @@
                     PageNumber: 1,
                     CategoriesIds: this.filters.selectedCategories,
                     Term: this.filters.title,
-                    OutputMode: this.filters.outputMode,
+                    SortMode: this.filters.outputMode,
                     StartPrice: Math.min(...this.filters.priceRange),
                     EndPrice: Math.max(...this.filters.priceRange),
                     CustomerId: this.customerId

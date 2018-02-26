@@ -108,3 +108,7 @@
 .authorization-block .form-button {
     width: 200px;
 }
+
+.form-button.btn.btn--disabled {
+    border-color: white !important;
+}

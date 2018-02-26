@@ -3,7 +3,7 @@
         <hr>
         <div>
             <p class="bold">
-                {{labels.properties.uploadMainPhotoLabel}}
+                {{labels.properties.uploadMainPhotoLabel}}*
             </p>
             <vue-dropzone ref="mainDropzoe" @vdropzone-success="mainfileSuccessfullyAdded" id="mainDropzone" :options="mainDropzoneOptions">
             </vue-dropzone>

@@ -59,7 +59,7 @@
             </file-uploaders>
         </div>
         <div class="row">
-            <v-btn class="add-game-btn" color="primary" @click="editGame">
+            <v-btn class="add-game-btn" color="primary" @click="editGame" :disabled="isInvaild">
                 {{labels.commands.updateGameLabel}}
             </v-btn>
         </div>
@@ -72,6 +72,7 @@
 
     import * as gameService from "../../../api/game-service";
     import * as resources from "../../../resources/resources";
+    import * as mainStoreActions from "../../../../../store/types/action-types";
 
     import fileUploadersComponent from "../file-uploaders/file-uploaders";
 
@@ -135,12 +136,16 @@
             },
             async editGame() {
                 try {
+                    this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Game is updating ...");
+
                     await gameService.editGame(this.game);
 
                     this.clearGame();
                     this.refreshGameAfterUpdate();
 
                     this.$noty.success(resources.popupMessages.gameUpdatedMessage);
+
+                    this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
                 } catch (error) {
                     this.$noty.success(resources.popupMessages.gameUpdatedErrorMessage);
                 }
@@ -154,6 +159,9 @@
             }
         },
         computed: {
+            isInvaild() {
+                return this.$v.$invalid || !this.game.PhotoContent || this.game.IconContent;
+            },
             nameErrors() {
                 const errors = [];
                 if (!this.$v.game.name.$dirty) return errors;

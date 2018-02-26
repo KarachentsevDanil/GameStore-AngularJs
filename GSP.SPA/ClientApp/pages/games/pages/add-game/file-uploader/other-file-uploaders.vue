@@ -2,7 +2,7 @@
     <div>
         <div>
             <p class="bold">
-                {{labels.properties.uploadIconPhotoLabel}}
+                {{labels.properties.uploadIconPhotoLabel}}*
             </p>
             <vue-dropzone ref="iconDropzoe" @vdropzone-success="iconfileSuccessfullyAdded" id="iconDropzone" :options="iconDropzoneOptions">
             </vue-dropzone>

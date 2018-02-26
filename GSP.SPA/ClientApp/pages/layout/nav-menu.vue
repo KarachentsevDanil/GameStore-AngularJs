@@ -20,7 +20,7 @@
                         </v-list-tile-content>
                     </v-list-tile>
                 </template>
-                    <template v-for="(item, index) in getAdminPages" v-if="getUser.Role == 'Admin'">
+                <template v-for="(item, index) in getAdminPages" v-if="getUser.Role == 'Admin'">
                     <v-list-tile :to="item.path" :key="index">
                         <v-list-tile-action>
                             <v-icon light v-html="item.icon"></v-icon>
@@ -77,54 +77,54 @@ export default {
 };
 </script>
 <style>
-.nav-menu .toolbar.nav-menu-bar {
-  background-color: #5e35b1 !important;
-  z-index: 20;
-}
+    .nav-menu .toolbar.nav-menu-bar {
+        background-color: #5e35b1 !important;
+        z-index: 20;
+    }
 
-.nav-menu .toolbar.nav-menu-bar .badge {
-  margin-top: 10px;
-  margin-right: 25px !important;
-  background-color: #5e35b1;
-}
+        .nav-menu .toolbar.nav-menu-bar .badge {
+            margin-top: 10px;
+            margin-right: 25px !important;
+            background-color: #5e35b1;
+        }
 
-.nav-menu .toolbar.nav-menu-bar .badge .badge__badge.cyan {
-  right: -10px;
-}
+            .nav-menu .toolbar.nav-menu-bar .badge .badge__badge.cyan {
+                right: -10px;
+            }
 
-.nav-menu .toolbar.nav-menu-bar .badge .icon.material-icons {
-  font-size: 30px;
-  color: white !important;
-}
+            .nav-menu .toolbar.nav-menu-bar .badge .icon.material-icons {
+                font-size: 30px;
+                color: white !important;
+            }
 
-.nav-menu .toolbar-username {
-  display: inline-block;
-  margin-left: 20px;
-}
+    .nav-menu .toolbar-username {
+        display: inline-block;
+        margin-left: 20px;
+    }
 
-.nav-menu .notifications-bar {
-  position: relative;
-}
+    .nav-menu .notifications-bar {
+        position: relative;
+    }
 
-.nav-menu a:hover {
-  text-decoration: none;
-  color: black;
-}
+    .nav-menu a:hover {
+        text-decoration: none;
+        color: black;
+    }
 
-.nav-menu a:active {
-  text-decoration: none;
-}
+    .nav-menu a:active {
+        text-decoration: none;
+    }
 
-.nav-menu i {
-  font-size: 20px;
-  cursor: pointer;
-}
+    .nav-menu i {
+        font-size: 20px;
+        cursor: pointer;
+    }
 
-.nav-menu .toolbar-username i {
-  margin-right: 15px;
-}
+    .nav-menu .toolbar-username i {
+        margin-right: 15px;
+    }
 
-.navigation-drawer.navigation-drawer--clipped.navigation-drawer--open{
-  z-index: 10;
-}
+    .navigation-drawer.navigation-drawer--clipped.navigation-drawer--open {
+        z-index: 10;
+    }
 </style>

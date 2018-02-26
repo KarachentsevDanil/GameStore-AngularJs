@@ -12,7 +12,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="addCategory">
+                <v-btn color="primary" @click="addCategory" :disabled="isInvaild">
                     {{labels.commands.addCategoryLabel}}
                 </v-btn>
                 <v-btn @click.native="dialog.showDialog = false">
@@ -56,6 +56,9 @@
             };
         },
         computed: {
+            isInvaild() {
+                return this.$v.$invalid;
+            },
             categoryNameErrors() {
                 const errors = [];
                 if (!this.$v.category.name.$dirty) return errors;
