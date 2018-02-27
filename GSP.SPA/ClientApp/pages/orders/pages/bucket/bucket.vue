@@ -27,7 +27,7 @@
                 </v-card>
             </div>
         </div>
-        <div class="col-lg-6 col-lg-offset-3 col-xs-12 text-center">
+        <div class="col-lg-6 col-lg-offset-3 col-xs-12 text-center" v-else>
             <p class="bold text-center">
                 Bucket is empty.
             </p>

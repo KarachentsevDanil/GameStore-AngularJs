@@ -24,11 +24,14 @@
   <ItemGroup>
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
+    <Compile Remove="ClientApp\components\**" />
     <Compile Remove="ClientApp\pages\games\pages\game-details\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\components\**" />
     <EmbeddedResource Remove="ClientApp\pages\games\pages\game-details\**" />
+    <None Remove="ClientApp\components\**" />
     <None Remove="ClientApp\pages\games\pages\game-details\**" />
   </ItemGroup>
   <ItemGroup>
@@ -38,7 +41,6 @@
     <ProjectReference Include="..\GSP.Domain\GSP.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClientApp\components\" />
     <Folder Include="ClientApp\pages\games\api\" />
     <Folder Include="ClientApp\pages\games\pages\edit-games\" />
     <Folder Include="ClientApp\pages\orders\pages\orders\" />
