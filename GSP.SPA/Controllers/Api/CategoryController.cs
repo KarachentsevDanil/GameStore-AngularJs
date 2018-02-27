@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using GSP.BLL.Dto.Category;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Games;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.SPA.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

@@ -15,5 +15,8 @@ export default {
         } catch (error) {
             data.notification.error(authResources.popupMessages.loginFailedMessage);
         }
+    },
+    logout(context) {
+        context.commit(mutations.USER_LOGOUT_MUTATOR);
     }
 }

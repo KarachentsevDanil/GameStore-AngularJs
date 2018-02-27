@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Params;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.SPA.Controllers.Api
 {
     [Route("api/[controller]/[action]/{id?}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class GameController : Controller
     {
         private readonly IGameService _gameService;

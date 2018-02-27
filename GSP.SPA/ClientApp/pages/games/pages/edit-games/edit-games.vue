@@ -50,7 +50,7 @@
         },
         data() {
             return {
-                labels: resources.gameUrls,
+                labels: resources.gameLabels,
                 games: [],
                 currentGame: {},
                 categories: [],

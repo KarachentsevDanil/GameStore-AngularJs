@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GSP.DAL.Context.Mappings.Contract;
+﻿using GSP.DAL.Context.Mappings.Contract;
 using GSP.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

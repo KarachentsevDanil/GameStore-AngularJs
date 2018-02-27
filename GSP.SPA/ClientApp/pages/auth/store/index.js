@@ -3,7 +3,7 @@ import mutations from "./mutators";
 import actions from "./actions";
 
 const state = {
-    user: null,
+    user: {},
     token: ""
 };
 

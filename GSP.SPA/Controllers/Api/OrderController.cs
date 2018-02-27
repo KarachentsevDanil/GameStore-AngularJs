@@ -5,13 +5,15 @@ using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Order;
 using GSP.BLL.Resources;
 using GSP.BLL.Services.Contracts;
-using GSP.Domain.Orders;
 using GSP.Domain.Params;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GSP.SPA.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
