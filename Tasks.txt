@@ -1,4 +1,0 @@
-- Fix games mode selection.
-- Add apriority algorithm, refactor code.
-- Add ability to add category.
-- Make current tab active.

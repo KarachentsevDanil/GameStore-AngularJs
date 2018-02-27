@@ -2,17 +2,28 @@ import BucketPage from "../pages/orders/pages/bucket/bucket";
 import OrdersPage from "../pages/orders/pages/orders/orders";
 import MyOrdersPage from "../pages/orders/pages/orders/my-orders";
 
+import * as routeGuards from "./route-guards";
+
 export default [
     {
         path: "/bucket",
-        component: BucketPage
+        component: BucketPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateUserRoute(to, from, next);
+        }
     },
     {
         path: "/orders",
-        component: OrdersPage
+        component: OrdersPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateAdminRoute(to, from, next);
+        }
     },
     {
         path: "/my-orders",
-        component: MyOrdersPage
+        component: MyOrdersPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateUserRoute(to, from, next);
+        }
     }
 ];

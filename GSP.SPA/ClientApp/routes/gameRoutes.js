@@ -5,27 +5,44 @@ import GameDetails from "../pages/games/pages/games/details/game-details-layout"
 import AddGamePage from "../pages/games/pages/add-game/add-game-layout";
 import EditGamesPage from "../pages/games/pages/edit-games/edit-games";
 
+import * as routeGuards from "./route-guards";
+
 export default [
     {
         path: "/add-game",
-        component: AddGamePage
+        component: AddGamePage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateAdminRoute(to, from, next);
+        }
     },
     {
         path: "/edit-games",
-        component: EditGamesPage
+        component: EditGamesPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateAdminRoute(to, from, next);
+        }
     },
     {
         path: "/games",
         name: "games",
-        component: GamesPage
+        component: GamesPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateUserRoute(to, from, next);
+        }
     },
     {
         path: "/game-details/:id",
         component: GameDetails,
-        props: true
+        props: true,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateUserRoute(to, from, next);
+        }
     },
     {
         path: "/my-games",
-        component: MyGamesPage
+        component: MyGamesPage,
+        beforeEnter: (to, from, next) => {
+            routeGuards.default.validateUserRoute(to, from, next);
+        }
     }
 ];

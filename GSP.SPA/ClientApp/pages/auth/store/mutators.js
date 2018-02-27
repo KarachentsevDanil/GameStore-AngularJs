@@ -9,12 +9,7 @@ export default {
     },
     userLogout(state) {
         sessionStorage.clear();
-
-        state.user = {
-            user: {},
-            token: ""
-        };
-
+        state.user = {};
         state.token = "";
     }
 };

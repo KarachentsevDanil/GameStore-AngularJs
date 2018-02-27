@@ -128,4 +128,8 @@ export default {
 .navigation-drawer.navigation-drawer--clipped.navigation-drawer--open {
   z-index: 10;
 }
+
+.navigation-drawer > hr.drawer {
+  margin-top: 0px;
+}
 </style>
