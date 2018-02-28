@@ -1,12 +1,12 @@
 import axios from "axios";
 
 let getHeaders = () => {
-    let token = sessionStorage.getItem("token");
+    let token = localStorage.getItem("token");
     let headers = {};
 
     if (token) {
         headers = {
-            headers: { Authorization: `Bearer ${sessionStorage.token}` }
+            headers: { Authorization: `Bearer ${localStorage.token}` }
         };
     }
 

@@ -1,3 +1,3 @@
 export const urls = {
-    baseUrl: "http://game-store-spa.azurewebsites.net/"
+    baseUrl: "http://localhost:38606/"
 };

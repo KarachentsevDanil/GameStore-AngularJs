@@ -11,11 +11,7 @@ namespace GSP.SPA.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<GameStoreContext>()
-                .As<GameStoreContext>()
-                .InstancePerLifetimeScope();
-
+            builder.RegisterType<GameStoreContext>().As<GameStoreContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<GameStoreUnitOfWork>().As<IGameStoreUnitOfWork>().PropertiesAutowired();
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();

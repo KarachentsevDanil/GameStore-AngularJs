@@ -2,6 +2,7 @@ using Autofac;
 using GSP.AprioriAlgoritm.Contracts;
 using GSP.AprioriAlgoritm.Service;
 using GSP.BLL.Services;
+using GSP.BLL.Services.Cache;
 using GSP.BLL.Services.Contracts;
 
 namespace GSP.SPA.Modules
@@ -16,6 +17,7 @@ namespace GSP.SPA.Modules
             builder.RegisterType<OrderService>().As<IOrderService>();
             builder.RegisterType<RateService>().As<IRateService>();
             builder.RegisterType<RecomendationService>().As<IRecomendationService>();
+            builder.RegisterType<CacheService>().As<ICacheService>();
         }
     }
 }

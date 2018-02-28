@@ -1,6 +1,6 @@
 export default {
     validateAdminRoute(to, from, next) {
-        let user = !sessionStorage.user ? "" : $.parseJSON(sessionStorage.user);
+        let user = !localStorage.user ? "" : $.parseJSON(localStorage.user);
 
         if (user && user.Role === "Admin") {
             next();
@@ -9,7 +9,7 @@ export default {
         }
     },
     validateUserRoute(to, from, next) {
-        let user = !sessionStorage.user ? "" : $.parseJSON(sessionStorage.user);
+        let user = !localStorage.user ? "" : $.parseJSON(localStorage.user);
 
         if (user && user.Role === "User") {
             next();
@@ -17,6 +17,18 @@ export default {
             next("/edit-games");
         } else {
             next("/login");
+        }
+    },
+
+    redirectToHomePage(to, from, next) {
+        let user = !localStorage.user ? "" : $.parseJSON(localStorage.user);
+
+        if (user && user.Role === "User") {
+            next("/games");
+        } else if (user && user.Role === "Admin") {
+            next("/edit-games");
+        } else {
+            next();
         }
     }
 };

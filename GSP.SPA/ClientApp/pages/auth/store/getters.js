@@ -6,8 +6,8 @@ export default {
             return state.token;
         }
 
-        if (sessionStorage.token) {
-            state.token = sessionStorage.token;
+        if (localStorage.token) {
+            state.token = localStorage.token;
             return state.token;
         }
 
@@ -20,8 +20,8 @@ export default {
             return state.user;
         }
 
-        if (!_.isEmpty(sessionStorage.user) && sessionStorage.user) {
-            state.user = $.parseJSON(sessionStorage.user);
+        if (!_.isEmpty(localStorage.user) && localStorage.user) {
+            state.user = $.parseJSON(localStorage.user);
             return state.user;
         }
 

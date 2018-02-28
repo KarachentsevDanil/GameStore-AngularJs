@@ -4,6 +4,7 @@ using System.Linq;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Order;
 using GSP.BLL.Resources;
+using GSP.BLL.Services.Cache;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Params;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,10 +18,12 @@ namespace GSP.SPA.Controllers.Api
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
-
-        public OrderController(IOrderService orderService)
+        private readonly ICacheService _cacheService;
+        
+        public OrderController(IOrderService orderService, ICacheService cacheService)
         {
             _orderService = orderService;
+            _cacheService = cacheService;
         }
 
         [HttpPost]
@@ -48,12 +51,14 @@ namespace GSP.SPA.Controllers.Api
             orderGame.OrderId = order.OrderId;
 
             _orderService.AddGameToBucket(orderGame);
+            _cacheService.ResetBucket($"{CacheKey.Bucket}_{orderGame.CustomerId}");
         }
 
         [HttpPost]
         public void DeleteGameFromBucket([FromBody] AddGameToBucketDto orderGame)
         {
             _orderService.DeleteGameFromBucket(orderGame);
+            _cacheService.ResetBucket($"{CacheKey.Bucket}_{orderGame.CustomerId}");
         }
 
         [HttpPost]
@@ -65,7 +70,14 @@ namespace GSP.SPA.Controllers.Api
         [HttpPost]
         public IEnumerable<GameDto> GetGamesFromBucket([FromBody] OrderDto order)
         {
-            var games = _orderService.GetGameFromBucket(order.CustomerId);
+            var games = _cacheService.Get<IEnumerable<GameDto>>($"{CacheKey.Bucket}_{order.CustomerId}", CacheBucket.Bucket);
+
+            if (games == null)
+            {
+                games = _orderService.GetGameFromBucket(order.CustomerId);
+                _cacheService.Add(games, $"{CacheKey.Bucket}_{order.CustomerId}", CacheBucket.Bucket);
+            }
+
             return games;
         }
 

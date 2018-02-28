@@ -1,14 +1,14 @@
 export default {
     setToken(state, token) {
-        sessionStorage.setItem("token", token);
+        localStorage.setItem("token", token);
         state.token = token;
     },
     setUser(state, user) {
-        sessionStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
         state.user = user;
     },
     userLogout(state) {
-        sessionStorage.clear();
+        localStorage.clear();
         state.user = {};
         state.token = "";
     }
