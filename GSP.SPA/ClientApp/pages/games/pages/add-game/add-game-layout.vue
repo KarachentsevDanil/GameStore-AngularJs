@@ -43,11 +43,11 @@
             }
         }),
         async beforeMount() {
-            this.categories = (await categoryService.getCategories()).data;
+            this.categories = (await categoryService.getCategories()).data.Data;
         },
         methods: {
             async refreshCategories() {
-                this.categories = (await categoryService.getCategories()).data;
+                this.categories = (await categoryService.getCategories()).data.Data;
             }
         }
     };

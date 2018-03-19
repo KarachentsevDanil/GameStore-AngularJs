@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using GSP.BLL.Dto.Category;
 using GSP.BLL.Services.Cache;
 using GSP.BLL.Services.Contracts;
+using GSP.SPA.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<CategoryDto> GetCategories()
+        public IActionResult GetCategories()
         {
             var categories = _cacheService.Get<IEnumerable<CategoryDto>>(CacheKey.Categories, CacheBucket.Categories);
 
@@ -31,15 +32,17 @@ namespace GSP.SPA.Controllers.Api
                 categories = _categoryService.GetCategories();
                 _cacheService.Add(categories, CacheKey.Categories, CacheBucket.Categories);
             }
-
-            return categories;
+            
+            return Json(JsonResultData.Success(categories));
         }
 
         [HttpPost]
-        public void AddCategory([FromBody]CreateCategoryDto category)
+        public IActionResult AddCategory([FromBody]CreateCategoryDto category)
         {
             _categoryService.AddCategory(category);
             _cacheService.ResetCategories();
+
+            return Json(JsonResultData.Success());
         }
     }
 }

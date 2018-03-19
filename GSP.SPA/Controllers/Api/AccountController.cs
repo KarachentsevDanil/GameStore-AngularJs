@@ -1,16 +1,17 @@
 using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using GSP.Domain.Customers;
-using GSP.SPA.Authentication;
-using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 using GSP.BLL.Dto.Customer;
 using GSP.BLL.Services.Contracts;
+using GSP.Domain.Customers;
+using GSP.SPA.Authentication;
+using GSP.SPA.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
-namespace GSP.SPA.Controllers
+namespace GSP.SPA.Controllers.Api
 {
     [Route("api/account")]
     public class AccountController : Controller
@@ -43,7 +44,7 @@ namespace GSP.SPA.Controllers
                 return Json(new { user, token });
             }
 
-            return BadRequest();
+            return Json(JsonResultData.Error("Username or password isn't correct."));
         }
 
         [HttpPost]
@@ -64,11 +65,11 @@ namespace GSP.SPA.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Ok("User has been successfully created");
+                    return Json(JsonResultData.Success());
                 }
             }
 
-            return BadRequest("Server error");
+            return Json(JsonResultData.Error("User already exists."));
         }
 
         private string GenerateToken(string username)

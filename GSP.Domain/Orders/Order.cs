@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GSP.Domain.Customers;
+using GSP.Domain.Payments;
 using Newtonsoft.Json;
 
 namespace GSP.Domain.Orders
@@ -12,6 +13,8 @@ namespace GSP.Domain.Orders
 
         public string CustomerId { get; set; }
 
+        public int? PaymentId { get; set; }
+
         public DateTime SaleDate { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -19,6 +22,8 @@ namespace GSP.Domain.Orders
         public OrderStatus Status { get; set; }
 
         public virtual Customer Customer { get; set; }
+
+        public virtual Payment Payment { get; set; }
 
         public virtual ICollection<OrderGame> Games { get; set; }
 

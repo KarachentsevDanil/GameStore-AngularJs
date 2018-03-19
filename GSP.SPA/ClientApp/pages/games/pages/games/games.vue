@@ -70,18 +70,25 @@
             };
         },
         async beforeMount() {
+            this.$store.dispatch(
+                    mainStoreActions.START_LOADING_ACTION,
+                    "Games are loading ..."
+                );
+
             let params = {
                 PageSize: 12,
                 PageNumber: 1,
                 CustomerId: this.customerId
             };
 
-            let gamesResponse = (await gameService.getGames(params)).data;
+            let gamesResponse = (await gameService.getGames(params)).data.Data;
             this.games = gamesResponse.Collection;
             this.filters.pagination.total = gamesResponse.TotalCount;
 
             let categoriesResponse = await categoryService.getCategories();
-            this.categories = categoriesResponse.data;
+            this.categories = categoriesResponse.data.Data;
+            
+            this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
         },
         methods: {
             pageChanged(page) {
@@ -110,7 +117,7 @@
                     "Games are loading ..."
                 );
 
-                let gamesResponse = (await gameService.getGames(params)).data;
+                let gamesResponse = (await gameService.getGames(params)).data.Data;
 
                 this.games = gamesResponse.Collection;
                 this.filters.pagination.total = gamesResponse.TotalCount;

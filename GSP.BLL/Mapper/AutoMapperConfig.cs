@@ -11,6 +11,7 @@
                 cfg.AddProfile<GameAutoMapperProfile>();
                 cfg.AddProfile<RateAutoMapperConfig>();
                 cfg.AddProfile<OrderAutoMapperProfile>();
+                cfg.AddProfile<PaymentAutoMapperProfile>();
             });
 
             AutoMapper.Mapper.AssertConfigurationIsValid();

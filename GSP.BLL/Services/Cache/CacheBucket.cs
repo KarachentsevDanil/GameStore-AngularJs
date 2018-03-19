@@ -4,6 +4,7 @@
     {
         Bucket,
         Categories,
-        Games
+        Games,
+        Payments
     }
 }

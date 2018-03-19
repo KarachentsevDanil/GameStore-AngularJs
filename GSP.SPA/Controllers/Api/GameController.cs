@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Params;
+using GSP.SPA.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,39 +21,42 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        public void CreateGame([FromBody] CreateGameDto game)
+        public IActionResult CreateGame([FromBody] CreateGameDto game)
         {
             _gameService.AddGame(game);
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public void DeleteGame([FromBody] int id)
+        public IActionResult DeleteGame([FromBody] int id)
         {
             _gameService.DeleteGame(id);
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public void EditGame([FromBody] GameDto game)
+        public IActionResult EditGame([FromBody] GameDto game)
         {
             _gameService.UpdateGame(game);
+            return Json(JsonResultData.Success());
         }
 
         [HttpGet]
-        public IEnumerable<GameDto> GetRecomendedGames(int id)
+        public IActionResult GetRecomendedGames(int id)
         {
             var games = _gameService.GetRecomendedGames(id);
-            return games;
+            return Json(JsonResultData.Success(games));
         }
 
         [HttpGet]
-        public GameDto GetGameById(int id)
+        public IActionResult GetGameById(int id)
         {
             var game = _gameService.GetGameById(id);
-            return game;
+            return Json(JsonResultData.Success(game));
         }
 
         [HttpPost]
-        public CollectionResult<GameDto> GetGamesByParams([FromBody] GamesFilterParams filterParams)
+        public IActionResult GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
             var games = _gameService.GetGamesByParams(filterParams, out var totalCount);
 
@@ -61,8 +65,8 @@ namespace GSP.SPA.Controllers.Api
                 Collection = games,
                 TotalCount = totalCount
             };
-
-            return result;
+            
+            return Json(JsonResultData.Success(result));
         }
     }
 }

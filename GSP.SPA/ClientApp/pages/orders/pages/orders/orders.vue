@@ -35,6 +35,7 @@
 <script>
     import * as orderService from "../../api/order-service";
     import * as resources from "../../resources/resources";
+    import * as mainStoreActions from "../../../../store/types/action-types";
 
     import orderGameComponent from "../order-game/order-game";
 
@@ -70,16 +71,23 @@
             }
         },
         async beforeMount() {
+             this.$store.dispatch(
+                    mainStoreActions.START_LOADING_ACTION,
+                    "Orders are loading ..."
+                );
+
             let params = {
                 PageSize: 12,
                 PageNumber: 1,
                 CustomerId: this.customerId
             };
 
-            let ordersResponse = (await orderService.getOrdersByParams(params)).data;
+            let ordersResponse = (await orderService.getOrdersByParams(params)).data.Data;
 
             this.orders = ordersResponse.Collection;
             this.filters.pagination.total = ordersResponse.TotalCount;
+            
+            this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
         },
         methods: {
             selectOrder(order) {
@@ -100,7 +108,7 @@
                 return this.currentOrder != null && this.currentOrder.OrderId === orderId;
             },
             async loadOrders(params) {
-                let ordersResponse = (await orderService.getOrdersByParams(params)).data;
+                let ordersResponse = (await orderService.getOrdersByParams(params)).data.Data;
 
                 this.orders = ordersResponse.Collection;
                 this.filters.pagination.total = ordersResponse.TotalCount;

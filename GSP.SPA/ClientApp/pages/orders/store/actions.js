@@ -4,23 +4,21 @@ import * as resources from "../resources/resources";
 
 export default {
     async addGameToBucket(context, data) {
-
-        try {
+        
             let isSuccess = await orderService.addGameToBucket(data);
-            if (isSuccess.status === 200) {
+            if (isSuccess.data.IsSuccess) {
                 let games = (await orderService.getGamesFromBucket(data.CustomerId))
-                    .data;
+                    .data.Data;
 
                 data.notify.success(resources.popupMessages.gameAddedToBucket);
                 context.commit(mutations.ADD_GAME_TO_BUCKET_ACTION, games);
+            } else {
+                data.notify.warning(isSuccess.data.ErrorMessage);
             }
-        } catch (error) {
-            data.notify.warning(resources.popupMessages.gameAlreadyBought);
-        }
     },
     async getGamesFromBucket(context, data) {
         let games = (await orderService.getGamesFromBucket(data.CustomerId))
-            .data;
+            .data.Data;
 
         context.commit(mutations.ADD_GAME_TO_BUCKET_ACTION, games);
     }

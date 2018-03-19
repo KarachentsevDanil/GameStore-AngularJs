@@ -41,7 +41,7 @@
             }
         },
         async beforeMount() {
-            this.comments = (await rateService.getGameRatesById(this.gameId)).data;
+            this.comments = (await rateService.getGameRatesById(this.gameId)).data.Data;
         },
         methods: {
             async addComment(comment) {
@@ -49,7 +49,7 @@
                     await rateService.addRateToGame(comment);
                     
                     this.$noty.success(resources.popupMessages.commentAdded);
-                    this.comments = (await rateService.getGameRatesById(this.gameId)).data;
+                    this.comments = (await rateService.getGameRatesById(this.gameId)).data.Data;
                 } catch (e) {
                     this.$noty.success(resources.popupMessages.commentAddedError);
                 }

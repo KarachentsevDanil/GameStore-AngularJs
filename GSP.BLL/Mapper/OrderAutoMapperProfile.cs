@@ -22,7 +22,9 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.IsDeleted, p => p.Ignore())
                 .ForMember(x => x.Status, p => p.Ignore())
                 .ForMember(x => x.Customer, p => p.Ignore())
-                .ForMember(x => x.Games, p => p.Ignore());
+                .ForMember(x => x.Games, p => p.Ignore())
+                .ForMember(x => x.Payment, p => p.Ignore())
+                .ForMember(x => x.PaymentId, p => p.Ignore());
         }
     }
 }

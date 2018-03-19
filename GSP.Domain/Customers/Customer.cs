@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using GSP.Domain.Payments;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
@@ -26,10 +27,13 @@ namespace GSP.Domain.Customers
 
         public virtual ICollection<Order> Orders { get; set; }
 
+        public virtual ICollection<Payment> Payments { get; set; }
 
         public Customer()
         {
             Orders = new List<Order>();
+            Rates = new List<Rate>();
+            Payments = new List<Payment>();
         }
     }
 }

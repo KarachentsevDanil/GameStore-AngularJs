@@ -2,6 +2,8 @@
     margin-right: 10px;
 }
 
+[v-cloak] {display: none}
+
 /* Highlighting rules for nav menu items */
 
 .main-nav li a.active,

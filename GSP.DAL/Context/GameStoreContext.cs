@@ -2,6 +2,7 @@
 using GSP.Domain.Customers;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
+using GSP.Domain.Payments;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,8 @@ namespace GSP.DAL.Context
 
         public DbSet<Rate> Rates { get; set; }
 
+        public DbSet<Payment> Payments{ get; set; }
+
         public DbSet<OrderGame> OrderGames { get; set; }
 
 
@@ -35,6 +38,8 @@ namespace GSP.DAL.Context
             new OrderGameMapping().MapEntity(builder.Entity<OrderGame>());
             new OrderMapping().MapEntity(builder.Entity<Order>());
             new RateMapping().MapEntity(builder.Entity<Rate>());
+            new GamePhotoMapping().MapEntity(builder.Entity<GamePhoto>());
+            new PaymentMapping().MapEntity(builder.Entity<Payment>());
         }
     }
 }

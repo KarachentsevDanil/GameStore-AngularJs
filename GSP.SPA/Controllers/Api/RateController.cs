@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using GSP.BLL.Dto.Rate;
 using GSP.BLL.Services.Contracts;
+using GSP.SPA.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,16 +19,17 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpGet]
-        public IEnumerable<RateDto> GetGameRates(int id)
+        public IActionResult GetGameRates(int id)
         {
             var rates = _rateService.GetRatesOfGame(id);
-            return rates;
+            return Json(JsonResultData.Success(rates));
         }
 
         [HttpPost]
-        public void CreateFeed([FromBody] CreateRateDto rateViewModel)
+        public IActionResult CreateFeed([FromBody] CreateRateDto rateViewModel)
         {
             _rateService.AddFeedbackToGame(rateViewModel);
+            return Json(JsonResultData.Success());
         }
     }
 }

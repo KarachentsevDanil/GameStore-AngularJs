@@ -57,7 +57,7 @@
             }
         },
         async beforeMount() {
-            this.game = (await gameService.getGameById(this.id)).data;
+            this.game = (await gameService.getGameById(this.id)).data.Data;
         },
         methods: {
             ...mapGetters({

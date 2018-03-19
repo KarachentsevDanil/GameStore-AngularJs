@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GSP.BLL.Dto.Game;
+using GSP.BLL.Dto.Payment;
 using GSP.Domain.Orders;
 
 namespace GSP.BLL.Dto.Order
@@ -18,6 +19,8 @@ namespace GSP.BLL.Dto.Order
         public OrderStatus Status { get; set; }
 
         public List<GameDto> Games { get; set; }
+        
+        public PaymentDto Payment { get; set; }
 
         public OrderDto()
         {

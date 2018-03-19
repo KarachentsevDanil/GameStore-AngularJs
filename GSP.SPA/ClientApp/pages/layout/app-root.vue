@@ -1,5 +1,5 @@
 <template>
-    <v-app id="app" light>
+    <v-app id="app" light v-cloak>
         <nav-menu params="route: route" v-if="getToken"></nav-menu>
         <BlockUI v-if="blockUiOptions && blockUiOptions.isLoading" :message="blockUiOptions.message" :html="blockUiOptions.icon"></BlockUI>
         <main class="main-block">

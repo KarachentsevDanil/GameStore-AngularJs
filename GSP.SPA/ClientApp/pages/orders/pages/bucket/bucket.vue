@@ -22,7 +22,7 @@
                         </p>
                     </div>
                     <div class="order-complete-block">
-                        <v-btn block color="primary" dark @click="completeOrder">{{resources.commands.confirmOrderLabel}} <v-icon right dark>shopping_cart</v-icon> </v-btn>
+                        <confirm-order-popup :customerPayment="customerPayment" :updatePaymentInfo="updatePaymentInfo" :completeOrder="completeOrder" :games="getGamesInBucket"></confirm-order-popup>
                     </div>
                 </v-card>
             </div>
@@ -32,7 +32,7 @@
                 Bucket is empty.
             </p>
             <v-btn :to="'/games'">
-                Go to game
+                Go to games
             </v-btn>
         </div>
     </div>
@@ -43,25 +43,31 @@ import * as ordersGetters from "../../store/types/getter-types";
 import * as ordersActions from "../../store/types/action-types";
 import * as ordersResources from "../../store/resources";
 import * as resources from "../../resources/resources";
+import * as mainStoreActions from "../../../../store/types/action-types";
 
 import * as authResources from "../../../auth/store/resources";
 import * as authGetters from "../../../auth/store/types/getter-types";
 import * as orderService from "../../../orders/api/order-service";
+import * as paymentService from "../../api/payment-service";
 
 import { mapGetters } from "vuex";
 
 import orderGameComponent from "../order-game/order-game";
+import confirmOrderPopupComponent from "./confirm-order-popup";
+import confirmOrderPopupVue from "./confirm-order-popup.vue";
 
 export default {
   data() {
     return {
       resources: {
         ...resources.lables
-      }
+      },
+      customerPayment: {}
     };
   },
   components: {
-    orderGame: orderGameComponent
+    orderGame: orderGameComponent,
+    confirmOrderPopup: confirmOrderPopupComponent
   },
   methods: {
     ...mapGetters({
@@ -72,12 +78,39 @@ export default {
         authGetters.GET_USER_GETTER
       )
     }),
-    async completeOrder() {
+    updatePaymentInfo(customerPayment) {
+      this.customerPayment = customerPayment;
+    },
+    async completeOrder(paymentInfo) {
+      this.$store.dispatch(
+        mainStoreActions.START_LOADING_ACTION,
+        "Order is completing ..."
+      );
+
       let user = this.getUser();
 
       let completeOrderDto = {
         CustomerId: user.CustomerId
       };
+
+      if (this.customerPayment) {
+        completeOrderDto.PaymentId = this.customerPayment.PaymentId;
+      }
+
+      if (paymentInfo.creditCard) {
+        let newPayment = {
+          CustomerId: user.CustomerId,
+          CreditCard: paymentInfo.creditCard,
+          CvvCode: paymentInfo.cvvCode,
+          ExpirationMonth: paymentInfo.expirationMonth,
+          ExpirationYear: paymentInfo.expirationYear,
+          Country: paymentInfo.country,
+          FullName: paymentInfo.fullName
+        };
+
+        let paymentId = (await paymentService.addPayment(newPayment)).data;
+        completeOrderDto.PaymentId = paymentId;
+      }
 
       await orderService.completeOrder(completeOrderDto);
 
@@ -87,6 +120,8 @@ export default {
         ),
         user
       );
+
+      this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
 
       this.$router.push("/my-orders");
     },
@@ -137,7 +172,9 @@ export default {
       return total;
     },
     getGamesInBucket() {
-      return this.getGames();
+      let games = this.getGames();
+
+      return games;
     },
     getCountGames() {
       return this.getGames().length;

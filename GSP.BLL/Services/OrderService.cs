@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Order;
+using GSP.BLL.Dto.Payment;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;
@@ -30,12 +31,13 @@ namespace GSP.BLL.Services
             return newOrder.OrderId;
         }
 
-        public void UpdateOrder(OrderDto order)
+        public void UpdateOrder(CompleteOrderDto order)
         {
             var completedOrder = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(order.CustomerId);
 
             completedOrder.SaleDate = DateTime.Now;
             completedOrder.Status = OrderStatus.Complete;
+            completedOrder.PaymentId = order.PaymentId;
 
             _unitOfWork.OrderRepository.Update(completedOrder);
             _unitOfWork.Commit();

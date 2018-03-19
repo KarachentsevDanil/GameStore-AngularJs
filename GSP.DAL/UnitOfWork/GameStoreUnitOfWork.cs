@@ -24,6 +24,8 @@ namespace GSP.DAL.UnitOfWork
 
         public ICategoryRepository CategoryRepository { get; set; }
 
+        public IPaymentRepository PaymentRepository { get; set; }
+
         public void Commit()
         {
             _context.SaveChanges();

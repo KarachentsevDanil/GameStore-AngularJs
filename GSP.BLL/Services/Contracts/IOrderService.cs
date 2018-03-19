@@ -9,7 +9,7 @@ namespace GSP.BLL.Services.Contracts
     {
         int AddOrder(CreateOrderDto order);
 
-        void UpdateOrder(OrderDto order);
+        void UpdateOrder(CompleteOrderDto order);
 
         void DeleteOrder(int orderId);
 

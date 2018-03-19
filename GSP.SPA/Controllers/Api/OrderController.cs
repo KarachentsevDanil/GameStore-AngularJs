@@ -7,6 +7,7 @@ using GSP.BLL.Resources;
 using GSP.BLL.Services.Cache;
 using GSP.BLL.Services.Contracts;
 using GSP.Domain.Params;
+using GSP.SPA.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,48 +28,56 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        public void ConfirmOrder([FromBody] OrderDto order)
+        public IActionResult ConfirmOrder([FromBody] CompleteOrderDto order)
         {
             _orderService.UpdateOrder(order);
+            _cacheService.ResetBucket($"{CacheKey.Bucket}_{order.CustomerId}");
+
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public void AddToBucket([FromBody] AddGameToBucketDto orderGame)
+        public IActionResult AddToBucket([FromBody] AddGameToBucketDto orderGame)
         {
             var order = GetCurrentOrderOfCustomer(orderGame.CustomerId);
 
             if (order.Games.Any(x => x.GameId == orderGame.GameId))
             {
-                throw new Exception(Exceptions.GameAlreadyInBucket);
+                return Json(JsonResultData.Error(Exceptions.GameAlreadyInBucket));
             }
 
             var customerGames = _orderService.GetCustomerGames(order.CustomerId);
             if (customerGames.Any(x => x.GameId == orderGame.GameId))
             {
-                throw new Exception(Exceptions.GameAlreadyBought);
+                return Json(JsonResultData.Error(Exceptions.GameAlreadyBought));
             }
 
             orderGame.OrderId = order.OrderId;
-
             _orderService.AddGameToBucket(orderGame);
             _cacheService.ResetBucket($"{CacheKey.Bucket}_{orderGame.CustomerId}");
+
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public void DeleteGameFromBucket([FromBody] AddGameToBucketDto orderGame)
+        public IActionResult DeleteGameFromBucket([FromBody] AddGameToBucketDto orderGame)
         {
             _orderService.DeleteGameFromBucket(orderGame);
             _cacheService.ResetBucket($"{CacheKey.Bucket}_{orderGame.CustomerId}");
+
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public void DeleteOrder([FromBody] int orderId)
+        public IActionResult DeleteOrder([FromBody] int orderId)
         {
             _orderService.DeleteOrder(orderId);
+
+            return Json(JsonResultData.Success());
         }
 
         [HttpPost]
-        public IEnumerable<GameDto> GetGamesFromBucket([FromBody] OrderDto order)
+        public IActionResult GetGamesFromBucket([FromBody] OrderDto order)
         {
             var games = _cacheService.Get<IEnumerable<GameDto>>($"{CacheKey.Bucket}_{order.CustomerId}", CacheBucket.Bucket);
 
@@ -77,12 +86,12 @@ namespace GSP.SPA.Controllers.Api
                 games = _orderService.GetGameFromBucket(order.CustomerId);
                 _cacheService.Add(games, $"{CacheKey.Bucket}_{order.CustomerId}", CacheBucket.Bucket);
             }
-
-            return games;
+            
+            return Json(JsonResultData.Success(games));
         }
 
         [HttpPost]
-        public CollectionResult<OrderDto> GetOrdersByParams([FromBody]OrdersFilterParams filterParams)
+        public IActionResult GetOrdersByParams([FromBody]OrdersFilterParams filterParams)
         {
             var orders = _orderService.GetOrdersByParams(filterParams, out var totalCount);
 
@@ -91,8 +100,8 @@ namespace GSP.SPA.Controllers.Api
                 Collection = orders,
                 TotalCount = totalCount
             };
-
-            return result;
+            
+            return Json(JsonResultData.Success(result));
         }
 
         private OrderDto GetCurrentOrderOfCustomer(string customerId)

@@ -18,11 +18,6 @@ export const userRoutes = [
         path: "/my-orders",
         display: "My Orders",
         icon: "fal fa-archive"
-    },
-    {
-        path: "/login",
-        display: "Logout",
-        icon: "far fa-sign-out"
     }
 ];
 
@@ -41,10 +36,5 @@ export const adminRoutes = [
         path: "/orders",
         display: "Orders",
         icon: "fal fa-archive"
-    },
-    {
-        path: "/login",
-        display: "Logout",
-        icon: "far fa-sign-out"
     }
 ];

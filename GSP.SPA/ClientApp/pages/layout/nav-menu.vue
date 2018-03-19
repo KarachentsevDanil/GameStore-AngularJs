@@ -20,6 +20,15 @@
                         </v-list-tile-content>
                     </v-list-tile>
                 </template>
+                
+                <v-list-tile :key="logoutAction.display" @click="closeNavMenu(logoutAction.display)">
+                        <v-list-tile-action>
+                            <v-icon light v-html="logoutAction.icon"></v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title v-html="logoutAction.display"></v-list-tile-title>
+                        </v-list-tile-content>
+                </v-list-tile>
             </v-list>
         </v-navigation-drawer>
         <v-toolbar class="indigo nav-menu-bar" dark app clipped-left fixed color="deep-purple darken-1">
@@ -46,7 +55,11 @@ export default {
   data() {
     return {
       drawer: false,
-      disableRouteWatcher: true
+      disableRouteWatcher: true,
+      logoutAction: {
+        display: "Logout",
+        icon: "far fa-sign-out"
+      }
     };
   },
   methods: {
@@ -55,6 +68,8 @@ export default {
         this.$store.dispatch(
           authResources.AUTH_STORE_NAMESPACE.concat(authActions.LOGOUT_ACTION)
         );
+
+        this.$router.push('/login');
       }
 
       this.drawer = false;

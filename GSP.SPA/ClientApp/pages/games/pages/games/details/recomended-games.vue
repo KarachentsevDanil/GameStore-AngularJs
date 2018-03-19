@@ -64,7 +64,7 @@
         async beforeMount() {
             this.recomendedGames = (await gameService.getRecomendedGamesById(
                 this.gameId
-            )).data;
+            )).data.Data;
         }
     };
 </script>

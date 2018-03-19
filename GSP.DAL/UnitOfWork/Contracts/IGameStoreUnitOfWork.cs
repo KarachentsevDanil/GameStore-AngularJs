@@ -14,6 +14,8 @@ namespace GSP.DAL.UnitOfWork.Contracts
 
         ICategoryRepository CategoryRepository { get; set; }
 
+        IPaymentRepository PaymentRepository { get; set; }
+
         void Commit();
     }
 }

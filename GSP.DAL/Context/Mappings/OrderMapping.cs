@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GSP.DAL.Context.Mappings.Contract;
+﻿using GSP.DAL.Context.Mappings.Contract;
 using GSP.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,6 +14,8 @@ namespace GSP.DAL.Context.Mappings
             builder.HasKey(x => x.OrderId);
 
             builder.HasOne(x => x.Customer).WithMany(x => x.Orders).HasForeignKey(x => x.CustomerId);
+
+            builder.HasOne(x => x.Payment).WithMany(x => x.Orders).HasForeignKey(t => t.PaymentId);
         }
     }
 }

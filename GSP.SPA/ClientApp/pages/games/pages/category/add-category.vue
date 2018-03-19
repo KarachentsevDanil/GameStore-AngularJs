@@ -73,7 +73,7 @@
                 };
 
                 await categoryService.addCategory(newCategory);
-                this.categories = (await categoryService.getCategories()).data;
+                this.categories = (await categoryService.getCategories()).data.Data;
 
                 this.clearCategory();
                 this.refreshCategories();

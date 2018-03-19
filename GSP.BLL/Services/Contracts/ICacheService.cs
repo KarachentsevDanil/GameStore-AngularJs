@@ -13,6 +13,8 @@ namespace GSP.BLL.Services.Contracts
         void CleanAll();
 
         void ResetBucket(string key);
+
+        void ResetPayments(string key);
         
         void ResetCategories();
     }

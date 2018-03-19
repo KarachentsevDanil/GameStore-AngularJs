@@ -49,6 +49,7 @@
     import * as authGetters from "../store/types/getter-types";
     import * as authResources from "../store/resources";
     import * as authTextResources from "../resources/resources";
+    import * as routeGuards from '../../../routes/route-guards';
 
     import { mapGetters } from "vuex";
     import { validationMixin } from "vuelidate";
@@ -118,6 +119,9 @@
                 !this.$v.user.email.required && errors.push(authTextResources.lables.validationMessages.emailRequiredMessage);
                 return errors;
             }
+        },
+        beforeRouteEnter: (to, from, next) => {
+            routeGuards.default.redirectToHomePage(to, from, next);
         }
     };
 </script>

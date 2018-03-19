@@ -111,18 +111,18 @@
                     DateOfBirthsday: this.user.birthday
                 };
 
-                try {
-                    this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Account is creating ...");
+                this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Account is creating ...");
 
-                    let response = await authenticationService.registr(data);
+                let response = await authenticationService.registr(data);
+
+                if (response.data.IsSuccess) {
                     this.$noty.success(authTextResources.popupMessages.accountCreatedMessage);
                     this.$router.push("/login");
-
-
-                    this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
-                } catch (error) {
+                } else {
                     this.$noty.error(authTextResources.popupMessages.accountCreationFailedMessage);
                 }
+
+                this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
             }
         },
         computed: {

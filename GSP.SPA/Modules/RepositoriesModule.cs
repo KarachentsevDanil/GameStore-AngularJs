@@ -19,6 +19,7 @@ namespace GSP.SPA.Modules
             builder.RegisterType<GameRepository>().As<IGameRepository>();
             builder.RegisterType<OrderRepository>().As<IOrderRepository>();
             builder.RegisterType<RateRepository>().As<IRateRepository>();
+            builder.RegisterType<PaymentRepository>().As<IPaymentRepository>();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace GSP.SPA.Modules
             builder.RegisterType<RateService>().As<IRateService>();
             builder.RegisterType<RecomendationService>().As<IRecomendationService>();
             builder.RegisterType<CacheService>().As<ICacheService>();
+            builder.RegisterType<PaymentService>().As<IPaymentService>();
         }
     }
 }

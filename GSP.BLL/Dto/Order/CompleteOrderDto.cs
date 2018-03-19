@@ -12,5 +12,7 @@ namespace GSP.BLL.Dto.Order
         public DateTime SaleDate { get; set; }
 
         public OrderStatus Status { get; set; }
+
+        public int PaymentId { get; set; }
     }
 }
