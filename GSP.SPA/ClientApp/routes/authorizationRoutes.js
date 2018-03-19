@@ -6,7 +6,7 @@ export default [
         path: "/login",
         component: LoginPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.redirectToHomePage(to, from, next);
+            routeGuards.redirectToHomePage(to, from, next);
         }
     },
     {

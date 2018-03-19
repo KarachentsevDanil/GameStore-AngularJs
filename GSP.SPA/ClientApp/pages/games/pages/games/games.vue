@@ -71,9 +71,9 @@
         },
         async beforeMount() {
             this.$store.dispatch(
-                    mainStoreActions.START_LOADING_ACTION,
-                    "Games are loading ..."
-                );
+                mainStoreActions.START_LOADING_ACTION,
+                "Games are loading ..."
+            );
 
             let params = {
                 PageSize: 12,
@@ -87,7 +87,7 @@
 
             let categoriesResponse = await categoryService.getCategories();
             this.categories = categoriesResponse.data.Data;
-            
+
             this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
         },
         methods: {

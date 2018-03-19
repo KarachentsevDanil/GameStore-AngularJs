@@ -86,7 +86,7 @@
 
             this.orders = ordersResponse.Collection;
             this.filters.pagination.total = ordersResponse.TotalCount;
-            
+
             this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
         },
         methods: {

@@ -1,4 +1,4 @@
-﻿import * as httpService from "../../../api/http-service";
+import * as httpService from "../../../api/http-service";
 import * as orderResources from '../resources/resources';
 
 export const getOrdersByParams = ordersParams => {
@@ -26,7 +26,7 @@ export const deleteGameFromOrder = data => {
         url: orderResources.ordersUrls.deleteGameFromOrderUrl,
         data: data
     };
-    
+
     return httpService.postData(params);
 };
 
@@ -44,6 +44,6 @@ export const completeOrder = data => {
         url: orderResources.ordersUrls.completeOrderUrl,
         data: data
     };
-    
+
     return httpService.postData(params);
 };

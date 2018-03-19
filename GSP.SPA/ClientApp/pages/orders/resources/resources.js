@@ -23,6 +23,8 @@ export const lables = {
         paymentMethodLabel: "Payment Method"
     },
     properties: {
+        bucketEmptyLabel: "Bucket is empty.",
+        goToGamesLabel: "Go to games",
         paymentDetailsLabel: "Payment Details",
         confirmOrderLabel: "Confirm Order",
         countGamesLabel: "Count Games:",

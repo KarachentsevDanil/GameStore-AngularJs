@@ -4,17 +4,16 @@ import * as resources from "../resources/resources";
 
 export default {
     async addGameToBucket(context, data) {
-        
-            let isSuccess = await orderService.addGameToBucket(data);
-            if (isSuccess.data.IsSuccess) {
-                let games = (await orderService.getGamesFromBucket(data.CustomerId))
-                    .data.Data;
+        let isSuccess = await orderService.addGameToBucket(data);
+        if (isSuccess.data.IsSuccess) {
+            let games = (await orderService.getGamesFromBucket(data.CustomerId))
+                .data.Data;
 
-                data.notify.success(resources.popupMessages.gameAddedToBucket);
-                context.commit(mutations.ADD_GAME_TO_BUCKET_ACTION, games);
-            } else {
-                data.notify.warning(isSuccess.data.ErrorMessage);
-            }
+            data.notify.success(resources.popupMessages.gameAddedToBucket);
+            context.commit(mutations.ADD_GAME_TO_BUCKET_ACTION, games);
+        } else {
+            data.notify.warning(isSuccess.data.ErrorMessage);
+        }
     },
     async getGamesFromBucket(context, data) {
         let games = (await orderService.getGamesFromBucket(data.CustomerId))

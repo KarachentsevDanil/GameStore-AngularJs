@@ -9,7 +9,7 @@ axios.interceptors.response.use(
         if (error.response.status === 401) {
             router.push("/login");
         }
-        
+
         return error;
     }
 );

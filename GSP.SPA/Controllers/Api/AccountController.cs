@@ -41,7 +41,7 @@ namespace GSP.SPA.Controllers.Api
                 var token = GenerateToken(model.Email);
                 var user = _customerService.GetCustomerByTerm(model.Email);
 
-                return Json(new { user, token });
+                return Json(new { user, token, tokenExpireData = DateTime.Now.AddDays(1) });
             }
 
             return Json(JsonResultData.Error("Username or password isn't correct."));

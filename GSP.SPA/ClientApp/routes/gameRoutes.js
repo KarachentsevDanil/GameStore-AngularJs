@@ -12,14 +12,14 @@ export default [
         path: "/add-game",
         component: AddGamePage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateAdminRoute(to, from, next);
+            routeGuards.validateAdminRoute(to, from, next);
         }
     },
     {
         path: "/edit-games",
         component: EditGamesPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateAdminRoute(to, from, next);
+            routeGuards.validateAdminRoute(to, from, next);
         }
     },
     {
@@ -27,7 +27,7 @@ export default [
         name: "games",
         component: GamesPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateUserRoute(to, from, next);
+            routeGuards.validateUserRoute(to, from, next);
         }
     },
     {
@@ -35,14 +35,14 @@ export default [
         component: GameDetails,
         props: true,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateUserRoute(to, from, next);
+            routeGuards.validateUserRoute(to, from, next);
         }
     },
     {
         path: "/my-games",
         component: MyGamesPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateUserRoute(to, from, next);
+            routeGuards.validateUserRoute(to, from, next);
         }
     }
 ];

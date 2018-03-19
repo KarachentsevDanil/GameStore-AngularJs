@@ -9,21 +9,21 @@ export default [
         path: "/bucket",
         component: BucketPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateUserRoute(to, from, next);
+            routeGuards.validateUserRoute(to, from, next);
         }
     },
     {
         path: "/orders",
         component: OrdersPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateAdminRoute(to, from, next);
+            routeGuards.validateAdminRoute(to, from, next);
         }
     },
     {
         path: "/my-orders",
         component: MyOrdersPage,
         beforeEnter: (to, from, next) => {
-            routeGuards.default.validateUserRoute(to, from, next);
+            routeGuards.validateUserRoute(to, from, next);
         }
     }
 ];

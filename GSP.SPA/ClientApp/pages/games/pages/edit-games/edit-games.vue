@@ -76,9 +76,9 @@
         },
         async beforeCreate() {
             this.$store.dispatch(
-                    mainStoreActions.START_LOADING_ACTION,
-                    "Games are loading ..."
-                );
+                mainStoreActions.START_LOADING_ACTION,
+                "Games are loading ..."
+            );
 
             let params = {
                 PageSize: 12,
@@ -90,7 +90,7 @@
             this.games = gamesResponse.Collection;
             this.filters.pagination.total = gamesResponse.TotalCount;
             this.categories = (await categoryService.getCategories()).data.Data;
-            
+
             this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
         },
         methods: {

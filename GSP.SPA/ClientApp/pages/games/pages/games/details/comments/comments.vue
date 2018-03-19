@@ -47,7 +47,7 @@
             async addComment(comment) {
                 try {
                     await rateService.addRateToGame(comment);
-                    
+
                     this.$noty.success(resources.popupMessages.commentAdded);
                     this.comments = (await rateService.getGameRatesById(this.gameId)).data.Data;
                 } catch (e) {

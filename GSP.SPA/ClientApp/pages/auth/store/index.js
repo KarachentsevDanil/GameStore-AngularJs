@@ -4,7 +4,8 @@ import actions from "./actions";
 
 const state = {
     user: {},
-    token: ""
+    token: "",
+    tokenExpirationDate: ""
 };
 
 const store = {
