@@ -25,6 +25,12 @@ namespace GSP.BLL.Dto.Game
 
         public string IconContent { get; set; }
 
+        public string File { get; set; }
+
+        public string FileContent { get; set; }
+
+        public string FileExtinction { get; set; }
+
         public List<RateDto> Rates { get; set; }
 
         public List<GamePhotoDto> Photos { get; set; }

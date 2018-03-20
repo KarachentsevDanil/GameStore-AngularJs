@@ -10,6 +10,8 @@ namespace GSP.DAL.Repositories.Contracts
 
         Game GetGameById(int id);
 
+        IEnumerable<Game> GetCustomerGames(string customerId);
+
         IEnumerable<Game> GetGamesByParams(GamesFilterParams filterParams, out int totalCount);
     }
 }

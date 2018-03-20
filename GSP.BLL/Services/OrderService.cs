@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using GSP.BLL.Dto.Game;
 using GSP.BLL.Dto.Order;
-using GSP.BLL.Dto.Payment;
 using GSP.BLL.Services.Contracts;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Games;

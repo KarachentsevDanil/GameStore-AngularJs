@@ -25,6 +25,14 @@
             </vue-dropzone>
         </div>
         <hr>
+        <div>
+            <p class="bold">
+                {{labels.properties.updateGameFileLabel}}
+            </p>
+            <vue-dropzone ref="gameFileDropzoe" @vdropzone-success="gameFileSuccessfullyAdded" id="gameFileDropzone" :options="gameFileDropzoneOptions">
+            </vue-dropzone>
+        </div>
+        <hr>
     </div>
 </template>
 
@@ -45,6 +53,9 @@
             },
             galleryFileSuccessfullyAdded: {
                 type: Function
+            },
+            gameFileSuccessfullyAdded:{
+                type:Function
             }
         },
         data() {
@@ -65,6 +76,11 @@
                     ...this.baseOptions,
                     dictDefaultMessage:
                     "<span class='upload-text'><i class='fal fa-cloud-upload'></i> Upload photo's for gallery</span>"
+                },
+                gameFileDropzoneOptions: {
+                    ...this.baseOptions,
+                    dictDefaultMessage:
+                    "<span class='upload-text'><i class='fal fa-cloud-upload'></i> Update file for game download</span>"
                 },
                 labels: resources.gameLabels
             };

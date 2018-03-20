@@ -50,9 +50,11 @@ export const gameLabels = {
         uploadMainPhotoLabel: "Upload main photo:",
         uploadIconPhotoLabel: "Upload icon photo:",
         uploadPhotosLabel: "Upload photos for game galery:",
+        uploadGameFileLabel: "Upload game file for download:",
         updateMainPhotoLabel: "Update main photo",
         updateIconPhotoLabel: "Update icon photo",
         uploadExtraPhotosLabel: "Upload extra photos for game galery:",
+        updateGameFileLabel: "Update game file for download:",
 
         gameNameLabel: "Name",
         gameCategoryLabel: "Category",

@@ -5,8 +5,8 @@
                 <v-text-field :label="labels.properties.gameNameLabel"
                               v-model="game.Name"
                               :error-messages="nameErrors"
-                              @input="$v.game.name.$touch()"
-                              @blur="$v.game.name.$touch()"
+                              @input="$v.game.Name.$touch()"
+                              @blur="$v.game.Name.$touch()"
                               required></v-text-field>
 
                 <v-select :items="categories"
@@ -21,16 +21,16 @@
                 <v-text-field :label="labels.properties.gamePriceLabel"
                               v-model="game.Price"
                               :error-messages="priceErrors"
-                              @input="$v.game.price.$touch()"
-                              @blur="$v.game.price.$touch()"
+                              @input="$v.game.Price.$touch()"
+                              @blur="$v.game.Price.$touch()"
                               prefix="$"
                               required></v-text-field>
 
                 <v-text-field v-model="game.Description"
                               :label="labels.properties.gameDescriptionLabel"
                               :error-messages="descriptionErrors"
-                              @input="$v.game.description.$touch()"
-                              @blur="$v.game.description.$touch()"
+                              @input="$v.game.Description.$touch()"
+                              @blur="$v.game.Description.$touch()"
                               required
                               multi-line></v-text-field>
             </form>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="col-lg-6 right-column">
-            <file-uploaders ref="fileUploaders" :baseOptions="baseDropzoneOptions" :mainfileSuccessfullyAdded="mainfileSuccessfullyAdded" :iconfileSuccessfullyAdded="iconfileSuccessfullyAdded" :galleryFileSuccessfullyAdded="galleryFileSuccessfullyAdded">
+            <file-uploaders ref="fileUploaders" :baseOptions="baseDropzoneOptions" :mainfileSuccessfullyAdded="mainfileSuccessfullyAdded" :iconfileSuccessfullyAdded="iconfileSuccessfullyAdded" :galleryFileSuccessfullyAdded="galleryFileSuccessfullyAdded" :gameFileSuccessfullyAdded="gameFileSuccessfullyAdded">
             </file-uploaders>
         </div>
         <div class="row">
@@ -96,9 +96,9 @@
         mixins: [validationMixin],
         validations: {
             game: {
-                name: { required },
-                price: { required },
-                description: { required }
+                Name: { required },
+                Price: { required },
+                Description: { required }
             }
         },
         data: () => ({
@@ -134,6 +134,11 @@
                     Photo: file.dataURL
                 });
             },
+            gameFileSuccessfullyAdded(file, response) {
+                this.game.File = response.files[0];
+                this.game.FileContent = response.files[0];
+                this.game.FileExtinction = response.files[0];
+            },
             async editGame() {
                 try {
                     this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Game is updating ...");
@@ -154,30 +159,31 @@
                 this.$refs.fileUploaders.$refs.mainDropzoe.removeAllFiles();
                 this.$refs.fileUploaders.$refs.iconDropzoe.removeAllFiles();
                 this.$refs.fileUploaders.$refs.galleryDropzoe.removeAllFiles();
-
+                this.$refs.otherUploaders.$refs.gameFileDropzoe.removeAllFiles();
+                
                 this.$v.$reset();
             }
         },
         computed: {
             isInvaild() {
-                return this.$v.$invalid || !this.game.PhotoContent || this.game.IconContent;
+                return this.$v.$invalid || !this.game.PhotoContent || !this.game.IconContent;
             },
             nameErrors() {
                 const errors = [];
-                if (!this.$v.game.name.$dirty) return errors;
-                !this.$v.game.name.required && errors.push(resources.gameLabels.validationMessages.gameNameRequiredMessage);
+                if (!this.$v.game.Name.$dirty) return errors;
+                !this.$v.game.Name.required && errors.push(resources.gameLabels.validationMessages.gameNameRequiredMessage);
                 return errors;
             },
             priceErrors() {
                 const errors = [];
-                if (!this.$v.game.price.$dirty) return errors;
-                !this.$v.game.price.required && errors.push(resources.gameLabels.validationMessages.gamePriceRequiredMessage);
+                if (!this.$v.game.Price.$dirty) return errors;
+                !this.$v.game.Price.required && errors.push(resources.gameLabels.validationMessages.gamePriceRequiredMessage);
                 return errors;
             },
             descriptionErrors() {
                 const errors = [];
-                if (!this.$v.game.description.$dirty) return errors;
-                !this.$v.game.description.required &&
+                if (!this.$v.game.Description.$dirty) return errors;
+                !this.$v.game.Description.required &&
                     errors.push(resources.gameLabels.validationMessages.gameDescriptionRequiredMessage);
                 return errors;
             }

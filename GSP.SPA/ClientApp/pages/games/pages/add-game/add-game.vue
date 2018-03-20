@@ -37,7 +37,7 @@
             <main-file-uploader ref="mainUploader" :baseOptions="baseDropzoneOptions" :mainfileSuccessfullyAdded="mainfileSuccessfullyAdded"></main-file-uploader>
         </div>
         <div class="col-lg-6 right-column">
-            <other-file-uploaders ref="otherUploaders" :baseOptions="baseDropzoneOptions" :iconfileSuccessfullyAdded="iconfileSuccessfullyAdded" :galleryFileSuccessfullyAdded="galleryFileSuccessfullyAdded"> </other-file-uploaders>
+            <other-file-uploaders ref="otherUploaders" :baseOptions="baseDropzoneOptions" :iconfileSuccessfullyAdded="iconfileSuccessfullyAdded" :galleryFileSuccessfullyAdded="galleryFileSuccessfullyAdded" :gameFileSuccessfullyAdded="gameFileSuccessfullyAdded"> </other-file-uploaders>
         </div>
         <div class="row">
             <v-btn class="add-game-btn" color="primary" @click="addGame" :disabled="isInvaild"> {{labels.commands.addGameLabel}} </v-btn>
@@ -90,7 +90,9 @@
             files: {
                 mainFile: "",
                 iconFile: "",
-                galleryFiles: []
+                galleryFiles: [],
+                gameFile: "",
+                gameFileExtinction: ""
             },
             labels: resources.gameLabels
         }),
@@ -108,6 +110,11 @@
             galleryFileSuccessfullyAdded(file, response) {
                 this.files.galleryFiles.push(this.getFileData(file));
             },
+            gameFileSuccessfullyAdded(file, response) {
+                let fileInfo = response.files.file.split("base64,");
+                this.files.gameFile = fileInfo[1];
+                this.files.gameFileExtinction = fileInfo[0];
+            },
             async addGame() {
                 let newGame = {
                     Name: this.game.name,
@@ -116,6 +123,8 @@
                     Price: this.game.price,
                     Photo: this.files.mainFile,
                     Icon: this.files.iconFile,
+                    File: this.files.gameFile,
+                    FileExtinction: this.files.gameFileExtinction,
                     Photos: this.files.galleryFiles.map(content => {
                         return {
                             Photo: content
@@ -140,10 +149,17 @@
                 this.game.categoryId = 0;
                 this.game.price = 0;
                 this.game.description = "";
+                
+                this.files.mainFile = "";
+                this.files.iconFile = "";
+                this.files.galleryFiles = [];
+                this.files.gameFile = "";
+                this.files.gameFileExtinction = "";
 
                 this.$refs.mainUploader.$refs.mainDropzoe.removeAllFiles();
                 this.$refs.otherUploaders.$refs.iconDropzoe.removeAllFiles();
                 this.$refs.otherUploaders.$refs.galleryDropzoe.removeAllFiles();
+                this.$refs.otherUploaders.$refs.gameFileDropzoe.removeAllFiles();
 
                 this.$v.$reset();
             }

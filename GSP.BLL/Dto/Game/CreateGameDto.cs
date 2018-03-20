@@ -18,6 +18,10 @@ namespace GSP.BLL.Dto.Game
 
         public string Icon { get; set; }
 
+        public string File { get; set; }
+
+        public string FileExtinction { get; set; }
+
         public List<CreateGamePhotoDto> Photos { get; set; }
     }
 }

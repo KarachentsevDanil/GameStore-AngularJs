@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="col-lg-9 col-sm-12">
-            <edit-game-layout ref="gameLayout" :categories="categories" v-if="currentGame.GameId" :refreshGameAfterUpdate="refreshGameAfterUpdate" :game="currentGame"></edit-game-layout>
+            <edit-game-layout ref="gameLayout" :refreshCategories="refreshCategories" :categories="categories" v-if="currentGame.GameId" :refreshGameAfterUpdate="refreshGameAfterUpdate" :game="currentGame"></edit-game-layout>
         </div>
     </div>
 </template>
@@ -95,7 +95,7 @@
         },
         methods: {
             selectGame(game) {
-                this.currentGame = game;
+                this.currentGame = {...game};
 
                 if (this.$refs.gameLayout) {
                     this.$refs.gameLayout.$refs.editGame.clearGame();
@@ -112,6 +112,9 @@
                     EndPrice: Math.max(...this.filters.priceRange),
                     CustomerId: this.customerId
                 };
+            },
+            async refreshCategories() {
+                this.categories = (await categoryService.getCategories()).data.Data;
             },
             async loadGamesByParams(params) {
                 this.$store.dispatch(

@@ -30,6 +30,7 @@ namespace GSP.BLL.Mapper
             CreateMap<GameDto, Game>()
                 .ForMember(x => x.Photo, p => p.MapFrom(t => Convert.FromBase64String(t.PhotoContent)))
                 .ForMember(x => x.Icon, p => p.MapFrom(t => Convert.FromBase64String(t.IconContent)))
+                .ForMember(x => x.FileContent, p => p.MapFrom(t => Convert.FromBase64String(t.FileContent)))
                 .ForMember(x => x.Rates, p => p.MapFrom(t => AutoMapper.Mapper.Map<List<RateDto>, List<Rate>>(t.Rates)))
                 .ForMember(x => x.Photos, p => p.MapFrom(t => AutoMapper.Mapper.Map<List<GamePhotoDto>, List<GamePhoto>>(t.Photos)))
                 .ForMember(x => x.Category, p => p.Ignore())
@@ -39,8 +40,10 @@ namespace GSP.BLL.Mapper
             CreateMap<Game, GameDto>()
                 .ForMember(x => x.Photo, p => p.MapFrom(t => $"data:image/png;base64,{Convert.ToBase64String(t.Photo)}"))
                 .ForMember(x => x.Icon, p => p.MapFrom(t => $"data:image/png;base64,{Convert.ToBase64String(t.Icon)}"))
+                .ForMember(x => x.File, p => p.MapFrom(t => $"{t.FileExtinction}base64,{Convert.ToBase64String(t.FileContent)}"))
                 .ForMember(x => x.PhotoContent, p => p.MapFrom(t => Convert.ToBase64String(t.Photo)))
                 .ForMember(x => x.IconContent, p => p.MapFrom(t => Convert.ToBase64String(t.Icon)))
+                .ForMember(x => x.FileContent, p => p.MapFrom(t => Convert.ToBase64String(t.FileContent)))
                 .ForMember(x => x.Rates, p => p.MapFrom(t => AutoMapper.Mapper.Map<ICollection<Rate>, List<RateDto>>(t.Rates)))
                 .ForMember(x => x.Photos, p => p.MapFrom(t => AutoMapper.Mapper.Map<ICollection<GamePhoto>, List<GamePhotoDto>>(t.Photos)))
                 .ForMember(x => x.AverageRate, p => p.MapFrom(t => t.Rates.Any() ? t.Rates.Average(x => x.Rating) : 0))
@@ -52,7 +55,8 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.Category, p => p.Ignore())
                 .ForMember(x => x.IsDeleted, p => p.UseValue(false))
                 .ForMember(x => x.Icon, p => p.MapFrom(t => Convert.FromBase64String(t.Icon)))
-                .ForMember(x => x.Photo, p => p.MapFrom(t => Convert.FromBase64String(t.Photo)));
+                .ForMember(x => x.Photo, p => p.MapFrom(t => Convert.FromBase64String(t.Photo)))
+                .ForMember(x => x.FileContent, p => p.MapFrom(t => Convert.FromBase64String(t.File)));
 
             CreateMap<AddGameToBucketDto, OrderGame>()
                 .ForMember(x => x.Order, p => p.Ignore())

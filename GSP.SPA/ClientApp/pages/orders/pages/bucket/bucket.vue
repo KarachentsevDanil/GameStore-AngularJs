@@ -108,7 +108,7 @@ export default {
           FullName: paymentInfo.fullName
         };
 
-        let paymentId = (await paymentService.addPayment(newPayment)).data;
+        let paymentId = (await paymentService.addPayment(newPayment)).data.Data;
         completeOrderDto.PaymentId = paymentId;
       }
 

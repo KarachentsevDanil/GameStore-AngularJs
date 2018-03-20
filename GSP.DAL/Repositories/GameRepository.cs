@@ -22,13 +22,7 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Game> GetGamesByParams(GamesFilterParams filterParams, out int totalCount)
         {
-            var query = _dbContext.Games
-                .Include(x => x.Category)
-                .Include(x => x.Orders)
-                .ThenInclude(x => x.Order)
-                .Include(x => x.Rates)
-                .Include(x => x.Photos)
-                .AsQueryable();
+            var query = GetAllGames();
 
             FillGamesQueryFilterParams(filterParams);
             query = FillSortParams(query, filterParams);
@@ -101,17 +95,23 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Game> GetGamesByIds(int[] ids)
         {
-            return _dbContext.Games
-                .Include(x => x.Category)
-                .Include(x => x.Orders)
-                .ThenInclude(x => x.Order)
-                .Include(x => x.Rates)
-                .Include(x => x.Photos)
+            return GetAllGames()
                 .Where(t => ids.Contains(t.GameId))
                 .ToList();
         }
 
         public Game GetGameById(int id)
+        {
+            return GetAllGames()
+                .FirstOrDefault(t => id == t.GameId);
+        }
+
+        public IEnumerable<Game> GetCustomerGames(string customerId)
+        {
+            return GetAllGames().Where(g => g.Orders.Any(t => t.Order.CustomerId == customerId)).ToList();
+        }
+
+        private IQueryable<Game> GetAllGames()
         {
             return _dbContext.Games
                 .Include(x => x.Category)
@@ -119,7 +119,7 @@ namespace GSP.DAL.Repositories
                 .ThenInclude(x => x.Order)
                 .Include(x => x.Rates)
                 .Include(x => x.Photos)
-                .FirstOrDefault(t => id == t.GameId);
+                .Where(x => !x.IsDeleted);
         }
     }
 }

@@ -21,6 +21,10 @@ namespace GSP.Domain.Games
 
         public byte[] Icon { get; set; }
 
+        public byte[] FileContent { get; set; }
+
+        public string FileExtinction { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<OrderGame> Orders { get; set; }

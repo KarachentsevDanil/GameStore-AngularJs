@@ -25,6 +25,7 @@
     import addCategoryComponent from "../../category/add-category";
     import editGameComponent from "./edit-game";
     import * as resources from "../../../resources/resources";
+    import * as categoryService from '../../../api/category-service';
 
     export default {
         components: {
@@ -41,6 +42,9 @@
             },
             refreshGameAfterUpdate: {
                 type: Function
+            },
+            refreshCategories: {
+                type: Function
             }
         },
         data: () => ({
@@ -50,12 +54,7 @@
             labels: {
                 ...resources.gameLabels
             }
-        }),
-        methods: {
-            async refreshCategories() {
-                this.categories = (await categoryService.getCategories()).data.Data;
-            }
-        }
+        })
     };
 </script>
 
