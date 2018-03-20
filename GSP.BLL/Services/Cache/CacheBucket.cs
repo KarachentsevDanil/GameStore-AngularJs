@@ -5,6 +5,7 @@
         Bucket,
         Categories,
         Games,
-        Payments
+        Payments,
+        CustomerGames
     }
 }

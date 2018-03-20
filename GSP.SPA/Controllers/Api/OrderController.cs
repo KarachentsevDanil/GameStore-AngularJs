@@ -31,7 +31,9 @@ namespace GSP.SPA.Controllers.Api
         public IActionResult ConfirmOrder([FromBody] CompleteOrderDto order)
         {
             _orderService.UpdateOrder(order);
+
             _cacheService.ResetBucket($"{CacheKey.Bucket}_{order.CustomerId}");
+            _cacheService.ResetBucket($"{CacheKey.CustomerGames}_{User.Identity.Name}");
 
             return Json(JsonResultData.Success());
         }

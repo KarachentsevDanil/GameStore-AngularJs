@@ -12,6 +12,8 @@ namespace GSP.BLL.Services.Contracts
 
         IEnumerable<GameDto> GetRecomendedGames(int gameId);
 
+        IEnumerable<GameDto> GetCustomerGames(string customerName);
+
         IEnumerable<GameDto> GetGamesByParams(GamesFilterParams gameParams, out int totalCount);
 
         GameDto GetGameById(int gameId);

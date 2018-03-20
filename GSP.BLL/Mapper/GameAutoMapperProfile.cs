@@ -47,7 +47,8 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.Rates, p => p.MapFrom(t => AutoMapper.Mapper.Map<ICollection<Rate>, List<RateDto>>(t.Rates)))
                 .ForMember(x => x.Photos, p => p.MapFrom(t => AutoMapper.Mapper.Map<ICollection<GamePhoto>, List<GamePhotoDto>>(t.Photos)))
                 .ForMember(x => x.AverageRate, p => p.MapFrom(t => t.Rates.Any() ? t.Rates.Average(x => x.Rating) : 0))
-                .ForMember(x => x.CategoryName, p => p.MapFrom(t => t.Category.Name));
+                .ForMember(x => x.CategoryName, p => p.MapFrom(t => t.Category.Name))
+                .ForMember(x => x.IsGameBought, p => p.Ignore());
 
             CreateMap<CreateGameDto, Game>()
                 .ForMember(x => x.Rates, p => p.Ignore())

@@ -106,9 +106,9 @@ namespace GSP.DAL.Repositories
                 .FirstOrDefault(t => id == t.GameId);
         }
 
-        public IEnumerable<Game> GetCustomerGames(string customerId)
+        public IEnumerable<Game> GetCustomerGames(string customerName)
         {
-            return GetAllGames().Where(g => g.Orders.Any(t => t.Order.CustomerId == customerId)).ToList();
+            return GetAllGames().Where(g => g.Orders.Any(t => t.Order.Customer.Email.ToUpper() == customerName.ToUpper())).ToList();
         }
 
         private IQueryable<Game> GetAllGames()
@@ -117,6 +117,7 @@ namespace GSP.DAL.Repositories
                 .Include(x => x.Category)
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Order)
+                .ThenInclude(x => x.Customer)
                 .Include(x => x.Rates)
                 .Include(x => x.Photos)
                 .Where(x => !x.IsDeleted);

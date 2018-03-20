@@ -8,8 +8,6 @@ namespace GSP.SPA.Models
 
         public string ErrorMessage { get; set; }
 
-        public object ErrorData { get; set; }
-
         public static JsonResultData Success(object data = null)
         {
             return new JsonResultData
@@ -23,8 +21,7 @@ namespace GSP.SPA.Models
             return new JsonResultData
             {
                 IsSuccess = false,
-                ErrorMessage = errorMessage,
-                ErrorData = errorData ?? new { }
+                ErrorMessage = errorMessage
             };
         }
     }

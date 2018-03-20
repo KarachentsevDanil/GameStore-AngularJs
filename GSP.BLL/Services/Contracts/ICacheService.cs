@@ -15,7 +15,9 @@ namespace GSP.BLL.Services.Contracts
         void ResetBucket(string key);
 
         void ResetPayments(string key);
-        
+
+        void ResetCustomerGames(string key);
+
         void ResetCategories();
     }
 }

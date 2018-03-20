@@ -74,5 +74,11 @@ namespace GSP.BLL.Services
 
             return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
+
+        public IEnumerable<GameDto> GetCustomerGames(string customerName)
+        {
+            var games = _unitOfWork.GameRepository.GetCustomerGames(customerName);
+            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
+        }
     }
 }

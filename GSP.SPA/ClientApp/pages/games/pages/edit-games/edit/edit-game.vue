@@ -135,9 +135,10 @@
                 });
             },
             gameFileSuccessfullyAdded(file, response) {
-                this.game.File = response.files[0];
-                this.game.FileContent = response.files[0];
-                this.game.FileExtinction = response.files[0];
+                let fileInfo = response.files.file.split("base64,");
+                this.game.File = response.files.file;
+                this.game.FileContent = fileInfo[1];
+                this.game.FileExtinction = fileInfo[0];
             },
             async editGame() {
                 try {

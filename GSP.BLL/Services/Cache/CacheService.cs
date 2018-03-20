@@ -64,6 +64,11 @@ namespace GSP.BLL.Services.Cache
             Remove(key, CacheBucket.Payments);
         }
 
+        public void ResetCustomerGames(string key)
+        {
+            Remove(key, CacheBucket.CustomerGames);
+        }
+
         public void ResetCategories()
         {
             EmptyBucket(CacheBucket.Categories);
