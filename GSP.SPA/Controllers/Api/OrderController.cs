@@ -32,7 +32,7 @@ namespace GSP.SPA.Controllers.Api
             _orderService.UpdateOrder(order);
 
             _cacheService.ResetBucket($"{CacheKey.Bucket}_{order.CustomerId}");
-            _cacheService.ResetBucket($"{CacheKey.CustomerGames}_{User.Identity.Name}");
+            _cacheService.ResetCustomerGames($"{CacheKey.CustomerGames}_{User.Identity.Name}");
 
             return Json(JsonResultData.Success());
         }
