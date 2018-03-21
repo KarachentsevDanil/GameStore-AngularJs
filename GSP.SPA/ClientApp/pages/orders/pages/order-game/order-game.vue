@@ -96,5 +96,9 @@
     .game-block .game-details {
         padding-left: 5px;
     }
+
+    p span.bold{
+        font-weight: bold;
+    }
 </style>
 

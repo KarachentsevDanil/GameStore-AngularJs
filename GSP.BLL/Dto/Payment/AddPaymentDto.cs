@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GSP.BLL.Dto.Payment
+﻿namespace GSP.BLL.Dto.Payment
 {
     public class AddPaymentDto
     {

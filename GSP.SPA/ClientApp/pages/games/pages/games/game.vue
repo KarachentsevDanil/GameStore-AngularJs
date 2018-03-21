@@ -18,7 +18,12 @@
                 </div>
             </v-card-title>
             <v-card-actions>
-                <v-btn class="flat-button" color="primary" @click="addGameToBucket">
+                <a v-if="game.IsGameBought" class="flat-button btn success btn--router" :href="game.File" :download="getFileName(game.FileExtinction)">
+                    <div class="btn__content">
+                        {{labels.commands.downloadGameLabel}} <i class="icon download-icon material-icons">cloud_upload</i>
+                    </div>
+                </a>
+                <v-btn v-if="!game.IsGameBought" class="flat-button" color="primary" @click="addGameToBucket">
                     {{labels.commands.buyGameLabel}} <v-icon right dark>shopping_cart</v-icon>
                 </v-btn>
                 <v-btn v-if="!isDetailsPage" class="flat-button" :to="'/game-details/' + game.GameId">
@@ -74,6 +79,11 @@
                     ),
                     addGame
                 );
+            },
+            getFileName(file){
+                let fileExtinction = file.split("/")[1].replace(";","");
+                let fileName = `gameFile.${fileExtinction}`;
+                return fileName;
             }
         }
     };
@@ -92,6 +102,11 @@
         }
     }
 
+    .download-icon{
+        color:white !important;
+        margin-left: 3px;
+    }
+    
     .game-block .headline {
         font-size: 18px;
         font-weight: bold;

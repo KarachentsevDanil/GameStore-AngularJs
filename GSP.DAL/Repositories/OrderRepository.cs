@@ -2,7 +2,6 @@
 using System.Linq;
 using GSP.DAL.Context;
 using GSP.DAL.Repositories.Contracts;
-using GSP.Domain.Games;
 using GSP.Domain.Orders;
 using GSP.Domain.Params;
 using LinqKit;
@@ -21,11 +20,7 @@ namespace GSP.DAL.Repositories
 
         public IEnumerable<Order> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)
         {
-            var query = _dbContext.Orders
-                .Include(x => x.Customer)
-                .Include(x => x.Games)
-                .ThenInclude(x => x.Game)
-                .ThenInclude(x => x.Category).AsQueryable();
+            var query = GetAllOrders();
 
             FillOrdersQueryFilterParams(filterParams);
             query = query.Where(filterParams.Expression).OrderByDescending(t => t.OrderId);
@@ -38,14 +33,10 @@ namespace GSP.DAL.Repositories
                 .OrderByDescending(x => x.OrderId)
                 .AsEnumerable();
         }
-        
+
         public Order GetCurrentCustomerOrder(string customerId)
         {
-            return _dbContext.Orders
-                .Include(x => x.Games)
-                .ThenInclude(x => x.Game)
-                .ThenInclude(x => x.Category)
-                .FirstOrDefault(x => x.Status == OrderStatus.New && x.CustomerId == customerId);
+            return GetAllOrders().FirstOrDefault(x => x.Status == OrderStatus.New && x.CustomerId == customerId);
         }
 
         public void AddGameToBucket(OrderGame game)
@@ -69,6 +60,17 @@ namespace GSP.DAL.Repositories
             }
 
             filterParams.Expression = predicate;
+        }
+
+        private IQueryable<Order> GetAllOrders()
+        {
+            return _dbContext.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.Payment)
+                .Include(x => x.Games)
+                .ThenInclude(x => x.Game)
+                .ThenInclude(x => x.Category)
+                .Where(x => !x.IsDeleted).AsQueryable();
         }
     }
 }

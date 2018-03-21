@@ -52,6 +52,8 @@ namespace GSP.SPA.Controllers.Api
 
             FillCustomerGamesFlag(games);
 
+            games = games.Where(t => !t.IsGameBought).ToList();
+
             return Json(JsonResultData.Success(games));
         }
 

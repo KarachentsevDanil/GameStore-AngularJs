@@ -1,5 +1,4 @@
 ﻿using GSP.AprioriAlgoritm.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,11 +10,6 @@ namespace GSP.AprioriAlgoritm.Helper
 
         public TransactionsSet GetFrequentTransactions(List<HashSet<int>> transactionList, double minimumSupport)
         {
-            if (transactionList.Count == 0)
-            {
-                throw new ArgumentException("List of transactions are is empty.");
-            }
-
             var supportMap = new Dictionary<HashSet<int>, int>();
             var frequentItemList = GetFrequentItems(transactionList, supportMap, minimumSupport);
 

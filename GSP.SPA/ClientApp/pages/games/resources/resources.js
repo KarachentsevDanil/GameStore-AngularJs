@@ -87,7 +87,7 @@ export const gameLabels = {
         updateGameLabel: "Update Game",
         buyGameLabel: "Buy",
         gameDetailsLabel: "Details",
-
+        downloadGameLabel: "Download",
         applyFilterLabel: "Apply",
         clearFilterLabel: "Clear"
     },

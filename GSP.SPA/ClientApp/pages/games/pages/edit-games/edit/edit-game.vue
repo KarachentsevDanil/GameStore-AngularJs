@@ -141,26 +141,22 @@
                 this.game.FileExtinction = fileInfo[0];
             },
             async editGame() {
-                try {
-                    this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Game is updating ...");
+                this.$store.dispatch(mainStoreActions.START_LOADING_ACTION, "Game is updating ...");
 
-                    await gameService.editGame(this.game);
+                await gameService.editGame(this.game);
 
-                    this.clearGame();
-                    this.refreshGameAfterUpdate();
+                this.clearGame();
+                this.refreshGameAfterUpdate();
 
-                    this.$noty.success(resources.popupMessages.gameUpdatedMessage);
+                this.$noty.success(resources.popupMessages.gameUpdatedMessage);
 
-                    this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
-                } catch (error) {
-                    this.$noty.success(resources.popupMessages.gameUpdatedErrorMessage);
-                }
+                this.$store.dispatch(mainStoreActions.STOP_LOADING_ACTION);
             },
             clearGame() {
                 this.$refs.fileUploaders.$refs.mainDropzoe.removeAllFiles();
                 this.$refs.fileUploaders.$refs.iconDropzoe.removeAllFiles();
                 this.$refs.fileUploaders.$refs.galleryDropzoe.removeAllFiles();
-                this.$refs.otherUploaders.$refs.gameFileDropzoe.removeAllFiles();
+                this.$refs.fileUploaders.$refs.gameFileDropzoe.removeAllFiles();
                 
                 this.$v.$reset();
             }

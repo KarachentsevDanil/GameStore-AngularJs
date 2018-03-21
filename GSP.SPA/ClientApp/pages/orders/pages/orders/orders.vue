@@ -19,6 +19,15 @@
                     <p>
                         <span class="bold"> {{resources.properties.totalPriceLabel}}</span> {{getOrderTotalPrice(order.Games)}} {{resources.properties.moneyLabel}}
                     </p>
+                    <p>
+                        <span class="bold"> {{resources.properties.paymentTypeLabel}}</span> {{resources.properties.creditCardTypeLabel}}
+                    </p>
+                    <p>
+                        <span class="bold"> {{resources.properties.creditCardTypeLabel}}:</span> {{creditCardFormat(order.Payment.CreditCard)}}
+                    </p>
+                    <p>
+                        <span class="bold"> {{resources.properties.creditCardOwnerLabel}}</span> {{order.Payment.FullName}}
+                    </p>
                 </div>
             </div>
             <div>
@@ -129,6 +138,18 @@
                 params.PageNumber = page;
 
                 this.loadOrders(params);
+            },
+            creditCardFormat(creditCard) {
+                let number = String(creditCard);
+
+                if (number != "") {
+                    return `${number.slice(0, 4)}-${number.slice(4, 8)}-${number.slice(
+                    8,
+                    12
+                    )}-${number.slice(12, 16)}`;
+                }
+
+                return "";
             }
         },
         computed: {

@@ -20,7 +20,12 @@
             <hr class="margin-top-5">
 
             <div class="game-actions">
-                <v-btn block color="primary" @click="buyGame(game.GameId)">
+                <a block v-if="game.IsGameBought" class="download-btn flat-button btn--block btn success btn--router" :href="game.File" :download="getFileName(game.FileExtinction)">
+                    <div class="btn__content">
+                        {{labels.commands.downloadGameLabel}} <i class="icon download-icon material-icons">cloud_upload</i>
+                    </div>
+                </a>
+                <v-btn v-else block color="primary" @click="buyGame(game.GameId)">
                     {{labels.commands.buyGameLabel}} <v-icon right dark>shopping_cart</v-icon>
                 </v-btn>
             </div>
@@ -84,6 +89,11 @@
         methods: {
             openGallery() {
                 this.index = 0;
+            },
+            getFileName(file){
+                let fileExtinction = file.split("/")[1].replace(";","");
+                let fileName = `gameFile.${fileExtinction}`;
+                return fileName;
             }
         },
         computed: {
@@ -140,6 +150,13 @@
         .game-details-block .text-block {
             left: 315px;
         }
+    }
+    
+    .download-btn {
+        width: 100% !important; 
+    }
+    .download-icon {
+        margin-left: 3px;
     }
 
     .margin-top-5 {
