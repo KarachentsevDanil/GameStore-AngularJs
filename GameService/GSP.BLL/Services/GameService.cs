@@ -1,23 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using GSP.AprioriAlgoritm.Contracts;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Services.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
+using GSP.Games.BLL.Dto.Game;
+using GSP.Games.BLL.Services.Contracts;
+using GSP.Games.DAL.UnitOfWork.Contracts;
+using GSP.Games.Domain.Games;
 using GSP.Games.Domain.Params;
-using Microsoft.EntityFrameworkCore;
 
-namespace GSP.BLL.Services
+namespace GSP.Games.BLL.Services
 {
     public class GameService : IGameService
     {
-        private readonly IGameStoreUnitOfWork _unitOfWork;
-        private readonly IRecomendationService _recomendationService;
+        private readonly IGameStoreGameUnitOfWork _unitOfWork;
 
-        public GameService(IGameStoreUnitOfWork unitOfWork, IRecomendationService recomendationService)
+        public GameService(IGameStoreGameUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _recomendationService = recomendationService;
         }
 
         public void AddGame(CreateGameDto game)
@@ -50,34 +46,6 @@ namespace GSP.BLL.Services
         {
             _unitOfWork.GameRepository.Delete(gameId);
             _unitOfWork.Commit();
-        }
-
-        public IEnumerable<GameDto> GetRecomendedGames(int gameId)
-        {
-            var totalTransactionsCount = _unitOfWork.OrderRepository
-                .GetAll().Count(t => t.Status == Domain.Orders.OrderStatus.Complete);
-
-            var gameTransactions = _unitOfWork.OrderRepository.GetAll()
-                .Include(t => t.Games)
-                .Where(x => x.Games.Any(t => t.GameId == gameId))
-                .Select(t => t.Games.Select(g => g.GameId).ToArray())
-                .ToList();
-
-            if (!gameTransactions.Any())
-            {
-                return Enumerable.Empty<GameDto>();
-            }
-
-            var recomendedGamesIds = _recomendationService.GetRecomendations(gameTransactions, totalTransactionsCount, gameId);
-            var games = _unitOfWork.GameRepository.GetGamesByIds(recomendedGamesIds.ToArray());
-
-            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
-        }
-
-        public IEnumerable<GameDto> GetCustomerGames(string customerName)
-        {
-            var games = _unitOfWork.GameRepository.GetCustomerGames(customerName);
-            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
     }
 }

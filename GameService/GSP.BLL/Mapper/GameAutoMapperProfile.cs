@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Dto.Rate;
-using GSP.Domain.Orders;
+using GSP.Games.BLL.Dto.Game;
+using GSP.Games.BLL.Dto.Rate;
 using GSP.Games.Domain.Games;
 
-namespace GSP.BLL.Mapper
+namespace GSP.Games.BLL.Mapper
 {
     public class GameAutoMapperProfile : Profile
     {
@@ -34,7 +33,6 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.Rates, p => p.MapFrom(t => AutoMapper.Mapper.Map<List<RateDto>, List<Rate>>(t.Rates)))
                 .ForMember(x => x.Photos, p => p.MapFrom(t => AutoMapper.Mapper.Map<List<GamePhotoDto>, List<GamePhoto>>(t.Photos)))
                 .ForMember(x => x.Category, p => p.Ignore())
-                .ForMember(x => x.Orders, p => p.Ignore())
                 .ForMember(x => x.IsDeleted, p => p.Ignore());
 
             CreateMap<Game, GameDto>()
@@ -52,16 +50,11 @@ namespace GSP.BLL.Mapper
 
             CreateMap<CreateGameDto, Game>()
                 .ForMember(x => x.Rates, p => p.Ignore())
-                .ForMember(x => x.Orders, p => p.Ignore())
                 .ForMember(x => x.Category, p => p.Ignore())
                 .ForMember(x => x.IsDeleted, p => p.UseValue(false))
                 .ForMember(x => x.Icon, p => p.MapFrom(t => Convert.FromBase64String(t.Icon)))
                 .ForMember(x => x.Photo, p => p.MapFrom(t => Convert.FromBase64String(t.Photo)))
                 .ForMember(x => x.FileContent, p => p.MapFrom(t => Convert.FromBase64String(t.File)));
-
-            CreateMap<AddGameToBucketDto, OrderGame>()
-                .ForMember(x => x.Order, p => p.Ignore())
-                .ForMember(x => x.Game, p => p.Ignore());
         }
     }
 }

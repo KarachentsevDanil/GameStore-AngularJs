@@ -3,7 +3,7 @@ using GSP.Games.Domain.Games;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GSP.Game.DAL.Context.Mappings
+namespace GSP.Games.DAL.Context.Mappings
 {
     public class RateMapping : IMappingContract<Rate>
     {

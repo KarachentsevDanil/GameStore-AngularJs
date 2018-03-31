@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GSP.BLL.Dto.Category;
+using GSP.Games.BLL.Dto.Category;
 using GSP.Games.Domain.Games;
 
-namespace GSP.BLL.Mapper
+namespace GSP.Games.BLL.Mapper
 {
     public class CategoryAutoMapperProfile : Profile
     {

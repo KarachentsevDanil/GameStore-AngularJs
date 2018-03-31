@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Dto.Order
+﻿namespace GSP.Orders.BLL.Dto.Order
 {
     public class CreateOrderDto
     {

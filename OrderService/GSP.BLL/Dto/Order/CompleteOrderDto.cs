@@ -1,7 +1,7 @@
 ﻿using System;
-using GSP.Domain.Orders;
+using GSP.Orders.Domain.Orders;
 
-namespace GSP.BLL.Dto.Order
+namespace GSP.Orders.BLL.Dto.Order
 {
     public class CompleteOrderDto
     {

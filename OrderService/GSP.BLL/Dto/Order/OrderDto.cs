@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Dto.Payment;
-using GSP.Domain.Orders;
+﻿using System.Collections.Generic;
+using GSP.Orders.BLL.Dto.Payment;
+using GSP.Orders.Domain.Orders;
 
-namespace GSP.BLL.Dto.Order
+namespace GSP.Orders.BLL.Dto.Order
 {
     public class OrderDto
     {

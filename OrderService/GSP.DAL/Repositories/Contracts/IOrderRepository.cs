@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using GSP.Domain.Orders;
-using GSP.Domain.Params;
+using GSP.Common.DAL.Repositories.Contracts;
+using GSP.Orders.Domain.Orders;
+using GSP.Orders.Domain.Params;
 
-namespace GSP.DAL.Repositories.Contracts
+namespace GSP.Orders.DAL.Repositories.Contracts
 {
     public interface IOrderRepository : IGameStoreRepository<Order>
     {

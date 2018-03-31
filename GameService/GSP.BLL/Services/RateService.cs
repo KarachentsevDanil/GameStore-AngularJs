@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Rate;
-using GSP.BLL.Services.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
+using GSP.Games.BLL.Dto.Rate;
+using GSP.Games.BLL.Services.Contracts;
+using GSP.Games.DAL.UnitOfWork.Contracts;
 using GSP.Games.Domain.Games;
 
-namespace GSP.BLL.Services
+namespace GSP.Games.BLL.Services
 {
     public class RateService : IRateService
     {
-        private readonly IGameStoreUnitOfWork _unitOfWork;
+        private readonly IGameStoreGameUnitOfWork _unitOfWork;
 
-        public RateService(IGameStoreUnitOfWork unitOfWork)
+        public RateService(IGameStoreGameUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

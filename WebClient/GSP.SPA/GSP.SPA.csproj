@@ -35,9 +35,6 @@
     <None Remove="ClientApp\pages\games\pages\game-details\**" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ClientApp\pages\games\api\" />
     <Folder Include="ClientApp\pages\games\pages\edit-games\" />
     <Folder Include="ClientApp\pages\orders\pages\orders\" />

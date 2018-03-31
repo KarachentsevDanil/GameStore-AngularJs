@@ -8,6 +8,6 @@
 
         public byte[] Content { get; set; }
 
-        public virtual GSP.Games.Domain.Games.Game Game { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

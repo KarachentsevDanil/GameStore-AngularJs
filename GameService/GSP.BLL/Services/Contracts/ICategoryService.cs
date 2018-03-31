@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Category;
+using GSP.Games.BLL.Dto.Category;
 
-namespace GSP.BLL.Services.Contracts
+namespace GSP.Games.BLL.Services.Contracts
 {
     public interface ICategoryService
     {

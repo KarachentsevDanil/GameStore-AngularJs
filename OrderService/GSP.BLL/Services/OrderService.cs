@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Dto.Order;
-using GSP.BLL.Services.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
-using GSP.Domain.Games;
-using GSP.Domain.Orders;
-using GSP.Domain.Params;
+using GSP.Orders.BLL.Dto.Order;
+using GSP.Orders.BLL.Services.Contracts;
+using GSP.Orders.DAL.UnitOfWork.Contracts;
+using GSP.Orders.Domain.Orders;
+using GSP.Orders.Domain.Params;
 
-namespace GSP.BLL.Services
+namespace GSP.Orders.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly IGameStoreUnitOfWork _unitOfWork;
+        private readonly IGameStoreOrderUnitOfWork _unitOfWork;
 
-        public OrderService(IGameStoreUnitOfWork unitOfWork)
+        public OrderService(IGameStoreOrderUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -66,22 +64,25 @@ namespace GSP.BLL.Services
 
         public IEnumerable<GameDto> GetGameFromBucket(string customerId)
         {
-            var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
+            //var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
 
-            if (order == null)
-            {
-                return Enumerable.Empty<GameDto>();
-            }
+            //if (order == null)
+            //{
+            //    return Enumerable.Empty<GameDto>();
+            //}
 
-            var games = order.Games.Select(x => x.Game).ToList();
-            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
+            //var games = order.Games.Select(x => x.Game).ToList();
+            //return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
+
+            throw new NotImplementedException();
         }
 
         public IEnumerable<GameDto> GetCustomerGames(string customerId)
         {
-            var gamesFilterParams = new GamesFilterParams() { CustomerId = customerId, PageSize = int.MaxValue };
-            var games = _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
-            return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
+            throw new NotImplementedException();
+            //var gamesFilterParams = new GamesFilterParams() { CustomerId = customerId, PageSize = int.MaxValue };
+            //var games = _unitOfWork.GameRepository.GetGamesByParams(gamesFilterParams, out var totalCount);
+            //return AutoMapper.Mapper.Map<IEnumerable<Game>, List<GameDto>>(games);
         }
 
         public IEnumerable<OrderDto> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount)
@@ -94,6 +95,11 @@ namespace GSP.BLL.Services
         {
             var order = _unitOfWork.OrderRepository.GetCurrentCustomerOrder(customerId);
             return AutoMapper.Mapper.Map<Order, OrderDto>(order);
+        }
+
+        public IEnumerable<GameDto> GetRecomendedGames(int gameId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

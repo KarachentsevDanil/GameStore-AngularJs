@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Extenctions", "6. Extenctions", "{1EF5AB92-589E-4807-BC62-228FAF6FA6F3}"
 EndProject
@@ -51,29 +51,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Games.DAL", "GameServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Games.BLL", "GameService\GSP.BLL\GSP.Games.BLL.csproj", "{507CD341-DF43-4579-A6F2-E60F23AEFC67}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Order.Domain", "OrderService\GSP.Domain\GSP.Order.Domain.csproj", "{C8CE164B-698B-4428-BA39-845B9C266562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Orders.Domain", "OrderService\GSP.Domain\GSP.Orders.Domain.csproj", "{C8CE164B-698B-4428-BA39-845B9C266562}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Order.DAL", "OrderService\GSP.DAL\GSP.Order.DAL.csproj", "{E9EA3861-5D22-43ED-BC91-2092576E8C54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Orders.DAL", "OrderService\GSP.DAL\GSP.Orders.DAL.csproj", "{E9EA3861-5D22-43ED-BC91-2092576E8C54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Order.BLL", "OrderService\GSP.BLL\GSP.Order.BLL.csproj", "{6969FE0E-8D1A-4867-B12B-7B4BD6E82F48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Orders.BLL", "OrderService\GSP.BLL\GSP.Orders.BLL.csproj", "{6969FE0E-8D1A-4867-B12B-7B4BD6E82F48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Accounts.WebService", "AccountService\GSP.Account.WebService\GSP.Accounts.WebService.csproj", "{557A3580-EABC-4441-BBD6-D141564248BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Accounts.WebService", "AccountService\GSP.Account.WebService\GSP.Accounts.WebService.csproj", "{557A3580-EABC-4441-BBD6-D141564248BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Games.WebService", "GameService\GSP.Game.WebService\GSP.Games.WebService.csproj", "{8FC6115B-2916-4ABA-B399-B5FACC7FFC59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Games.WebService", "GameService\GSP.Game.WebService\GSP.Games.WebService.csproj", "{8FC6115B-2916-4ABA-B399-B5FACC7FFC59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Order.WebService", "OrderService\GSP.Order.WebService\GSP.Order.WebService.csproj", "{8925ED54-2A15-4A66-A8A4-A665E7325FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Orders.WebService", "OrderService\GSP.Order.WebService\GSP.Orders.WebService.csproj", "{8925ED54-2A15-4A66-A8A4-A665E7325FCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.SPA", "WebClient\GSP.SPA\GSP.SPA.csproj", "{348D9991-4D83-426E-8D6A-0614452B74DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Common.Web", "Common\GSP.Common.Web\GSP.Common.Web.csproj", "{57C6A5F6-6F4F-4FDF-A574-532FDD1EA284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Common.Web", "Common\GSP.Common.Web\GSP.Common.Web.csproj", "{57C6A5F6-6F4F-4FDF-A574-532FDD1EA284}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.AprioriAlgoritm", "Extenctions\GSP.AprioriAlgoritm\GSP.AprioriAlgoritm.csproj", "{F5CB312F-E08F-4705-861A-5496241994BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Common.Domain", "Common\GSP.Common.Domain\GSP.Common.Domain.csproj", "{C770F478-2B15-4C3D-91B5-FC6BEECBB675}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Common.Domain", "Common\GSP.Common.Domain\GSP.Common.Domain.csproj", "{C770F478-2B15-4C3D-91B5-FC6BEECBB675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Common.DAL", "Common\GSP.Common.DAL\GSP.Common.DAL.csproj", "{69CC5386-480D-493E-87BC-9835619BCA9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Common.DAL", "Common\GSP.Common.DAL\GSP.Common.DAL.csproj", "{69CC5386-480D-493E-87BC-9835619BCA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSP.Common.BLL", "Common\GSP.Common.BLL\GSP.Common.BLL.csproj", "{5C27098D-4028-4573-93DB-AB5639AB6CAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.Common.BLL", "Common\GSP.Common.BLL\GSP.Common.BLL.csproj", "{5C27098D-4028-4573-93DB-AB5639AB6CAA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Domain", "1. Domain", "{1F2A366C-A4F2-4882-A167-D4F94584E9F0}"
 EndProject

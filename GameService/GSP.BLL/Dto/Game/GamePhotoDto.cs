@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Dto.Game
+﻿namespace GSP.Games.BLL.Dto.Game
 {
     public class GamePhotoDto
     {

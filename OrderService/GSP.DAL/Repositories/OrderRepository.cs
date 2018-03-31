@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories.Contracts;
-using GSP.Domain.Orders;
-using GSP.Domain.Params;
+using GSP.Common.DAL.Repositories;
+using GSP.Orders.DAL.Context;
+using GSP.Orders.DAL.Repositories.Contracts;
+using GSP.Orders.Domain.Orders;
+using GSP.Orders.Domain.Params;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.DAL.Repositories
+namespace GSP.Orders.DAL.Repositories
 {
-    public class OrderRepository : GameStoreRepository<Order>, IOrderRepository
+    public class OrderRepository : GameStoreRepository<Order, GameStoreOrderContext>, IOrderRepository
     {
-        private readonly GameStoreContext _dbContext;
+        private readonly GameStoreOrderContext _dbContext;
 
-        public OrderRepository(GameStoreContext dbContext) : base(dbContext)
+        public OrderRepository(GameStoreOrderContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }
@@ -65,11 +66,8 @@ namespace GSP.DAL.Repositories
         private IQueryable<Order> GetAllOrders()
         {
             return _dbContext.Orders
-                .Include(x => x.Customer)
                 .Include(x => x.Payment)
                 .Include(x => x.Games)
-                .ThenInclude(x => x.Game)
-                .ThenInclude(x => x.Category)
                 .Where(x => !x.IsDeleted).AsQueryable();
         }
     }

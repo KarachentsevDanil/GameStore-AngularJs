@@ -1,6 +1,7 @@
-﻿using GSP.Domain.Orders;
+﻿using GSP.Common.Domain.Params;
+using GSP.Orders.Domain.Orders;
 
-namespace GSP.Domain.Params
+namespace GSP.Orders.Domain.Params
 {
     public class OrdersFilterParams : FilterParams<Order>
     {

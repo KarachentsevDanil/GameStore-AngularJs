@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GSP.BLL.Dto.Rate
+namespace GSP.Games.BLL.Dto.Rate
 {
     public class RateDto
     {

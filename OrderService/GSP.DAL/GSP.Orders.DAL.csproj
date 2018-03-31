@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\GSP.Common.DAL\GSP.Common.DAL.csproj" />
+    <ProjectReference Include="..\..\Common\GSP.Common.Domain\GSP.Common.Domain.csproj" />
+    <ProjectReference Include="..\GSP.Domain\GSP.Orders.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

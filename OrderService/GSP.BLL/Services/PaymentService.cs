@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Payment;
-using GSP.BLL.Services.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
-using GSP.Domain.Payments;
+using GSP.Orders.BLL.Dto.Payment;
+using GSP.Orders.BLL.Services.Contracts;
+using GSP.Orders.DAL.UnitOfWork.Contracts;
+using GSP.Orders.Domain.Payments;
 
-namespace GSP.BLL.Services
+namespace GSP.Orders.BLL.Services
 {
     public class PaymentService : IPaymentService
     {
-        private readonly IGameStoreUnitOfWork _unitOfWork;
+        private readonly IGameStoreOrderUnitOfWork _unitOfWork;
 
-        public PaymentService(IGameStoreUnitOfWork unitOfWork)
+        public PaymentService(IGameStoreOrderUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

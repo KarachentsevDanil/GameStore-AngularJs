@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using GSP.Common.DAL.Repositories;
-using GSP.Game.DAL.Context;
-using GSP.Game.DAL.Repositories.Contracts;
+using GSP.Games.DAL.Context;
+using GSP.Games.DAL.Repositories.Contracts;
 using GSP.Games.Domain.Params;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.Game.DAL.Repositories
+namespace GSP.Games.DAL.Repositories
 {
     public class GameRepository : GameStoreRepository<Games.Domain.Games.Game, GameStoreGameContext>, IGameRepository
     {
@@ -56,10 +56,10 @@ namespace GSP.Game.DAL.Repositories
                 predicate = predicate.Extend(x => filterParams.StartPrice <= x.Price && filterParams.EndPrice >= x.Price, PredicateOperator.And);
             }
 
-            if (!string.IsNullOrEmpty(filterParams.CustomerId))
-            {
-                predicate = predicate.Extend(x => x.Orders.Any(o => o.Order.CustomerId == filterParams.CustomerId && o.Order.Status == OrderStatus.Complete), PredicateOperator.And);
-            }
+            //if (!string.IsNullOrEmpty(filterParams.CustomerId))
+            //{
+            //    predicate = predicate.Extend(x => x.Orders.Any(o => o.Order.CustomerId == filterParams.CustomerId && o.Order.Status == OrderStatus.Complete), PredicateOperator.And);
+            //}
 
             filterParams.Expression = predicate;
         }
@@ -73,9 +73,9 @@ namespace GSP.Game.DAL.Repositories
                 case GameSortMode.ByName:
                     games = games.OrderBy(x => x.Name).AsQueryable();
                     break;
-                case GameSortMode.ByCountOfSales:
-                    games = games.OrderByDescending(x => x.Orders.Count).AsQueryable();
-                    break;
+                //case GameSortMode.ByCountOfSales:
+                //    games = games.OrderByDescending(x => x.Orders.Count).AsQueryable();
+                //    break;
                 case GameSortMode.ByRating:
                     games = games.OrderByDescending(x => x.Rates.Sum(t => t.Rating)).AsQueryable();
                     break;
@@ -104,13 +104,8 @@ namespace GSP.Game.DAL.Repositories
             return GetAllGames()
                 .FirstOrDefault(t => id == t.GameId);
         }
-
-        public IEnumerable<Games.Domain.Games.Game> GetCustomerGames(string customerName)
-        {
-            return GetAllGames().Where(g => g.Orders.Any(t => t.Order.Customer.Email.ToUpper() == customerName.ToUpper())).ToList();
-        }
-
-        private IQueryable<Games.Domain.Games.Game> GetAllGames()
+        
+        private IQueryable<Domain.Games.Game> GetAllGames()
         {
             return _dbContext.Games
                 .Include(x => x.Category)

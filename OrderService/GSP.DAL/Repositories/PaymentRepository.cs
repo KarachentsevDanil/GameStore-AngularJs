@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories.Contracts;
-using GSP.Domain.Payments;
+using GSP.Common.DAL.Repositories;
+using GSP.Orders.DAL.Context;
+using GSP.Orders.DAL.Repositories.Contracts;
+using GSP.Orders.Domain.Payments;
 
-namespace GSP.DAL.Repositories
+namespace GSP.Orders.DAL.Repositories
 {
-    public class PaymentRepository : GameStoreRepository<Payment>, IPaymentRepository
+    public class PaymentRepository : GameStoreRepository<Payment, GameStoreOrderContext>, IPaymentRepository
     {
-        private readonly GameStoreContext _dbContext;
+        private readonly GameStoreOrderContext _dbContext;
 
-        public PaymentRepository(GameStoreContext dbContext) : base(dbContext)
+        public PaymentRepository(GameStoreOrderContext dbContext) : base(dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GSP.BLL.Dto.Game
+namespace GSP.Games.BLL.Dto.Game
 {
     public class CreateGameDto
     {

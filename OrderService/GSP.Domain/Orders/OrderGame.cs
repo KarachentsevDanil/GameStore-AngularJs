@@ -1,9 +1,5 @@
-﻿using GSP.Domain.Games;
-using Newtonsoft.Json;
-
-namespace GSP.Domain.Orders
+﻿namespace GSP.Orders.Domain.Orders
 {
-    [JsonObject(IsReference = true)]
     public class OrderGame
     {
         public OrderGame()
@@ -21,8 +17,16 @@ namespace GSP.Domain.Orders
 
         public int GameId { get; set; }
 
-        public virtual Order Order { get; set; }
+        public string GameName { get; set; }
 
-        public virtual Game Game { get; set; }
+        public string GameCategory { get; set; }
+
+        public string GameDescription { get; set; }
+
+        public float Price { get; set; }
+
+        public byte[] GamePhoto { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using GSP.Domain.Customers;
-using GSP.Domain.Orders;
+using GSP.Orders.Domain.Orders;
 
-namespace GSP.Domain.Payments
+namespace GSP.Orders.Domain.Payments
 {
     public class Payment
     {
@@ -22,7 +21,7 @@ namespace GSP.Domain.Payments
 
         public string Country { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public string CustomerName { get; set; }
 
         public ICollection<Order> Orders { get; set; }
     }

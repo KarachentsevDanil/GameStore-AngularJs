@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Payment;
+using GSP.Orders.BLL.Dto.Payment;
 
-namespace GSP.BLL.Services.Contracts
+namespace GSP.Orders.BLL.Services.Contracts
 {
     public interface IPaymentService
     {

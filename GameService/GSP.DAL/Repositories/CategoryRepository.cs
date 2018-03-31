@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GSP.Common.DAL.Repositories;
-using GSP.Game.DAL.Context;
-using GSP.Game.DAL.Repositories.Contracts;
+using GSP.Games.DAL.Context;
+using GSP.Games.DAL.Repositories.Contracts;
 using GSP.Games.Domain.Games;
 
-namespace GSP.Game.DAL.Repositories
+namespace GSP.Games.DAL.Repositories
 {
     public class CategoryRepository : GameStoreRepository<Category, GameStoreGameContext>, ICategoryRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace GSP.Domain.Orders
+﻿namespace GSP.Orders.Domain.Orders
 {
     public enum OrderStatus
     {

@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Dto.Game
+﻿namespace GSP.Orders.BLL.Dto.Order
 {
     public class AddGameToBucketDto
     {

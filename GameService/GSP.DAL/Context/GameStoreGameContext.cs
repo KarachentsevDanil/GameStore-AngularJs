@@ -1,9 +1,8 @@
-﻿using GSP.Game.DAL.Context.Mappings;
-using GSP.Games.DAL.Context.Mappings;
+﻿using GSP.Games.DAL.Context.Mappings;
 using GSP.Games.Domain.Games;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.Game.DAL.Context
+namespace GSP.Games.DAL.Context
 {
     public class GameStoreGameContext : DbContext
     {

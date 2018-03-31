@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Dto.Category
+﻿namespace GSP.Games.BLL.Dto.Category
 {
     public class CategoryDto
     {

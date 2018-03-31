@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GSP.Game.DAL.Context.Mappings
+namespace GSP.Games.DAL.Context.Mappings
 {
-    public class GameMapping : IMappingContract<Games.Domain.Games.Game>
+    public class GameMapping : IMappingContract<Domain.Games.Game>
     {
-        public void MapEntity(EntityTypeBuilder<Games.Domain.Games.Game> builder)
+        public void MapEntity(EntityTypeBuilder<Domain.Games.Game> builder)
         {
             builder.ToTable("Games", "core");
 

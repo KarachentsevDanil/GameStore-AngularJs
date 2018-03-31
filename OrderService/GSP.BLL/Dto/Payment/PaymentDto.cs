@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Dto.Payment
+﻿namespace GSP.Orders.BLL.Dto.Payment
 {
     public class PaymentDto
     {

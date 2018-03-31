@@ -1,9 +1,9 @@
-﻿using GSP.DAL.Context.Mappings.Contract;
-using GSP.Domain.Orders;
+﻿using GSP.Common.DAL.Mapping;
+using GSP.Orders.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GSP.DAL.Context.Mappings
+namespace GSP.Orders.DAL.Context.Mappings
 {
     public class OrderGameMapping : IMappingContract<OrderGame>
     {
@@ -12,8 +12,6 @@ namespace GSP.DAL.Context.Mappings
             builder.ToTable("OrderGames", "core");
 
             builder.HasKey(x => x.OrderGameId);
-
-            builder.HasOne(x => x.Game).WithMany(x => x.Orders).HasForeignKey(x => x.GameId);
 
             builder.HasOne(x => x.Order).WithMany(x => x.Games).HasForeignKey(x => x.OrderId);
         }

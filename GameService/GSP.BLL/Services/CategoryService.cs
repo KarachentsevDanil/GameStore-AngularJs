@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Category;
-using GSP.BLL.Services.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
+using GSP.Games.BLL.Dto.Category;
+using GSP.Games.BLL.Services.Contracts;
+using GSP.Games.DAL.UnitOfWork.Contracts;
 using GSP.Games.Domain.Games;
 
-namespace GSP.BLL.Services
+namespace GSP.Games.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IGameStoreUnitOfWork _unitOfWork;
+        private readonly IGameStoreGameUnitOfWork _unitOfWork;
 
-        public CategoryService(IGameStoreUnitOfWork unitOfWork)
+        public CategoryService(IGameStoreGameUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

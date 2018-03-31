@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Dto.Order;
-using GSP.Domain.Params;
+using GSP.Orders.BLL.Dto.Order;
+using GSP.Orders.Domain.Params;
 
-namespace GSP.BLL.Services.Contracts
+namespace GSP.Orders.BLL.Services.Contracts
 {
     public interface IOrderService
     {
@@ -24,5 +23,7 @@ namespace GSP.BLL.Services.Contracts
         IEnumerable<OrderDto> GetOrdersByParams(OrdersFilterParams filterParams, out int totalCount);
 
         OrderDto GetCurrentOrderOfCustomer(string customerId);
+
+        IEnumerable<GameDto> GetRecomendedGames(int gameId);
     }
 }

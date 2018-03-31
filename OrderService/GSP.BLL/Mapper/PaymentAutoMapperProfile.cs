@@ -1,19 +1,17 @@
 ﻿using AutoMapper;
-using GSP.BLL.Dto.Payment;
-using GSP.Domain.Payments;
+using GSP.Orders.BLL.Dto.Payment;
+using GSP.Orders.Domain.Payments;
 
-namespace GSP.BLL.Mapper
+namespace GSP.Orders.BLL.Mapper
 {
     public class PaymentAutoMapperProfile : Profile
     {
         public PaymentAutoMapperProfile()
         {
-            CreateMap<Payment, PaymentDto>()
-                .ForMember(x => x.CustomerName, p => p.MapFrom(c => c.Customer.FullName));
+            CreateMap<Payment, PaymentDto>();
 
             CreateMap<AddPaymentDto, Payment>()
                 .ForMember(x => x.PaymentId, p => p.Ignore())
-                .ForMember(x => x.Customer, p => p.Ignore())
                 .ForMember(x => x.Orders, p => p.Ignore());
         }
     }

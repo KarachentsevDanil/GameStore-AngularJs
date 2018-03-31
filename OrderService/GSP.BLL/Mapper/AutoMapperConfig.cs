@@ -1,4 +1,4 @@
-﻿namespace GSP.BLL.Mapper
+﻿namespace GSP.Orders.BLL.Mapper
 {
     public class AutoMapperConfig
     {
@@ -6,10 +6,6 @@
         {
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<CategoryAutoMapperProfile>();
-                cfg.AddProfile<CustomerAutoMapperProfile>();
-                cfg.AddProfile<GameAutoMapperProfile>();
-                cfg.AddProfile<RateAutoMapperConfig>();
                 cfg.AddProfile<OrderAutoMapperProfile>();
                 cfg.AddProfile<PaymentAutoMapperProfile>();
             });

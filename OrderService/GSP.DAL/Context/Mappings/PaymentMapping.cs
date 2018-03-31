@@ -1,9 +1,9 @@
-﻿using GSP.DAL.Context.Mappings.Contract;
-using GSP.Domain.Payments;
+﻿using GSP.Common.DAL.Mapping;
+using GSP.Orders.Domain.Payments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GSP.DAL.Context.Mappings
+namespace GSP.Orders.DAL.Context.Mappings
 {
     public class PaymentMapping : IMappingContract<Payment>
     {
@@ -12,8 +12,6 @@ namespace GSP.DAL.Context.Mappings
             builder.ToTable("Payments", "core");
 
             builder.HasKey(x => x.PaymentId);
-
-            builder.HasOne(x => x.Customer).WithMany(x => x.Payments).HasForeignKey(t => t.CustomerId);
         }
     }
 }

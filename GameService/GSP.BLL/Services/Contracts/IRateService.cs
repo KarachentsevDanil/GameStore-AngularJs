@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using GSP.BLL.Dto.Rate;
+using GSP.Games.BLL.Dto.Rate;
 
-namespace GSP.BLL.Services.Contracts
+namespace GSP.Games.BLL.Services.Contracts
 {
     public interface IRateService
     {
