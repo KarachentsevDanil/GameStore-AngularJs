@@ -1,26 +1,26 @@
 using Autofac;
-using GSP.DAL.Context;
+using GSP.Orders.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace GSP.SPA.Modules
+namespace GSP.Orders.WebService.Modules
 {
     public class DatabaseModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(CreateDbContextOptions).As<DbContextOptions<GameStoreContext>>();
+            builder.Register(CreateDbContextOptions).As<DbContextOptions<GameStoreOrderContext>>();
         }
 
-        private static DbContextOptions<GameStoreContext> CreateDbContextOptions(IComponentContext context)
+        private static DbContextOptions<GameStoreOrderContext> CreateDbContextOptions(IComponentContext context)
         {
             var configuration = context.Resolve<IConfiguration>();
             string connectionString = configuration["Data:DefaultConnection:ConnectionString"];
 
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder<GameStoreContext>();
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<GameStoreOrderContext>();
             dbContextOptionsBuilder.UseSqlServer(connectionString);
 
-            using (var dbContext = new GameStoreContext(dbContextOptionsBuilder.Options))
+            using (var dbContext = new GameStoreOrderContext(dbContextOptionsBuilder.Options))
             {
                 dbContext.Database.EnsureCreated();
             }

@@ -1,11 +1,11 @@
-using GSP.BLL.Dto.Rate;
-using GSP.BLL.Services.Contracts;
-using GSP.SPA.Models;
+using GSP.Common.Web.Models;
+using GSP.Games.BLL.Dto.Rate;
+using GSP.Games.BLL.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Games.WebService.ApiControllers
 {
     [Route("api/[controller]/[action]/{id?}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

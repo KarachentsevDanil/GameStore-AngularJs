@@ -1,27 +1,13 @@
-using GSP.DAL.Context;
-using GSP.Domain.Customers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GSP.SPA.Authentication
+namespace GSP.Common.Web.Authentication
 {
     public static class AuthenticationExtensions
     {
-        public static IServiceCollection AddIdentityAuthorization(this IServiceCollection services)
+        public static IServiceCollection AddTokenAuthentication(this IServiceCollection services)
         {
-            services.AddIdentity<Customer, IdentityRole>(o =>
-                {
-                    o.Password.RequireDigit = false;
-                    o.Password.RequireLowercase = false;
-                    o.Password.RequireUppercase = false;
-                    o.Password.RequireNonAlphanumeric = false;
-                    o.Password.RequiredLength = 6;
-
-                })
-                .AddEntityFrameworkStores<GameStoreContext>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

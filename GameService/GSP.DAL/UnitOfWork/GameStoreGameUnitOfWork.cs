@@ -5,9 +5,9 @@ using GSP.Games.DAL.UnitOfWork.Contracts;
 
 namespace GSP.Games.DAL.UnitOfWork
 {
-    public class GameStoreUnitOfWork : GameStoreUnitOfWork<GameStoreGameContext>, IGameStoreGameUnitOfWork
+    public class GameStoreGameUnitOfWork : GameStoreUnitOfWork<GameStoreGameContext>, IGameStoreGameUnitOfWork
     {
-        public GameStoreUnitOfWork(GameStoreGameContext context) : base(context)
+        public GameStoreGameUnitOfWork(GameStoreGameContext context) : base(context)
         { }
 
         public IGameRepository GameRepository { get; set; }

@@ -1,22 +1,23 @@
 using System.Collections.Generic;
-using GSP.BLL.Dto.Category;
-using GSP.BLL.Services.Cache;
-using GSP.BLL.Services.Contracts;
-using GSP.SPA.Models;
+using GSP.Common.BLL.Services.Cache;
+using GSP.Common.BLL.Services.Contracts;
+using GSP.Common.Web.Models;
+using GSP.Games.BLL.Dto.Category;
+using GSP.Games.BLL.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Games.WebService.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-        private readonly ICacheService _cacheService;
+        private readonly IGameCacheService _cacheService;
 
-        public CategoryController(ICategoryService categoryService, ICacheService cacheService)
+        public CategoryController(ICategoryService categoryService, IGameCacheService cacheService)
         {
             _categoryService = categoryService;
             _cacheService = cacheService;

@@ -1,4 +1,4 @@
-namespace GSP.SPA.Models
+namespace GSP.Common.Web.Models
 {
     public class JsonResultData
     {

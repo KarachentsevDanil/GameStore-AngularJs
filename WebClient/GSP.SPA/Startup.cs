@@ -1,6 +1,3 @@
-using GSP.BLL.Mapper;
-using GSP.SPA.Authentication;
-using GSP.SPA.Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -29,8 +26,6 @@ namespace GSP.SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityAuthorization();
-
             services.AddCors();
 
             services.AddMvc().AddJsonOptions(options =>
@@ -38,8 +33,6 @@ namespace GSP.SPA
                 options.SerializerSettings.ContractResolver
                     = new DefaultContractResolver();
             });
-
-            services.AddAutofac();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,10 +58,6 @@ namespace GSP.SPA
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
-            app.UseAutofac(Configuration);
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -79,8 +68,6 @@ namespace GSP.SPA
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-
-            AutoMapperConfig.Init();
         }
     }
 }

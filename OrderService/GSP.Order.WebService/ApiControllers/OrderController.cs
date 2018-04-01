@@ -1,26 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Dto.Order;
 using GSP.BLL.Resources;
-using GSP.BLL.Services.Cache;
-using GSP.BLL.Services.Contracts;
-using GSP.Domain.Params;
-using GSP.SPA.Models;
+using GSP.Common.BLL.Services.Cache;
+using GSP.Common.BLL.Services.Contracts;
+using GSP.Common.Domain.Params;
+using GSP.Common.Web.Models;
+using GSP.Orders.BLL.Dto.Order;
+using GSP.Orders.BLL.Services.Contracts;
+using GSP.Orders.Domain.Params;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Orders.WebService.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly ICacheService _cacheService;
+        private readonly IOrderCacheService _cacheService;
         
-        public OrderController(IOrderService orderService, ICacheService cacheService)
+        public OrderController(IOrderService orderService, IOrderCacheService cacheService)
         {
             _orderService = orderService;
             _cacheService = cacheService;
@@ -103,6 +104,14 @@ namespace GSP.SPA.Controllers.Api
             };
             
             return Json(JsonResultData.Success(result));
+        }
+
+        [HttpGet]
+        public IActionResult GetRecomendedGames(int id)
+        {
+            var games = _orderService.GetRecomendedGames(id);
+
+            return Json(JsonResultData.Success(games));
         }
 
         private OrderDto GetCurrentOrderOfCustomer(string customerId)

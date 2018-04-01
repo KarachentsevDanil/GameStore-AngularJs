@@ -1,22 +1,22 @@
 using System.Collections.Generic;
-using GSP.BLL.Dto.Payment;
-using GSP.BLL.Services.Cache;
-using GSP.BLL.Services.Contracts;
-using GSP.SPA.Models;
+using GSP.Common.BLL.Services.Cache;
+using GSP.Common.Web.Models;
+using GSP.Orders.BLL.Dto.Payment;
+using GSP.Orders.BLL.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Orders.WebService.ApiControllers
 {
     [Route("api/[controller]/[action]/{id?}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
-        private readonly ICacheService _cacheService;
+        private readonly IOrderCacheService _cacheService;
 
-        public PaymentController(IPaymentService paymentService, ICacheService cacheService)
+        public PaymentController(IPaymentService paymentService, IOrderCacheService cacheService)
         {
             _paymentService = paymentService;
             _cacheService = cacheService;

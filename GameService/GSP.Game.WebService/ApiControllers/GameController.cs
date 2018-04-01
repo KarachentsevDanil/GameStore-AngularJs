@@ -1,27 +1,24 @@
-using System.Collections.Generic;
-using GSP.BLL.Dto.Game;
-using GSP.BLL.Services.Cache;
-using GSP.BLL.Services.Contracts;
-using GSP.Domain.Params;
-using GSP.SPA.Models;
+using GSP.Common.BLL.Services.Contracts;
+using GSP.Common.Domain.Params;
+using GSP.Common.Web.Models;
+using GSP.Games.BLL.Dto.Game;
+using GSP.Games.BLL.Services.Contracts;
+using GSP.Games.Domain.Params;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Games.WebService.ApiControllers
 {
     [Route("api/[controller]/[action]/{id?}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
-        private readonly ICacheService _cacheService;
 
-        public GameController(IGameService gameService, ICacheService cacheService)
+        public GameController(IGameService gameService)
         {
             _gameService = gameService;
-            _cacheService = cacheService;
         }
 
         [HttpPost]
@@ -44,31 +41,11 @@ namespace GSP.SPA.Controllers.Api
             _gameService.UpdateGame(game);
             return Json(JsonResultData.Success());
         }
-
-        [HttpGet]
-        public IActionResult GetRecomendedGames(int id)
-        {
-            var games = _gameService.GetRecomendedGames(id);
-
-            FillCustomerGamesFlag(games);
-
-            games = games.Where(t => !t.IsGameBought).ToList();
-
-            return Json(JsonResultData.Success(games));
-        }
-
+        
         [HttpGet]
         public IActionResult GetGameById(int id)
         {
             var game = _gameService.GetGameById(id);
-
-            var customerGames = GetCustomerGames();
-
-            if (customerGames.Any())
-            {
-                game.IsGameBought = customerGames.Any(g => g.GameId == game.GameId);
-            }
-
             return Json(JsonResultData.Success(game));
         }
 
@@ -76,9 +53,7 @@ namespace GSP.SPA.Controllers.Api
         public IActionResult GetGamesByParams([FromBody] GamesFilterParams filterParams)
         {
             var games = _gameService.GetGamesByParams(filterParams, out var totalCount);
-
-            FillCustomerGamesFlag(games);
-
+            
             var result = new CollectionResult<GameDto>
             {
                 Collection = games,
@@ -86,32 +61,6 @@ namespace GSP.SPA.Controllers.Api
             };
 
             return Json(JsonResultData.Success(result));
-        }
-
-        private void FillCustomerGamesFlag(IEnumerable<GameDto> games)
-        {
-            var customerGames = GetCustomerGames();
-
-            if (customerGames.Any())
-            {
-                foreach (var game in games)
-                {
-                    game.IsGameBought = customerGames.Any(g => g.GameId == game.GameId);
-                }
-            }
-        }
-
-        private List<GameDto> GetCustomerGames()
-        {
-            var games = _cacheService.Get<List<GameDto>>($"{CacheKey.CustomerGames}_{User.Identity.Name}", CacheBucket.CustomerGames);
-
-            if (games == null)
-            {
-                games = _gameService.GetCustomerGames(User.Identity.Name).ToList();
-                _cacheService.Add(games, $"{CacheKey.CustomerGames}_{User.Identity.Name}", CacheBucket.CustomerGames);
-            }
-
-            return games ?? new List<GameDto>();
         }
     }
 }

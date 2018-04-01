@@ -1,11 +1,11 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GSP.SPA.Authentication
+namespace GSP.Common.Web.Authentication
 {
     public class AuthenticationOptions
     {
-        private const string TokenKey = "mysupersecret_secretkey123!";
+        private const string TokenKey = "Game_Store_Key!";
         
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {

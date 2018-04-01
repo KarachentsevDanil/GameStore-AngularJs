@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.DependencyModel;
 
-namespace GSP.SPA.Autofac
+namespace GSP.Common.Web.Autofac
 {
     public static class AutofacExtensions
     {

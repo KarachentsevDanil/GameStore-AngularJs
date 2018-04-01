@@ -2,18 +2,18 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using GSP.BLL.Dto.Customer;
-using GSP.BLL.Services.Contracts;
-using GSP.Domain.Customers;
-using GSP.SPA.Authentication;
-using GSP.SPA.Models;
+using GSP.Accounts.BLL.Dto.Customer;
+using GSP.Accounts.BLL.Services.Contracts;
+using GSP.Accounts.Domain.Customers;
+using GSP.Common.Web.Authentication;
+using GSP.Common.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Accounts.WebService.ApiControllers
 {
-    [Route("api/account")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<Customer> _userManager;
@@ -31,7 +31,6 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        [Route("login")]
         public async Task<IActionResult> Login([FromBody] CustomerLoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
@@ -48,7 +47,6 @@ namespace GSP.SPA.Controllers.Api
         }
 
         [HttpPost]
-        [Route("register")]
         public async Task<IActionResult> Register([FromBody] CustomerRegistrationDto data)
         {
             if (ModelState.IsValid)

@@ -5,15 +5,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\GSP.Common.BLL\GSP.Common.BLL.csproj" />
+    <ProjectReference Include="..\..\Common\GSP.Common.DAL\GSP.Common.DAL.csproj" />
+    <ProjectReference Include="..\..\Common\GSP.Common.Domain\GSP.Common.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\GSP.Common.Web\GSP.Common.Web.csproj" />
+    <ProjectReference Include="..\GSP.BLL\GSP.Games.BLL.csproj" />
+    <ProjectReference Include="..\GSP.DAL\GSP.Games.DAL.csproj" />
+    <ProjectReference Include="..\GSP.Domain\GSP.Games.Domain.csproj" />
   </ItemGroup>
 
 </Project>

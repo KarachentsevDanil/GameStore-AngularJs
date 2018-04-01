@@ -7,7 +7,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GSP.SPA.Autofac
+namespace GSP.Common.Web.Autofac
 {
     internal class AutofacRegisterer : IAutofacRegisterer
     {
