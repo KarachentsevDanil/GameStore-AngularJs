@@ -5,34 +5,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GSP.DAL.Repositories
 {
-    public class GameStoreRepository<T> : IGameStoreRepository<T> where T : class
+    public class GameStoreRepository<TEntity> : IGameStoreRepository<TEntity> where TEntity : class
     {
         public GameStoreRepository(GameStoreContext dbContext)
         {
             DbContext = dbContext;
-            DbSet = DbContext.Set<T>();
+            DbSet = DbContext.Set<TEntity>();
         }
 
         protected GameStoreContext DbContext { get; set; }
 
-        protected DbSet<T> DbSet { get; set; }
+        protected DbSet<TEntity> DbSet { get; set; }
 
-        public virtual IQueryable<T> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return DbSet;
         }
 
-        public virtual T GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return DbSet.Find(id);
         }
 
-        public virtual void Add(T entity)
+        public virtual void Add(TEntity entity)
         {
             DbSet.Add(entity);
         }
 
-        public virtual void Update(T entity)
+        public virtual void Update(TEntity entity)
         {
             DbSet.Update(entity);
         }

@@ -54,7 +54,6 @@ namespace GSP.BLL.Mapper
                 .ForMember(x => x.Rates, p => p.Ignore())
                 .ForMember(x => x.Orders, p => p.Ignore())
                 .ForMember(x => x.Category, p => p.Ignore())
-                .ForMember(x => x.IsDeleted, p => p.UseValue(false))
                 .ForMember(x => x.Icon, p => p.MapFrom(t => Convert.FromBase64String(t.Icon)))
                 .ForMember(x => x.Photo, p => p.MapFrom(t => Convert.FromBase64String(t.Photo)))
                 .ForMember(x => x.FileContent, p => p.MapFrom(t => Convert.FromBase64String(t.File)));
