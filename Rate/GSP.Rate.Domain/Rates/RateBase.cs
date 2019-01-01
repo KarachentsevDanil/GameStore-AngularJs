@@ -1,10 +1,8 @@
 ﻿using System;
-using GSP.Domain.Customers;
-using Newtonsoft.Json;
 
 namespace GSP.Domain.Games
 {
-    public class Rate
+    public class RateBase
     {
         public int RateId { get; set; }
 
@@ -17,9 +15,5 @@ namespace GSP.Domain.Games
         public float Rating { get; set; }
 
         public DateTime CreatedOn { get; set; }
-
-        public virtual Customer Customer { get; set; }
-
-        public virtual Game Game { get; set; }
     }
 }

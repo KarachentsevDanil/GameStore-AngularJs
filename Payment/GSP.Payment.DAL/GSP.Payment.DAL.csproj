@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\Rulesets\Rules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Order\GSP.Order.Domain\GSP.Order.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\GSP.DAL\GSP.DAL.csproj" />
+    <ProjectReference Include="..\..\Shared\GSP.Domain\GSP.Domain.csproj" />
+    <ProjectReference Include="..\GSP.Payment.Domain\GSP.Payment.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

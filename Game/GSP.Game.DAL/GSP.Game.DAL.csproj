@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\Rulesets\Rules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GSP.DAL\GSP.DAL.csproj" />
+    <ProjectReference Include="..\..\Shared\GSP.Domain\GSP.Domain.csproj" />
+    <ProjectReference Include="..\GSP.Game.Domain\GSP.Game.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
