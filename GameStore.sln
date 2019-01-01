@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.SPA", "GSP.SPA\GSP.SPA.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSP.DAL.EF", "GSP.DAL.EF\GSP.DAL.EF.csproj", "{37966139-39C3-4ED9-874D-E437854F2873}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rulesets", "Rulesets", "{E8A09246-A171-4446-9FE6-EB530A44B7F4}"
+	ProjectSection(SolutionItems) = preProject
+		Rules.ruleset = Rules.ruleset
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

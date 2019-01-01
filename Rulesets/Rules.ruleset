@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="New Rule Set" Description=" " ToolsVersion="15.0">
+  <Rules AnalyzerId="System.Runtime.Analyzers" RuleNamespace="System.Runtime.Analyzers">
+    <Rule Id="CS1591" Action="None" />
+		<Rule Id="CA2007" Action="None" />
+		<Rule Id="CA1710" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1101" Action="None" />
+	<Rule Id="SA1200" Action="None" />
+	<Rule Id="SA1208" Action="None" />
+	<Rule Id="SA1309" Action="None" />
+	<Rule Id="SA1600" Action="None" />
+	<Rule Id="SA1614" Action="None" />
+	<Rule Id="SA1615" Action="None" />
+	<Rule Id="SA1616" Action="None" />
+	<Rule Id="SA1633" Action="None" />
+	<Rule Id="SA1622" Action="None" />
+	<Rule Id="SA1642" Action="None" />
+	<Rule Id="SA1652" Action="None" />
+  </Rules>
+</RuleSet>
