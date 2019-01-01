@@ -1,9 +1,9 @@
-﻿using GSP.DAL.Context.Mappings.Contract;
+﻿using GSP.DAL.EF.Context.Mappings.Contract;
 using GSP.Domain.Games;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GSP.DAL.Context.Mappings
+namespace GSP.DAL.EF.Context.Mappings
 {
     public class GamePhotoMapping : IMappingContract<GamePhoto>
     {

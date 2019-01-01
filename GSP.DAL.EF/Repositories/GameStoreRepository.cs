@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories.Contracts;
+using GSP.DAL.EF.Context;
+using GSP.DAL.EF.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.DAL.Repositories
+namespace GSP.DAL.EF.Repositories
 {
     public class GameStoreRepository<TEntity> : IGameStoreRepository<TEntity> where TEntity : class
     {

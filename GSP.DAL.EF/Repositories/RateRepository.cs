@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories.Contracts;
+using GSP.DAL.EF.Context;
+using GSP.DAL.EF.Repositories.Contracts;
 using GSP.Domain.Games;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.DAL.Repositories
+namespace GSP.DAL.EF.Repositories
 {
     public class RateRepository : GameStoreRepository<Rate>, IRateRepository
     {

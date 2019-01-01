@@ -1,4 +1,4 @@
-﻿using GSP.DAL.Context.Mappings;
+﻿using GSP.DAL.EF.Context.Mappings;
 using GSP.Domain.Customers;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
@@ -6,7 +6,7 @@ using GSP.Domain.Payments;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GSP.DAL.Context
+namespace GSP.DAL.EF.Context
 {
     public class GameStoreContext : IdentityDbContext<Customer>
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories.Contracts;
-using GSP.DAL.UnitOfWork.Contracts;
+using GSP.DAL.EF.Context;
+using GSP.DAL.EF.Repositories.Contracts;
+using GSP.DAL.EF.UnitOfWork.Contracts;
 
-namespace GSP.DAL.UnitOfWork
+namespace GSP.DAL.EF.UnitOfWork
 {
     public class GameStoreUnitOfWork : IGameStoreUnitOfWork, IDisposable
     {
