@@ -1,8 +1,8 @@
 using Autofac;
-using GSP.DAL.Context;
-using GSP.DAL.Repositories;
+using GSP.DAL.EF.Context;
+using GSP.DAL.EF.Repositories;
+using GSP.DAL.EF.UnitOfWork;
 using GSP.DAL.Repositories.Contracts;
-using GSP.DAL.UnitOfWork;
 using GSP.DAL.UnitOfWork.Contracts;
 
 namespace GSP.SPA.Modules

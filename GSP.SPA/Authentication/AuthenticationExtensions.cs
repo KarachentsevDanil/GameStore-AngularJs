@@ -1,4 +1,4 @@
-using GSP.DAL.Context;
+using GSP.DAL.EF.Context;
 using GSP.Domain.Customers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

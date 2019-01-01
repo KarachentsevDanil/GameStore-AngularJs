@@ -1,5 +1,5 @@
 using Autofac;
-using GSP.DAL.Context;
+using GSP.DAL.EF.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

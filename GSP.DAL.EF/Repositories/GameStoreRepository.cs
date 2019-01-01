@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using GSP.DAL.EF.Context;
-using GSP.DAL.EF.Repositories.Contracts;
+﻿using GSP.DAL.EF.Context;
+using GSP.DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace GSP.DAL.EF.Repositories
 {

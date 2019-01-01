@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GSP.DAL.EF.Context;
-using GSP.DAL.EF.Repositories.Contracts;
+﻿using GSP.DAL.EF.Context;
+using GSP.DAL.Repositories.Contracts;
 using GSP.Domain.Games;
 using GSP.Domain.Orders;
 using GSP.Domain.Params;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GSP.DAL.EF.Repositories
 {
