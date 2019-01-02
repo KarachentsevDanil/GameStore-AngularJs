@@ -1,4 +1,5 @@
-﻿using GSP.Account.BLL.Services.Contracts;
+﻿using GSP.Account.BLL.Services;
+using GSP.Account.BLL.Services.Contracts;
 using GSP.Account.DAL.EF.Repositories;
 using GSP.Account.DAL.EF.UnitOfWork;
 using GSP.Account.DAL.Repositories.Contracts;
@@ -19,7 +20,7 @@ namespace GSP.Account.WebApi.Extensions
 
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<ICustomerService, ICustomerService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             return services;
         }

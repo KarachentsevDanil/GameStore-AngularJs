@@ -2,6 +2,7 @@
 using GSP.Domain.Params;
 using GSP.Order.Domain.Orders;
 using GSP.Order.Domain.Params;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,5 +17,7 @@ namespace GSP.Order.DAL.Repositories.Contracts
         Task AddGameToBucketAsync(OrderGame game, CancellationToken ct = default);
 
         Task DeleteGameFromBucketAsync(int id, CancellationToken ct = default);
+
+        Task<IEnumerable<OrderGame>> GetCustomerGamesAsync(string customerId, CancellationToken ct = default);
     }
 }

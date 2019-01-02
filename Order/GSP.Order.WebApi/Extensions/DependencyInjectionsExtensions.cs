@@ -1,26 +1,26 @@
 ﻿using GSP.DAL.EF.UnitOfWork;
 using GSP.DAL.UnitOfWork.Contracts;
-using GSP.Rate.BLL.Services;
-using GSP.Rate.BLL.Services.Contracts;
-using GSP.Rate.DAL.EF.Repositories;
-using GSP.Rate.DAL.Repositories.Contracts;
+using GSP.Order.BLL.Services;
+using GSP.Order.BLL.Services.Contracts;
+using GSP.Order.DAL.EF.Repositories;
+using GSP.Order.DAL.Repositories.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GSP.Rate.WebApi.Extensions
+namespace GSP.Order.WebApi.Extensions
 {
     public static class DependencyInjectionsExtensions
     {
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IRateUnitOfWork, RateUnitOfWork>();
-            services.AddScoped<IRateRepository, RateRepository>();
+            services.AddScoped<IOrderUnitOfWork, OrderUnitOfWork>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }
 
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IRateService, RateService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
         }

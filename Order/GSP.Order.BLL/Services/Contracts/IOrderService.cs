@@ -24,5 +24,7 @@ namespace GSP.Order.BLL.Services.Contracts
         Task<CollectionResult<OrderDto>> GetOrdersByParamsAsync(OrdersFilterParams filterParams, CancellationToken ct = default);
 
         Task<OrderDto> GetCurrentOrderOfCustomerAsync(string customerId, CancellationToken ct = default);
+
+        Task<IEnumerable<OrderGameDto>> GetCustomerGamesAsync(string customerId, CancellationToken ct = default);
     }
 }

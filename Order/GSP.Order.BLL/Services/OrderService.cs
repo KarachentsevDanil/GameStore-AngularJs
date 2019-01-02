@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GSP.DAL.UnitOfWork.Contracts;
 using GSP.Domain.Params;
 using GSP.Order.BLL.DTOs.Order;
@@ -12,6 +7,11 @@ using GSP.Order.Domain.Enums;
 using GSP.Order.Domain.Orders;
 using GSP.Order.Domain.Params;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GSP.Order.BLL.Services
 {
@@ -109,6 +109,14 @@ namespace GSP.Order.BLL.Services
             var orderDto = _mapper.Map<OrderDto>(order);
 
             return orderDto;
+        }
+
+        public async Task<IEnumerable<OrderGameDto>> GetCustomerGamesAsync(string customerId, CancellationToken ct = default)
+        {
+            var games = await _unitOfWork.OrderRepository.GetCustomerGamesAsync(customerId, ct);
+            
+            var result = _mapper.Map<List<OrderGameDto>>(games);
+            return result;
         }
     }
 }

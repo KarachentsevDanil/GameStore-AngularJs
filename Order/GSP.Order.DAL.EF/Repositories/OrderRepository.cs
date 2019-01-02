@@ -7,6 +7,7 @@ using GSP.Order.Domain.Orders;
 using GSP.Order.Domain.Params;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,6 +57,12 @@ namespace GSP.Order.DAL.EF.Repositories
         {
             var game = await _dbContext.OrderGames.FindAsync(id, ct);
             _dbContext.OrderGames.Remove(game);
+        }
+
+        public async Task<IEnumerable<OrderGame>> GetCustomerGamesAsync(string customerId, CancellationToken ct = default)
+        {
+            var games = await _dbContext.OrderGames.Where(t => t.Order.CustomerId == customerId).ToListAsync(ct);
+            return games;
         }
 
         private void FillOrdersQueryFilterParams(OrdersFilterParams filterParams)

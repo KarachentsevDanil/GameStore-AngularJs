@@ -1,4 +1,5 @@
-﻿using GSP.Payment.BLL.Services.Contracts;
+﻿using GSP.Payment.BLL.Services;
+using GSP.Payment.BLL.Services.Contracts;
 using GSP.Payment.DAL.EF.Repositories;
 using GSP.Payment.DAL.EF.UnitOfWork;
 using GSP.Payment.DAL.Repositories.Contracts;
@@ -19,7 +20,7 @@ namespace GSP.Payment.WebApi.Extensions
 
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IPaymentService, IPaymentService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
         }
