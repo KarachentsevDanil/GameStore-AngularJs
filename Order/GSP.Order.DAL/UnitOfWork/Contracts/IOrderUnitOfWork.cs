@@ -4,6 +4,6 @@ namespace GSP.DAL.UnitOfWork.Contracts
 {
     public interface IOrderUnitOfWork : IUnitOfWork
     {
-        IOrderRepository OrderRepository{ get; set; }
+        IOrderRepository OrderRepository { get; set; }
     }
 }

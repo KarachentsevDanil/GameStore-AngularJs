@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GSP.BLL\GSP.BLL.csproj" />
+    <ProjectReference Include="..\..\Shared\GSP.WebApi\GSP.WebApi.csproj" />
+    <ProjectReference Include="..\GSP.Account.BLL\GSP.Account.BLL.csproj" />
+    <ProjectReference Include="..\GSP.Account.DAL.EF\GSP.Account.DAL.EF.csproj" />
+    <ProjectReference Include="..\GSP.Account.DAL\GSP.Account.DAL.csproj" />
+    <ProjectReference Include="..\GSP.Account.Domain\GSP.Account.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

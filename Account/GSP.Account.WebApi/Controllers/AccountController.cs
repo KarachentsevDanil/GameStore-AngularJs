@@ -1,55 +1,63 @@
+﻿using GSP.Account.BLL.DTOs.Customer;
+using GSP.Account.BLL.Services.Contracts;
+using GSP.Account.Domain.Customers;
+using GSP.Account.WebApi.Extensions;
+using GSP.SPA.Authentication;
+using GSP.WebApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using GSP.BLL.Dto.Customer;
-using GSP.BLL.Services.Contracts;
-using GSP.Domain.Customers;
-using GSP.SPA.Authentication;
-using GSP.SPA.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
-namespace GSP.SPA.Controllers.Api
+namespace GSP.Account.WebApi.Controllers
 {
-    [Route("api/account")]
-    public class AccountController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<Customer> _userManager;
+
         private readonly SignInManager<Customer> _signInManager;
+
+        private readonly AuthenticationConfiguration _configuration;
+
         private readonly ICustomerService _customerService;
 
         public AccountController(
             UserManager<Customer> userManager,
             SignInManager<Customer> signInManager,
+            AuthenticationConfiguration configuration,
             ICustomerService customerService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
             _customerService = customerService;
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] CustomerLoginDto model)
+        public async Task<JsonResultData> Login([FromBody] CustomerLoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                var user = _customerService.GetCustomerByTerm(model.Email);
+                var user = await _customerService.GetCustomerByTermAsync(model.Email);
                 var token = GenerateToken(user);
 
-                return Json(new { user, token, tokenExpireData = DateTime.Now.AddDays(1) });
+                return JsonResultData.Success(new { user, token, tokenExpireData = DateTime.Now.AddDays(1) });
             }
 
-            return Json(JsonResultData.Error("Username or password isn't correct."));
+            return JsonResultData.Error("Username or password isn't correct.");
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] CustomerRegistrationDto data)
+        public async Task<JsonResultData> Register([FromBody] CustomerRegistrationDto data)
         {
             if (ModelState.IsValid)
             {
@@ -58,34 +66,34 @@ namespace GSP.SPA.Controllers.Api
                     UserName = data.Email,
                     Email = data.Email,
                     FullName = data.FullName,
-                    DateOfBirthsday = data.DateOfBirthsday
+                    DateOfBirthday = data.DateOfBirthday
                 };
 
                 var result = await _userManager.CreateAsync(user, data.Password);
 
                 if (result.Succeeded)
                 {
-                    return Json(JsonResultData.Success());
+                    return JsonResultData.Success();
                 }
             }
 
-            return Json(JsonResultData.Error("User already exists."));
+            return JsonResultData.Error("User already exists.");
         }
 
         private string GenerateToken(CustomerDto customer)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, customer.CustomerId),
+                new Claim(nameof(Customer.Id), customer.CustomerId),
+                new Claim(nameof(Customer.Email), customer.Email),
                 new Claim(ClaimTypes.Role, customer.Role),
-                new Claim(ClaimTypes.Name, customer.Email),
                 new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
             };
 
             var token = new JwtSecurityToken(
                 new JwtHeader(new SigningCredentials(
-                    AuthenticationOptions.GetSymmetricSecurityKey(),
+                    _configuration.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(claims));
 
