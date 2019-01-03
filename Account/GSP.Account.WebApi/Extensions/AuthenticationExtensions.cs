@@ -21,9 +21,9 @@ namespace GSP.Account.WebApi.Extensions
                     o.Password.RequireUppercase = false;
                     o.Password.RequireNonAlphanumeric = false;
                     o.Password.RequiredLength = 6;
-
                 })
-                .AddEntityFrameworkStores<CustomerContext>();
+                .AddEntityFrameworkStores<CustomerContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
