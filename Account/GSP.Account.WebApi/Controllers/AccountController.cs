@@ -1,8 +1,9 @@
 ﻿using GSP.Account.BLL.DTOs.Customer;
 using GSP.Account.BLL.Services.Contracts;
 using GSP.Account.Domain.Customers;
-using GSP.Account.WebApi.Extensions;
-using GSP.SPA.Authentication;
+using GSP.Account.WebApi.Models;
+using GSP.WebApi.Configurations;
+using GSP.WebApi.Extensions;
 using GSP.WebApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -49,7 +50,14 @@ namespace GSP.Account.WebApi.Controllers
                 var user = await _customerService.GetCustomerByTermAsync(model.Email);
                 var token = GenerateToken(user);
 
-                return JsonResultData.Success(new { user, token, tokenExpireData = DateTime.Now.AddDays(1) });
+                var tokenResponse = new TokenResponseModel
+                {
+                    Customer = user,
+                    AccessToken = token,
+                    ExpiresIn = (int) TimeSpan.FromDays(1).TotalSeconds
+                };
+
+                return JsonResultData.Success(tokenResponse);
             }
 
             return JsonResultData.Error("Username or password isn't correct.");
@@ -92,9 +100,7 @@ namespace GSP.Account.WebApi.Controllers
             };
 
             var token = new JwtSecurityToken(
-                new JwtHeader(new SigningCredentials(
-                    _configuration.GetSymmetricSecurityKey(),
-                    SecurityAlgorithms.HmacSha256)),
+                new JwtHeader(new SigningCredentials(_configuration.GetSymmetricSecurityKey(),SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(claims));
 
             return new JwtSecurityTokenHandler().WriteToken(token);

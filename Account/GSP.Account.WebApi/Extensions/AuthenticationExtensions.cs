@@ -1,12 +1,11 @@
 using GSP.Account.DAL.EF.Context;
 using GSP.Account.Domain.Customers;
-using GSP.SPA.Authentication;
+using GSP.WebApi.Configurations;
+using GSP.WebApi.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 
 namespace GSP.Account.WebApi.Extensions
 {
@@ -24,36 +23,10 @@ namespace GSP.Account.WebApi.Extensions
                 })
                 .AddEntityFrameworkStores<CustomerContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = configuration.GetSymmetricSecurityKey(),
-                        ValidateIssuerSigningKey = true
-                    };
-                });
+            
+            services.AddJwtAuthentication(configuration);
 
             return services;
-        }
-
-        public static AuthenticationConfiguration AddAuthenticationConfiguration(this IServiceCollection services, IConfiguration configuration)
-        {
-            var config = new AuthenticationConfiguration();
-
-            configuration.Bind("AuthenticationConfiguration", config);
-            services.AddSingleton(config);
-
-            return config;
-        }
-
-        public static SecurityKey GetSymmetricSecurityKey(this AuthenticationConfiguration configuration)
-        {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.TokenKey));
         }
     }
 }

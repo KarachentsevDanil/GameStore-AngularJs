@@ -26,6 +26,10 @@ namespace GSP.Rate.WebApi
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var configuration = services.AddAuthenticationConfiguration(Configuration);
+
+            services.AddJwtAuthentication(configuration);
+
             var dbConfig = services.AddDatabaseConfiguration(Configuration);
 
             services.ConfigureDatabase<RateContext>(dbConfig);
@@ -51,6 +55,7 @@ namespace GSP.Rate.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

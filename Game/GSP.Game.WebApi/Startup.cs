@@ -26,6 +26,10 @@ namespace GSP.Game.WebApi
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var configuration = services.AddAuthenticationConfiguration(Configuration);
+
+            services.AddJwtAuthentication(configuration);
+
             var dbConfig = services.AddDatabaseConfiguration(Configuration);
 
             services.ConfigureDatabase<GameContext>(dbConfig);
